@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -53,6 +54,13 @@ dependencies {
 //    Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+//    DI
+    implementation(libs.dagger)
+    implementation(libs.androidx.runner)
+    implementation(libs.identity.credential.android)
+    kapt(libs.dagger.compiler)
+    kapt(libs.kotlinx.metadata.jvm)
 
 // Tests
     testImplementation(libs.junit)
