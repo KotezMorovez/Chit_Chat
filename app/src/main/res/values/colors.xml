@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="product_black">#FF353535</color>
+    <color name="product_text_dark_gray">#FFBBBBBB</color>
+    <color name="product_text_gray">#FFDEDEDE</color>
+    <color name="product_gray">#FFEEEEEE</color>
+    <color name="product_violet">#FF6A4DFF</color>
+    <color name="product_violet_light">#FFE5E3FF</color>
+    <color name="product_red">#FFE35353</color>
+    <color name="product_green">#FF63D095</color>
+    
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

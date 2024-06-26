@@ -1,8 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Chit_Chat" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/product_violet_light</item>
+        <item name="colorAccent">@color/product_violet</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorOnPrimary">@color/product_black</item>
+        <item name="colorOnSecondary">@color/product_text_dark_gray</item>
     </style>
 
     <style name="Theme.Chit_Chat" parent="Base.Theme.Chit_Chat" />
