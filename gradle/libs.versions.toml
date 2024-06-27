@@ -1,7 +1,9 @@
 [versions]
 activityCompose = "1.9.0"
 agp = "8.3.1"
+dagger = "2.46.1"
 glide = "4.16.0"
+identityCredentialAndroid = "20231002"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -9,12 +11,16 @@ junitVersion = "1.2.0"
 espressoCore = "3.6.0"
 appcompat = "1.7.0"
 kotlinStdlib = "1.9.21"
+kotlinxMetadataJvm = "0.6.2"
 lifecycleRuntimeKtx = "2.8.2"
 material = "1.12.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
 navigationFragmentKtx = "2.7.7"
+runner = "1.6.0"
+uiautomator = "2.3.0"
 viewbinding = "8.5.0"
+kapt = "2.0.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -22,13 +28,19 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
+androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
+androidx-uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "uiautomator" }
 androidx-viewbinding = { module = "androidx.databinding:viewbinding", version.ref = "viewbinding" }
+dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+identity-credential-android = { module = "com.android.identity:identity-credential-android", version.ref = "identityCredentialAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinStdlib" }
+kotlinx-metadata-jvm = { module = "org.jetbrains.kotlinx:kotlinx-metadata-jvm", version.ref = "kotlinxMetadataJvm" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
@@ -36,4 +48,5 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 
