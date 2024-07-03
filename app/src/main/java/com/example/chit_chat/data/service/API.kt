@@ -12,6 +12,7 @@ interface API {
     fun test():Call<Any>
 
     companion object {
+        private const val BASE_URL = "https://google.com/"
         private var instance: API? = null
         private val interceptor = HttpLoggingInterceptor()
 
@@ -19,9 +20,8 @@ interface API {
             if (instance == null) {
                 interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-//                Set base URL
                 instance = Retrofit.Builder()
-                    .baseUrl("https://google.com/")
+                    .baseUrl(BASE_URL)  // TODO: Set base URL
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(OkHttpClient.Builder().addInterceptor(interceptor).build())
                     .build()

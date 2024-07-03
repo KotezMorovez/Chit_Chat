@@ -1,6 +1,5 @@
 package com.example.chit_chat.ui.main
 
-import android.util.Log
 import com.example.chit_chat.data.service.ApiServiceImpl
 import com.example.chit_chat.ui.common.BaseFragment
 import com.example.chit_chat.databinding.FragmentMainBinding
