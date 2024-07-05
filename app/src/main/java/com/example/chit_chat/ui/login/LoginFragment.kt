@@ -1,19 +1,14 @@
 package com.example.chit_chat.ui.login
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.example.chit_chat.R
 import com.example.chit_chat.databinding.FragmentLoginBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
-import com.example.chit_chat.ui.main.MainActivity
 import javax.inject.Inject
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
@@ -56,12 +51,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 )
             }
 
-            loginForgetPasswordLink.setOnClickListener {
+            loginForgetPasswordLinkTextView.setOnClickListener {
 //                this@LoginFragment.findNavController()
 //                    .navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
             }
 
-            loginSignUpLink.setOnClickListener {
+            loginSignUpLinkTextView.setOnClickListener {
 //                this@LoginFragment.findNavController()
 //                    .navigate(R.id.action_loginFragment_to_signUpFragment)
             }
