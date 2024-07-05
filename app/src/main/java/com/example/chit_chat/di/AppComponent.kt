@@ -2,19 +2,23 @@ package com.example.chit_chat.di
 
 import android.content.Context
 import com.example.chit_chat.di.common.DIComponent
+import com.example.chit_chat.ui.login.LoginFragment
+import com.example.chit_chat.ui.main.MainActivity
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Component(
     modules = [
-        SharedModule::class,
         OriginalModule::class
     ]
 )
 
 @Singleton
 interface AppComponent: DIComponent {
+
+    fun inject(activity: MainActivity)
+    fun inject(loginFragment: LoginFragment)
 
     @Component.Factory
     interface Factory {
@@ -38,5 +42,4 @@ object AppComponentHolder {
     fun build(context: Context): AppComponent {
         return DaggerAppComponent.factory().create(context)
     }
-
 }

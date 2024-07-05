@@ -1,48 +1,15 @@
 <resources>
     <string name="app_name">Chit Chat</string>
 
-    <string name="login_title">Добро пожаловать</string>
-    <string name="login_email">Почта</string>
+    <string name="login_title">Войти</string>
+    <string name="login_email">E-mail</string>
+    <string name="login_email_hint">Введите ваш e-mail</string>
     <string name="login_password">Пароль</string>
+    <string name="login_password_hint">Введите ваш пароль</string>
+    <string name="login_forget_password">Забыли пароль?</string>
     <string name="login_button">Войти</string>
-
-    <string name="sign_up_title">Добро пожаловать</string>
-    <string name="sign_up_email">Почта</string>
-    <string name="sign_up_password">Пароль</string>
-    <string name="sign_up_button">Зарегистрироваться</string>
-
-    <string name="messages_title">Сообщения</string>
-    <string name="messages_button_new">+ Новый Чат</string>
-    <string name="messages_button_new_close">Закрыть</string>
-    <string name="messages_optional_menu_chat_header">Новый Диалог</string>
-    <string name="messages_optional_menu_chat_subtitle">Отправить сообщение пользователю из вашего списка контактов</string>
-    <string name="messages_optional_menu_community_header">Новое Сообщество</string>
-    <string name="messages_optional_menu_community_subtitle">Отправить сообщение нескольким пользователям из вашего списка контактов</string>
-
-    <string name="contacts_title">Контакты</string>
-
-    <string name="profile_title">Профиль</string>
-    <string name="profile_submit">Подписаться</string>
-    <string name="profile_block">Заблокировать</string>
-    <string name="profile_share">Поделиться</string>
-    <string name="profile_status">Статус</string>
-    <string name="profile_status_upd">Обновлено</string>
-    <string name="profile_media">Медиа</string>
-    <string name="profile_media_all">Все</string>
-
-    <string name="share_profile_title">Поделиться профилем</string>
-    <string name="share_profile_QR_description">Ваш QR-код, покажите его пользователю, с кем хотите начать переписку</string>
-    <string name="share_profile_link">Поделиться ссылкой на ваш профиль</string>
-    
-    <string name="settings_title">Настройки</string>
-    <string name="settings_account">Настройки аккаунта</string>
-    <string name="settings_share">Поделиться профилем</string>
-    <string name="settings_theme">Сменить тему</string>
-    <string name="setting_theme_var1">Светлая</string>
-    <string name="settings_theme_var2">Темная</string>
-    <string name="settings_notifications">Уведомления</string>
-    <string name="settings_switch_account">Сменить аккаунт</string>
-    <string name="setting_report">Сообщить о проблеме</string>
-    <string name="setting_help">Помощь</string>
-    <string name="settings_logout">Выйти</string>
+    <string name="login_sign_up">Еще нет аккаунта?</string>
+    <string name="login_sign_up_link">Зарегистрироваться</string>
+    <string name="login_wrong_password_hint">Неверный пароль</string>
+    <string name="login_wrong_email_hint">Нет пользователя с таким e-mail</string>
 </resources>
