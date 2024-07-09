@@ -11,5 +11,5 @@
     <string name="login_sign_up">Еще нет аккаунта?</string>
     <string name="login_sign_up_link">Зарегистрироваться</string>
     <string name="login_wrong_password_hint">Неверный пароль</string>
-    <string name="login_wrong_email_hint">Нет пользователя с таким e-mail</string>
+    <string name="login_wrong_email_hint">Неверный email</string>
 </resources>
