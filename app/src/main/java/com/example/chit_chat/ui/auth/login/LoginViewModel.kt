@@ -1,4 +1,4 @@
-package com.example.chit_chat.ui.login
+package com.example.chit_chat.ui.auth.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
