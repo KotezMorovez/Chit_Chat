@@ -2,7 +2,8 @@ package com.example.chit_chat.di
 
 import android.content.Context
 import com.example.chit_chat.di.common.DIComponent
-import com.example.chit_chat.ui.login.LoginFragment
+import com.example.chit_chat.ui.auth.login.LoginFragment
+import com.example.chit_chat.ui.auth.signup.SignUpFragment
 import com.example.chit_chat.ui.main.MainActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -20,6 +21,7 @@ interface AppComponent: DIComponent {
 
     fun inject(activity: MainActivity)
     fun inject(loginFragment: LoginFragment)
+    fun inject(signUpFragment: SignUpFragment)
 
     @Component.Factory
     interface Factory {

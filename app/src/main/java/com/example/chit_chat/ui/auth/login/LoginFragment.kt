@@ -1,4 +1,4 @@
-package com.example.chit_chat.ui.login
+package com.example.chit_chat.ui.auth.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,8 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.chit_chat.R
 import com.example.chit_chat.databinding.FragmentLoginBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
@@ -31,6 +33,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppComponentHolder.get().inject(this)
+        requireActivity().window!!.setBackgroundDrawableResource(R.drawable.auth_background)
         super.onCreate(savedInstanceState)
     }
 
@@ -91,8 +94,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 //            }
 
             loginSignUpLinkTextView.setOnClickListener {
-//                this@LoginFragment.findNavController()
-//                    .navigate(R.id.action_loginFragment_to_signUpFragment)
+                this@LoginFragment.findNavController()
+                    .navigate(R.id.action_loginFragment_to_signUpFragment)
             }
         }
     }
