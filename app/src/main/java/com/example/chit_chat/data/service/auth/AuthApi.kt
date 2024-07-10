@@ -1,31 +1,52 @@
 package com.example.chit_chat.data.service.auth
 
+import android.content.SharedPreferences
+import com.example.chit_chat.common.ACCESS_TOKEN
+import com.example.chit_chat.data.model.LoginRequestEntity
+import com.example.chit_chat.data.model.ProfileEntity
+import com.example.chit_chat.data.model.UserTokenEntity
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface AuthApi {
-    @GET("test")
-    fun test():Call<Any>
+    @POST("login")
+    fun login(@Body request: LoginRequestEntity): Call<UserTokenEntity>
+
+    @GET("profile")
+    fun getProfile(): Call<ProfileEntity>
 
     companion object {
-        private const val BASE_URL = "https://google.com/"
+        private const val BASE_URL = "http://10.0.2.2:8080"
         private var instance: AuthApi? = null
-        private val interceptor = HttpLoggingInterceptor()
 
-        fun getInstance(): AuthApi {
-            if (instance == null) {
-                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-
-                instance = Retrofit.Builder()
-                    .baseUrl(BASE_URL)  // TODO: Set base URL
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(OkHttpClient.Builder().addInterceptor(interceptor).build())
+        fun getInstance(sharedPrefs: SharedPreferences): AuthApi {
+            val tokenInterceptor = Interceptor { chain ->
+                val token = sharedPrefs.getString(ACCESS_TOKEN, "") ?: ""
+                val request = chain.request()
+                val requestWithToken = request.newBuilder()
+                    .header(ACCESS_TOKEN,  token)
                     .build()
-                    .create(AuthApi::class.java)
+
+                return@Interceptor chain.proceed(requestWithToken)
+            }
+
+            if (instance == null) {
+                val loggingInterceptor = HttpLoggingInterceptor()
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+                instance = Retrofit.Builder().baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create()).client(
+                        OkHttpClient.Builder()
+                            .addInterceptor(loggingInterceptor)
+                            .addInterceptor(tokenInterceptor)
+                            .build()
+                    ).build().create(AuthApi::class.java)
             }
             return instance!!
         }
