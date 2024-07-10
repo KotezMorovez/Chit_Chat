@@ -84,14 +84,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="@string/login_email" />
+                android:text="@string/auth_email" />
 
             <EditText
                 android:id="@+id/signUpEmailEditText"
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:hint="@string/login_email_hint"
+                android:hint="@string/auth_email_hint"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress" />
 
@@ -103,7 +103,7 @@
                 android:layout_gravity="start"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/sign_up_email_error_hint"
+                android:text="@string/auth_email_error_hint"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -112,14 +112,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
-                android:text="@string/login_password" />
+                android:text="@string/auth_password" />
 
             <EditText
                 android:id="@+id/signUpPasswordEditText"
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:hint="@string/login_password_hint"
+                android:hint="@string/auth_password_hint"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword" />
 

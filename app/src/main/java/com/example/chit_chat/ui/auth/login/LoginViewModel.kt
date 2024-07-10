@@ -2,6 +2,8 @@ package com.example.chit_chat.ui.auth.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.chit_chat.common.EMAIL_REGEX
+import com.example.chit_chat.common.PASSWORD_REGEX
 import com.example.chit_chat.data.repository.AuthRepositoryImpl
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -42,12 +44,6 @@ class LoginViewModel @Inject constructor(
 
     private fun isValidEmail(email: String): Boolean {
         return Pattern.compile(EMAIL_REGEX).matcher(email).matches()
-    }
-
-    companion object {
-        private const val EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9-.]+\\.[A-Za-z0-9]{2,}\$"
-        private const val PASSWORD_REGEX =
-            "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@\$!%*#?&])[A-Za-z\\d@\$!%*#?&]{8,}\$"
     }
 
     enum class State {

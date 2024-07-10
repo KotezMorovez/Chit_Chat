@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="@string/login_email" />
+            android:text="@string/auth_email" />
 
         <EditText
             android:id="@+id/loginEmailEditText"
@@ -36,7 +36,7 @@
             android:layout_height="56dp"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
-            android:hint="@string/login_email_hint" />
+            android:hint="@string/auth_email_hint" />
 
         <TextView
             android:id="@+id/loginEmailHintTextView"
@@ -46,7 +46,7 @@
             android:layout_gravity="start"
             android:layout_marginHorizontal="8dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/login_wrong_email_hint"
+            android:text="@string/auth_email_error_hint"
             android:visibility="gone"
             tools:visibility="visible" />
 
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
-            android:text="@string/login_password" />
+            android:text="@string/auth_password" />
 
         <EditText
             android:id="@+id/loginPasswordEditText"
@@ -64,7 +64,7 @@
             android:layout_height="56dp"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:hint="@string/login_password_hint" />
+            android:hint="@string/auth_password_hint" />
 
         <TextView
             android:id="@+id/loginPasswordHintTextView"

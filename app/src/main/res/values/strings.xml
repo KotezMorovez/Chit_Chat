@@ -1,28 +1,26 @@
 <resources>
     <string name="app_name">Chit Chat</string>
 
+    <string name="auth_error_toast">Что-то пошло не так</string>
+    <string name="auth_email">E-mail</string>
+    <string name="auth_email_hint">Введите ваш e-mail</string>
+    <string name="auth_password">Пароль</string>
+    <string name="auth_password_hint">Введите ваш пароль</string>
+    <string name="auth_email_error_hint">Неверный формат email</string>
+
+
     <string name="login_title">Войти</string>
-    <string name="login_email">E-mail</string>
-    <string name="login_email_hint">Введите ваш e-mail</string>
-    <string name="login_password">Пароль</string>
-    <string name="login_password_hint">Введите ваш пароль</string>
     <string name="login_forget_password">Забыли пароль?</string>
     <string name="login_button">Войти</string>
     <string name="login_sign_up">Еще нет аккаунта?</string>
     <string name="login_sign_up_link">Зарегистрироваться</string>
     <string name="login_wrong_password_hint">Неверный пароль</string>
-    <string name="login_wrong_email_hint">Неверный email</string>
-
     <string name="sign_up_title">Регистрация</string>
     <string name="sign_up_first_name">Имя</string>
     <string name="sign_up_first_name_hint">Введите имя</string>
     <string name="sign_up_last_name">Фамилия</string>
     <string name="sign_up_last_name_hint">Введите фамилию</string>
-    <string name="sign_up_email">E-mail</string>
-    <string name="sign_up_email_hint">Введите ваш e-mail</string>
-    <string name="sign_up_email_error_hint">Неверный формат email</string>
-    <string name="sign_up_password">Пароль</string>
-    <string name="sign_up_password_hint">Введите ваш пароль</string>
+
     <string name="sign_up_password_error_hint">Пароль должен содержать как минимум 8 символов, одну цифру, одну букву, и один спец.символ (@$!%*#?&amp;)</string>
     <string name="sign_up_button">Зарегистрироваться</string>
     <string name="sign_up_login">Уже есть аккаунт?</string>
