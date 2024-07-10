@@ -1,14 +1,10 @@
 package com.example.chit_chat.data.service.auth
 
 import android.content.SharedPreferences
-import android.icu.number.IntegerWidth
 import com.example.chit_chat.common.ACCESS_TOKEN
-import com.example.chit_chat.common.SharedPrefsService
 import com.example.chit_chat.data.model.LoginRequestEntity
 import com.example.chit_chat.data.model.ProfileEntity
 import com.example.chit_chat.data.model.UserTokenEntity
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,7 +14,6 @@ import retrofit2.http.GET
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface AuthApi {
     @POST("login")
@@ -43,12 +38,12 @@ interface AuthApi {
             }
 
             if (instance == null) {
-                val interceptor = HttpLoggingInterceptor()
-                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+                val loggingInterceptor = HttpLoggingInterceptor()
+                loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
                 instance = Retrofit.Builder().baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create()).client(
                         OkHttpClient.Builder()
-                            .addInterceptor(interceptor)
+                            .addInterceptor(loggingInterceptor)
                             .addInterceptor(tokenInterceptor)
                             .build()
                     ).build().create(AuthApi::class.java)
