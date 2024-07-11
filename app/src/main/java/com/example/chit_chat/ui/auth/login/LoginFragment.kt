@@ -16,6 +16,7 @@ import com.example.chit_chat.R
 import com.example.chit_chat.databinding.FragmentLoginBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
+import com.example.chit_chat.ui.auth.signup.SignUpViewModel
 import com.example.chit_chat.ui.common.BaseFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -27,6 +28,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private val viewModel: LoginViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
     }
+
     override fun createViewBinding(): FragmentLoginBinding {
         return FragmentLoginBinding.inflate(layoutInflater)
     }
@@ -83,8 +85,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 loginButton.isEnabled = false
 
                 viewModel.login(
-                    loginEmailEditText.text.toString(),
-                    loginPasswordEditText.text.toString()
+                    loginEmailEditText.text.toString().trim(),
+                    loginPasswordEditText.text.toString().trim()
                 )
             }
 
@@ -106,28 +108,27 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             loginPasswordHintTextView.isGone = true
             loginButton.isEnabled = true
 
-            when (state) {
-                LoginViewModel.State.EMAIL_ERROR -> {
-                    loginEmailHintTextView.isVisible = true
-                }
-
-                LoginViewModel.State.PASSWORD_ERROR -> {
-                    loginPasswordHintTextView.isVisible = true
-                }
-
-                LoginViewModel.State.INTERNET_ERROR -> {
-                    val snackBar = Snackbar.make(
-                        requireContext(),
-                        viewBinding.loginButton,
-                        "Что-то пошло не так",
-                        Snackbar.LENGTH_SHORT
-                    )
-                    snackBar.show()
-                }
-
-                LoginViewModel.State.NO_ERROR -> {
+            if (state is LoginViewModel.State.Success) {
 //                  this@LoginFragment.findNavController()
 //                      .navigate(R.id.action_loginFragment_to_homeFragment)
+            }
+
+            if (state is LoginViewModel.State.InternetError) {
+                val snackBar = Snackbar.make(
+                    requireContext(),
+                    viewBinding.loginButton,
+                    requireContext().getText(R.string.auth_error_toast),
+                    Snackbar.LENGTH_SHORT
+                )
+                snackBar.show()
+            }
+
+            if (state is LoginViewModel.State.Error) {
+                if (state.isValidEmail) {
+                    loginEmailHintTextView.isVisible = true
+                }
+                if (state.isValidPassword) {
+                    loginPasswordHintTextView.isVisible = true
                 }
             }
         }

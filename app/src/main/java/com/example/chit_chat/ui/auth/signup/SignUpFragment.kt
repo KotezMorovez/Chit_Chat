@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,6 +17,7 @@ import com.example.chit_chat.databinding.FragmentSignupBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -63,8 +66,7 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
 
     override fun initUi() {
         with(viewBinding) {
-            val imm =
-                ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
+            val imm = getSystemService(requireContext(), InputMethodManager::class.java)
 
             signUpFirstNameEditText.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
@@ -99,10 +101,14 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
             }
 
             signUpButton.setOnClickListener {
-                viewModel.signUp(
-                    // TODO
-                )
+                signUpButton.isEnabled = false
 
+                viewModel.signUp(
+                    signUpFirstNameEditText.text.toString().trim(),
+                    signUpLastNameEditText.text.toString().trim(),
+                    signUpEmailEditText.text.toString().trim(),
+                    signUpPasswordEditText.text.toString().trim()
+                )
             }
 
             signUpLoginLinkTextView.setOnClickListener {
@@ -112,11 +118,52 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
         }
     }
 
+    private fun applyState(state: SignUpViewModel.State) {
+        with(viewBinding) {
+            signUpFirstNameHintTextView.isGone = true
+            signUpLastNameHintTextView.isGone = true
+            signUpEmailHintTextView.isGone = true
+            signUpPasswordHintTextView.isGone = true
+            signUpButton.isEnabled = true
+
+            if (state is SignUpViewModel.State.Success) {
+//                  this@LoginFragment.findNavController()
+//                      .navigate(R.id.action_signUpFragment_to_homeFragment)
+            }
+
+            if (state is SignUpViewModel.State.InternetError) {
+                val snackBar = Snackbar.make(
+                    requireContext(),
+                    viewBinding.signUpButton,
+                    requireContext().getText(R.string.auth_error_toast),
+                    Snackbar.LENGTH_SHORT
+                )
+                snackBar.show()
+            }
+
+            if (state is SignUpViewModel.State.Error) {
+                if (state.isValidFirstName) {
+                    signUpFirstNameHintTextView.isVisible = true
+                }
+                if (state.isValidLastName) {
+                    signUpLastNameHintTextView.isVisible = true
+                }
+                if (state.isValidEmail) {
+                    signUpEmailHintTextView.isVisible = true
+                }
+                if (state.isValidPassword) {
+                    signUpPasswordHintTextView.isVisible = true
+                }
+            }
+        }
+    }
+
+
     override fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             launch {
-                viewModel.event.collect {
-//                    TODO
+                viewModel.state.collect {
+                    applyState(it)
                 }
             }
         }

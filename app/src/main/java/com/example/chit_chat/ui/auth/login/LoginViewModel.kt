@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chit_chat.common.EMAIL_REGEX
 import com.example.chit_chat.common.PASSWORD_REGEX
-import com.example.chit_chat.data.repository.AuthRepositoryImpl
+import com.example.chit_chat.domain.repository.AuthRepository
+import com.example.chit_chat.ui.auth.signup.SignUpViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -12,7 +13,7 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepositoryImpl
+    private val authRepository: AuthRepository
 ) : ViewModel() {
     private val _state = MutableSharedFlow<State>(0)
     val state = _state.asSharedFlow()
@@ -25,16 +26,18 @@ class LoginViewModel @Inject constructor(
             if (validEmail && validPassword) {
                 val result = authRepository.login(email, password)
                 if (result.isSuccess) {
-                    _state.emit(State.NO_ERROR)
+                    _state.emit(State.Success)
                 } else {
-                    _state.emit(State.INTERNET_ERROR)
+                    _state.emit(State.InternetError)
                 }
-            } else if (!validEmail) {
-                _state.emit(State.EMAIL_ERROR)
             } else {
-                _state.emit(State.PASSWORD_ERROR)
+                _state.emit(
+                    State.Error(
+                        !validEmail,
+                        !validPassword
+                    )
+                )
             }
-
         }
     }
 
@@ -46,10 +49,13 @@ class LoginViewModel @Inject constructor(
         return Pattern.compile(EMAIL_REGEX).matcher(email).matches()
     }
 
-    enum class State {
-        NO_ERROR,
-        EMAIL_ERROR,
-        PASSWORD_ERROR,
-        INTERNET_ERROR,
+    sealed class State {
+        data object InternetError : State()
+        data class Error(
+            val isValidEmail: Boolean = true,
+            val isValidPassword: Boolean = true
+        ) : State()
+
+        data object Success : State()
     }
 }
