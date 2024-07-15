@@ -15,6 +15,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
+    private val _event = MutableSharedFlow<Event>(1)
+    val event = _event.asSharedFlow()
     private val _state = MutableSharedFlow<State>(0)
     val state = _state.asSharedFlow()
 
@@ -28,11 +30,11 @@ class LoginViewModel @Inject constructor(
                 if (result.isSuccess) {
                     _state.emit(State.Success)
                 } else {
-                    _state.emit(State.InternetError)
+                    _state.emit(State.NetworkError)
                 }
             } else {
-                _state.emit(
-                    State.Error(
+                _event.emit(
+                    Event(
                         !validEmail,
                         !validPassword
                     )
@@ -50,12 +52,12 @@ class LoginViewModel @Inject constructor(
     }
 
     sealed class State {
-        data object InternetError : State()
-        data class Error(
-            val isValidEmail: Boolean = true,
-            val isValidPassword: Boolean = true
-        ) : State()
-
+        data object NetworkError : State()
         data object Success : State()
     }
+
+    data class Event(
+        val isValidEmail: Boolean = true,
+        val isValidPassword: Boolean = true
+    )
 }

@@ -127,11 +127,11 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
             signUpButton.isEnabled = true
 
             if (state is SignUpViewModel.State.Success) {
-//                  this@LoginFragment.findNavController()
+//                  this@SignUpFragment.findNavController()
 //                      .navigate(R.id.action_signUpFragment_to_homeFragment)
             }
 
-            if (state is SignUpViewModel.State.InternetError) {
+            if (state is SignUpViewModel.State.NetworkError) {
                 val snackBar = Snackbar.make(
                     requireContext(),
                     viewBinding.signUpButton,
@@ -140,21 +140,15 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
                 )
                 snackBar.show()
             }
+        }
+    }
 
-            if (state is SignUpViewModel.State.Error) {
-                if (state.isValidFirstName) {
-                    signUpFirstNameHintTextView.isVisible = true
-                }
-                if (state.isValidLastName) {
-                    signUpLastNameHintTextView.isVisible = true
-                }
-                if (state.isValidEmail) {
-                    signUpEmailHintTextView.isVisible = true
-                }
-                if (state.isValidPassword) {
-                    signUpPasswordHintTextView.isVisible = true
-                }
-            }
+    private fun applyEvent(event: SignUpViewModel.Event) {
+        with(viewBinding) {
+            signUpFirstNameHintTextView.isVisible = event.isValidFirstName
+            signUpLastNameHintTextView.isVisible = event.isValidLastName
+            signUpEmailHintTextView.isVisible = event.isValidEmail
+            signUpPasswordHintTextView.isVisible = event.isValidPassword
         }
     }
 
@@ -164,6 +158,11 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
             launch {
                 viewModel.state.collect {
                     applyState(it)
+                }
+            }
+            launch {
+                viewModel.event.collect {
+                    applyEvent(it)
                 }
             }
         }

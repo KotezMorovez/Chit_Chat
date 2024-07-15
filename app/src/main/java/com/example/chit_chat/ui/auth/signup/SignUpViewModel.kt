@@ -14,26 +14,30 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
+    private val _event = MutableSharedFlow<Event>(1)
+    val event = _event.asSharedFlow()
     private val _state = MutableSharedFlow<State>(0)
     val state = _state.asSharedFlow()
 
     fun signUp(firstName: String, lastName: String, email: String, password: String) {
         val validEmail = isValidEmail(email)
         val validPassword = isValidPassword(password)
+        val validFirstName = firstName.isNotEmpty()
+        val validLastName = lastName.isNotEmpty()
 
         viewModelScope.launch {
-            if (firstName.isNotEmpty() && lastName.isNotEmpty() && validEmail && validPassword) {
+            if (validFirstName && validLastName && validEmail && validPassword) {
                 val result = authRepository.register(firstName, lastName, email, password)
                 if (result.isSuccess) {
                     _state.emit(State.Success)
                 } else {
-                    _state.emit(State.InternetError)
+                    _state.emit(State.NetworkError)
                 }
             } else {
-                _state.emit(
-                    State.Error(
-                        firstName.isEmpty(),
-                        lastName.isEmpty(),
+                _event.emit(
+                    Event(
+                        !validFirstName,
+                        !validLastName,
                         !validEmail,
                         !validPassword
                     )
@@ -51,14 +55,14 @@ class SignUpViewModel @Inject constructor(
     }
 
     sealed class State {
-        data object InternetError : State()
-        data class Error(
-            val isValidFirstName: Boolean = true,
-            val isValidLastName: Boolean = true,
-            val isValidEmail: Boolean = true,
-            val isValidPassword: Boolean = true
-        ) : State()
-
+        data object NetworkError : State()
         data object Success : State()
     }
+
+    data class Event(
+        val isValidFirstName: Boolean = true,
+        val isValidLastName: Boolean = true,
+        val isValidEmail: Boolean = true,
+        val isValidPassword: Boolean = true
+    )
 }

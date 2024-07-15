@@ -113,7 +113,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 //                      .navigate(R.id.action_loginFragment_to_homeFragment)
             }
 
-            if (state is LoginViewModel.State.InternetError) {
+            if (state is LoginViewModel.State.NetworkError) {
                 val snackBar = Snackbar.make(
                     requireContext(),
                     viewBinding.loginButton,
@@ -122,15 +122,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 )
                 snackBar.show()
             }
+        }
+    }
 
-            if (state is LoginViewModel.State.Error) {
-                if (state.isValidEmail) {
-                    loginEmailHintTextView.isVisible = true
-                }
-                if (state.isValidPassword) {
-                    loginPasswordHintTextView.isVisible = true
-                }
-            }
+    private fun applyEvent(event: LoginViewModel.Event) {
+        with(viewBinding) {
+            loginEmailHintTextView.isVisible = event.isValidEmail
+            loginPasswordHintTextView.isVisible = event.isValidPassword
         }
     }
 
@@ -139,6 +137,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             launch {
                 viewModel.state.collect {
                     applyState(it)
+                }
+            }
+            launch {
+                viewModel.event.collect {
+                    applyEvent(it)
                 }
             }
         }
