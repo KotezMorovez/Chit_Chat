@@ -11,8 +11,6 @@ class AuthRepositoryImpl @Inject constructor(
     private val authService: AuthService,
     private val prefsService: SharedPrefsService
 ) : AuthRepository {
-
-
     override suspend fun login(email: String, password: String): Result<Unit> {
         val result = authService.login(LoginRequestEntity(email, password))
         return if (result.isSuccess) {
@@ -24,6 +22,7 @@ class AuthRepositoryImpl @Inject constructor(
 
             Result.success(Unit)
         } else {
+            Result.failure(Throwable())
             Result.failure(Throwable())
         }
     }
@@ -45,5 +44,10 @@ class AuthRepositoryImpl @Inject constructor(
         } else {
             Result.failure(Throwable())
         }
+    }
+
+    override fun checkToken(): Boolean {
+        val token = prefsService.getAccessToken()
+        return token.isNotEmpty()
     }
 }

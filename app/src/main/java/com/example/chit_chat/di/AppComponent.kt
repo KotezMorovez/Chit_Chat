@@ -5,6 +5,7 @@ import com.example.chit_chat.di.common.DIComponent
 import com.example.chit_chat.ui.auth.login.LoginFragment
 import com.example.chit_chat.ui.auth.signup.SignUpFragment
 import com.example.chit_chat.ui.main.MainActivity
+import com.example.chit_chat.ui.splash.SplashFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -22,6 +23,7 @@ interface AppComponent: DIComponent {
     fun inject(activity: MainActivity)
     fun inject(loginFragment: LoginFragment)
     fun inject(signUpFragment: SignUpFragment)
+    fun inject(splashFragment: SplashFragment)
 
     @Component.Factory
     interface Factory {
