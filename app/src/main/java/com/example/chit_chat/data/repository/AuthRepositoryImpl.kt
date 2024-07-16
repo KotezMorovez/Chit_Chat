@@ -2,7 +2,6 @@ package com.example.chit_chat.data.repository
 
 import com.example.chit_chat.common.SharedPrefsService
 import com.example.chit_chat.data.model.LoginRequestEntity
-//import com.example.chit_chat.data.model.SignUpRequestEntity
 import com.example.chit_chat.data.service.auth.AuthService
 import com.example.chit_chat.domain.repository.AuthRepository
 import javax.inject.Inject
@@ -32,7 +31,6 @@ class AuthRepositoryImpl @Inject constructor(
         email: String,
         password: String
     ): Result<Unit> {
-        // TODO:
         return Result.success(Unit)
     }
 
