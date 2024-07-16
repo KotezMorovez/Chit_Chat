@@ -27,6 +27,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private val viewModel: LoginViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
     }
+
     override fun createViewBinding(): FragmentLoginBinding {
         return FragmentLoginBinding.inflate(layoutInflater)
     }
@@ -83,8 +84,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 loginButton.isEnabled = false
 
                 viewModel.login(
-                    loginEmailEditText.text.toString(),
-                    loginPasswordEditText.text.toString()
+                    loginEmailEditText.text.toString().trim(),
+                    loginPasswordEditText.text.toString().trim()
                 )
             }
 
@@ -100,41 +101,43 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-    private fun applyState(state: LoginViewModel.State) {
+    private fun applyEvent(event: LoginViewModel.Event) {
         with(viewBinding) {
             loginEmailHintTextView.isGone = true
             loginPasswordHintTextView.isGone = true
             loginButton.isEnabled = true
 
-            when (state) {
-                LoginViewModel.State.EMAIL_ERROR -> {
-                    loginEmailHintTextView.isVisible = true
-                }
-
-                LoginViewModel.State.PASSWORD_ERROR -> {
-                    loginPasswordHintTextView.isVisible = true
-                }
-
-                LoginViewModel.State.INTERNET_ERROR -> {
-                    val snackBar = Snackbar.make(
-                        requireContext(),
-                        viewBinding.loginButton,
-                        "Что-то пошло не так",
-                        Snackbar.LENGTH_SHORT
-                    )
-                    snackBar.show()
-                }
-
-                LoginViewModel.State.NO_ERROR -> {
+            if (event is LoginViewModel.Event.Success) {
 //                  this@LoginFragment.findNavController()
 //                      .navigate(R.id.action_loginFragment_to_homeFragment)
-                }
             }
+
+            if (event is LoginViewModel.Event.NetworkError) {
+                val snackBar = Snackbar.make(
+                    requireContext(),
+                    viewBinding.loginButton,
+                    requireContext().getText(R.string.auth_error_toast),
+                    Snackbar.LENGTH_SHORT
+                )
+                snackBar.show()
+            }
+        }
+    }
+
+    private fun applyState(state: LoginViewModel.State) {
+        with(viewBinding) {
+            loginEmailHintTextView.isVisible = state.isValidEmail
+            loginPasswordHintTextView.isVisible = state.isValidPassword
         }
     }
 
     override fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
+            launch {
+                viewModel.event.collect {
+                    applyEvent(it)
+                }
+            }
             launch {
                 viewModel.state.collect {
                     applyState(it)
