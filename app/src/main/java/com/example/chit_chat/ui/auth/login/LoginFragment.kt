@@ -16,7 +16,6 @@ import com.example.chit_chat.R
 import com.example.chit_chat.databinding.FragmentLoginBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
-import com.example.chit_chat.ui.auth.signup.SignUpViewModel
 import com.example.chit_chat.ui.common.BaseFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -102,18 +101,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-    private fun applyState(state: LoginViewModel.State) {
+    private fun applyEvent(event: LoginViewModel.Event) {
         with(viewBinding) {
             loginEmailHintTextView.isGone = true
             loginPasswordHintTextView.isGone = true
             loginButton.isEnabled = true
 
-            if (state is LoginViewModel.State.Success) {
+            if (event is LoginViewModel.Event.Success) {
 //                  this@LoginFragment.findNavController()
 //                      .navigate(R.id.action_loginFragment_to_homeFragment)
             }
 
-            if (state is LoginViewModel.State.NetworkError) {
+            if (event is LoginViewModel.Event.NetworkError) {
                 val snackBar = Snackbar.make(
                     requireContext(),
                     viewBinding.loginButton,
@@ -125,23 +124,23 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-    private fun applyEvent(event: LoginViewModel.Event) {
+    private fun applyState(state: LoginViewModel.State) {
         with(viewBinding) {
-            loginEmailHintTextView.isVisible = event.isValidEmail
-            loginPasswordHintTextView.isVisible = event.isValidPassword
+            loginEmailHintTextView.isVisible = state.isValidEmail
+            loginPasswordHintTextView.isVisible = state.isValidPassword
         }
     }
 
     override fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             launch {
-                viewModel.state.collect {
-                    applyState(it)
+                viewModel.event.collect {
+                    applyEvent(it)
                 }
             }
             launch {
-                viewModel.event.collect {
-                    applyEvent(it)
+                viewModel.state.collect {
+                    applyState(it)
                 }
             }
         }

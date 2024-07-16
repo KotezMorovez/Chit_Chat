@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.chit_chat.common.EMAIL_REGEX
 import com.example.chit_chat.common.PASSWORD_REGEX
 import com.example.chit_chat.domain.repository.AuthRepository
-import com.example.chit_chat.ui.auth.signup.SignUpViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -15,10 +14,10 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
-    private val _event = MutableSharedFlow<Event>(1)
-    val event = _event.asSharedFlow()
-    private val _state = MutableSharedFlow<State>(0)
+    private val _state = MutableSharedFlow<State>(1)
     val state = _state.asSharedFlow()
+    private val _event = MutableSharedFlow<Event>(0)
+    val event = _event.asSharedFlow()
 
     fun login(email: String, password: String) {
         val validEmail = isValidEmail(email)
@@ -28,13 +27,13 @@ class LoginViewModel @Inject constructor(
             if (validEmail && validPassword) {
                 val result = authRepository.login(email, password)
                 if (result.isSuccess) {
-                    _state.emit(State.Success)
+                    _event.emit(Event.Success)
                 } else {
-                    _state.emit(State.NetworkError)
+                    _event.emit(Event.NetworkError)
                 }
             } else {
-                _event.emit(
-                    Event(
+                _state.emit(
+                    State(
                         !validEmail,
                         !validPassword
                     )
@@ -51,12 +50,12 @@ class LoginViewModel @Inject constructor(
         return Pattern.compile(EMAIL_REGEX).matcher(email).matches()
     }
 
-    sealed class State {
-        data object NetworkError : State()
-        data object Success : State()
+    sealed class Event {
+        data object NetworkError : Event()
+        data object Success : Event()
     }
 
-    data class Event(
+    data class State(
         val isValidEmail: Boolean = true,
         val isValidPassword: Boolean = true
     )

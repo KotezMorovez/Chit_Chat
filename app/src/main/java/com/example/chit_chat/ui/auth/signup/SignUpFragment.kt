@@ -118,7 +118,7 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
         }
     }
 
-    private fun applyState(state: SignUpViewModel.State) {
+    private fun applyEvent(state: SignUpViewModel.Event) {
         with(viewBinding) {
             signUpFirstNameHintTextView.isGone = true
             signUpLastNameHintTextView.isGone = true
@@ -126,12 +126,12 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
             signUpPasswordHintTextView.isGone = true
             signUpButton.isEnabled = true
 
-            if (state is SignUpViewModel.State.Success) {
+            if (state is SignUpViewModel.Event.Success) {
 //                  this@SignUpFragment.findNavController()
 //                      .navigate(R.id.action_signUpFragment_to_homeFragment)
             }
 
-            if (state is SignUpViewModel.State.NetworkError) {
+            if (state is SignUpViewModel.Event.NetworkError) {
                 val snackBar = Snackbar.make(
                     requireContext(),
                     viewBinding.signUpButton,
@@ -143,7 +143,7 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
         }
     }
 
-    private fun applyEvent(event: SignUpViewModel.Event) {
+    private fun applyState(event: SignUpViewModel.State) {
         with(viewBinding) {
             signUpFirstNameHintTextView.isVisible = event.isValidFirstName
             signUpLastNameHintTextView.isVisible = event.isValidLastName
@@ -156,13 +156,13 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
     override fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             launch {
-                viewModel.state.collect {
-                    applyState(it)
+                viewModel.event.collect {
+                    applyEvent(it)
                 }
             }
             launch {
-                viewModel.event.collect {
-                    applyEvent(it)
+                viewModel.state.collect {
+                    applyState(it)
                 }
             }
         }
