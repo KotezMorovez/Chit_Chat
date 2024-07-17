@@ -34,7 +34,7 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppComponentHolder.get().inject(this)
-        requireActivity().window!!.setBackgroundDrawableResource(R.drawable.auth_background)
+        requireActivity().window!!.setBackgroundDrawableResource(R.drawable.bg_auth)
         super.onCreate(savedInstanceState)
     }
 
@@ -46,19 +46,10 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
         with(viewBinding) {
-//            TODO: values for testing
-            if (savedInstanceState == null) {
-                signUpFirstNameEditText.setText("Test")
-                signUpLastNameEditText.setText("Pesp")
-                signUpEmailEditText.setText("test@test.rr")
-                signUpPasswordEditText.setText("123123Test!")
-            } else {
-                signUpFirstNameEditText.setText(savedInstanceState?.getString(FIRST_NAME, null))
-                signUpLastNameEditText.setText(savedInstanceState?.getString(LAST_NAME, null))
-                signUpEmailEditText.setText(savedInstanceState?.getString(EMAIL, null))
-                signUpPasswordEditText.setText(savedInstanceState?.getString(PASSWORD, null))
-
-            }
+            signUpFirstNameEditText.setText(savedInstanceState?.getString(FIRST_NAME, null))
+            signUpLastNameEditText.setText(savedInstanceState?.getString(LAST_NAME, null))
+            signUpEmailEditText.setText(savedInstanceState?.getString(EMAIL, null))
+            signUpPasswordEditText.setText(savedInstanceState?.getString(PASSWORD, null))
         }
 
         return view
@@ -127,8 +118,8 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
             signUpButton.isEnabled = true
 
             if (state is SignUpViewModel.Event.Success) {
-//                  this@SignUpFragment.findNavController()
-//                      .navigate(R.id.action_signUpFragment_to_homeFragment)
+                  this@SignUpFragment.findNavController()
+                      .navigate(R.id.action_signUpFragment_to_homeFragment)
             }
 
             if (state is SignUpViewModel.Event.NetworkError) {

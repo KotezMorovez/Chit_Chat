@@ -34,7 +34,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppComponentHolder.get().inject(this)
-        requireActivity().window!!.setBackgroundDrawableResource(R.drawable.auth_background)
+        requireActivity().window!!.setBackgroundDrawableResource(R.drawable.bg_auth)
         super.onCreate(savedInstanceState)
     }
 
@@ -46,14 +46,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
         with(viewBinding) {
-//            TODO: values for testing
-            if (savedInstanceState == null) {
-                loginEmailEditText.setText("test@test.rr")
-                loginPasswordEditText.setText("123123Test!")
-            } else {
-                loginEmailEditText.setText(savedInstanceState?.getString(EMAIL, null))
-                loginPasswordEditText.setText(savedInstanceState?.getString(PASSWORD, null))
-            }
+            loginEmailEditText.setText(savedInstanceState?.getString(EMAIL, null))
+            loginPasswordEditText.setText(savedInstanceState?.getString(PASSWORD, null))
         }
 
         return view
@@ -108,8 +102,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             loginButton.isEnabled = true
 
             if (event is LoginViewModel.Event.Success) {
-//                  this@LoginFragment.findNavController()
-//                      .navigate(R.id.action_loginFragment_to_homeFragment)
+                  this@LoginFragment.findNavController()
+                      .navigate(R.id.action_loginFragment_to_homeFragment)
             }
 
             if (event is LoginViewModel.Event.NetworkError) {

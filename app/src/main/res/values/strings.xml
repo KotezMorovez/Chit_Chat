@@ -26,4 +26,8 @@
     <string name="sign_up_login">Уже есть аккаунт?</string>
     <string name="sign_up_login_link">Войти</string>
     <string name="sign_up_format_error_hint">Поле не может быть пустым</string>
+    <string name="chat_list_title">Чаты</string>
+    <string name="home_navbar_contacts">Contacts</string>
+    <string name="navbar_new_chat">Chats</string>
+    <string name="navbar_settings">Settings</string>
 </resources>

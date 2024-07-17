@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="4dp">
+
+    <ImageView
+        android:id="@+id/userAvatarImageView"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="Avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/userNameTextView"
+        android:layout_width="0dp"
+        android:fontFamily="@font/overpass_medium"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:ellipsize="end"
+        android:lines="1"
+        app:layout_constraintEnd_toStartOf="@+id/messageDateTextView"
+        app:layout_constraintStart_toEndOf="@id/userAvatarImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="UserName" />
+
+    <TextView
+        android:id="@+id/userMessageTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:fontFamily="@font/overpass_medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/messageCountBadgeItem"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/userAvatarImageView"
+        app:layout_constraintTop_toBottomOf="@id/userNameTextView"
+        tools:text="User Mesage 123456789012345676789012345677777777" />
+
+    <TextView
+        android:id="@+id/messageDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/overpass_medium"
+        android:text="4:20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/messageCountBadgeItem"
+        layout="@layout/item_badge_chat_list"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
