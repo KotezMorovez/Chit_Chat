@@ -28,6 +28,7 @@ interface AuthApi {
 
     companion object {
         private const val BASE_URL = "http://10.0.2.2:8080"
+        private const val AUTH = "Authorization"
         private var instance: AuthApi? = null
 
         fun getInstance(sharedPrefs: SharedPreferences): AuthApi {
@@ -35,7 +36,7 @@ interface AuthApi {
                 val token = sharedPrefs.getString(ACCESS_TOKEN, "") ?: ""
                 val request = chain.request()
                 val requestWithToken = request.newBuilder()
-                    .header(ACCESS_TOKEN,  token)
+                    .header(AUTH, "Bearer $token")
                     .build()
 
                 return@Interceptor chain.proceed(requestWithToken)

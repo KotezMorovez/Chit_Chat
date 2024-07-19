@@ -12,6 +12,12 @@
         <item name="android:letterSpacing">0</item>
     </style>
 
+    <style name="Toolbar">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/product_black</item>
+        <item name="android:fontFamily">@font/overpass_medium</item>
+    </style>
+
     <style name="TextHeader">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/product_violet</item>
