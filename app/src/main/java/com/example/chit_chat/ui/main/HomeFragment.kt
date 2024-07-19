@@ -2,7 +2,6 @@ package com.example.chit_chat.ui.main
 
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.example.chit_chat.databinding.FragmentHomeBinding
 import com.example.chit_chat.di.AppComponentHolder
@@ -23,10 +22,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initUi() {
         val navController = viewBinding.homeNavHost.getFragment<NavHostFragment>().navController
         viewBinding.homeBottomNavigationView.setupWithNavController(navController)
-
-        viewBinding.homeBottomNavigationView.setOnItemSelectedListener {
-            return@setOnItemSelectedListener onNavDestinationSelected(it, navController)
-        }
     }
 
     override fun observeData() {}

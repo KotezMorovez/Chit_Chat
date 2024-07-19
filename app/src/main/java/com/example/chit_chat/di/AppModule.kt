@@ -9,10 +9,7 @@ import com.example.chit_chat.common.SharedPrefsServiceImpl
 import com.example.chit_chat.data.repository.AuthRepositoryImpl
 import com.example.chit_chat.data.service.auth.AuthService
 import com.example.chit_chat.data.service.auth.AuthServiceImpl
-import com.example.chit_chat.databinding.FragmentChatListBinding
 import com.example.chit_chat.domain.repository.AuthRepository
-import com.example.chit_chat.ui.home.chat_list.ChatListFragment
-import com.example.chit_chat.ui.common.BaseFragment
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

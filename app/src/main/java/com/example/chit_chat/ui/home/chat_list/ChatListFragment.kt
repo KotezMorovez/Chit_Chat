@@ -27,8 +27,6 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<ChatListViewModel>
     private val chatListAdapter: ChatListAdapter
-    private val textWatcher: TextWatcher
-    private var searchRequest: String = EMPTY_STRING
     private var toolbarState: Boolean = true
     private val viewModel: ChatListViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[ChatListViewModel::class.java]
@@ -43,16 +41,6 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         chatListAdapter = ChatListAdapter(onItemClickListener = { item ->
 
         })
-
-        textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                searchRequest = s.toString()
-            }
-        }
     }
 
     override fun createViewBinding(): FragmentChatListBinding {
@@ -63,9 +51,8 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        searchRequest = savedInstanceState?.getString(SEARCH, EMPTY_STRING) ?: EMPTY_STRING
         toolbarState = savedInstanceState?.getBoolean(TOOLBAR_STATE, true) ?: true
-        viewBinding.searchEditText.setText(searchRequest)
+        viewBinding.searchEditText.setText(savedInstanceState?.getString(SEARCH, EMPTY_STRING))
         applyToolbarState(toolbarState)
         return view
     }
@@ -88,7 +75,6 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         with(viewBinding) {
             toolbarTitle.text = "TestNameToolbar" // TODO: Replace string with received from profile
 
-            searchEditText.addTextChangedListener(textWatcher)
             searchEditText.setOnEditorActionListener { _, actionId, _ ->
                 return@setOnEditorActionListener if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
@@ -107,7 +93,6 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
 
             toolbarCloseIcon.setOnClickListener {
                 toolbarState = !toolbarState
-                searchRequest = EMPTY_STRING
                 searchEditText.clearFocus()
                 imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
                 applyToolbarState(toolbarState)

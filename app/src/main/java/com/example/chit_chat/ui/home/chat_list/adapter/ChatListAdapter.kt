@@ -40,16 +40,16 @@ class ChatListAdapter(
         fun bind(item: ChatItem) {
             with(binding) {
                 Glide.with(userAvatarImageView)
-                    .load(item.chatUserAvatar)
+                    .load(item.userAvatar)
                     .placeholder(R.drawable.ic_avatar_placeholder)
                     .fitCenter()
                     .circleCrop()
                     .into(userAvatarImageView)
 
-                userNameTextView.text = item.chatUserName
-                userMessageTextView.text = item.chatLastMessage
-                messageDateTextView.text = item.chatLastMessageDate
-                messageCountBadgeItem.messageCountTextView.text = item.chatMessagesCount
+                userNameTextView.text = item.userName
+                userMessageTextView.text = item.lastMessage
+                messageDateTextView.text = item.lastMessageDate
+                messageCountBadgeItem.messageCountTextView.text = item.messagesCount
 
                 userNameTextView.invalidate()
                 userNameTextView.requestLayout()

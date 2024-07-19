@@ -1,10 +1,10 @@
 package com.example.chit_chat.ui.home.chat_list.adapter
 
 data class ChatItem (
-    val chatUserId: String,
-    val chatUserName: String,
-    val chatUserAvatar: String?,
-    val chatLastMessage: String,
-    val chatLastMessageDate: String,
-    val chatMessagesCount: String
+    val userId: String,
+    val userName: String,
+    val userAvatar: String?,
+    val lastMessage: String,
+    val lastMessageDate: String,
+    val messagesCount: String
 )
