@@ -11,6 +11,8 @@
         <item name="colorControlActivated">@color/product_text_dark_gray</item>
         <item name="colorControlHighlight">@color/product_text_dark_gray</item>
     </style>
-
-    <style name="Theme.Chit_Chat" parent="Base.Theme.Chit_Chat" />
+    
+    <style name="Theme.Chit_Chat" parent="Base.Theme.Chit_Chat">
+        <item name="fontFamily">@font/overpass_medium</item>
+    </style>
 </resources>

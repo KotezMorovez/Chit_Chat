@@ -23,7 +23,6 @@ class AuthRepositoryImpl @Inject constructor(
             Result.success(Unit)
         } else {
             Result.failure(Throwable())
-            Result.failure(Throwable())
         }
     }
 

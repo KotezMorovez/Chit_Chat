@@ -39,16 +39,8 @@ class SplashFragment: Fragment() {
         val isTokenExist = viewModel.checkToken()
 
         if (isTokenExist) {
-//            this@SplashFragment.findNavController()
-//                .navigate(R.id.action_splashFragment_to_homeFragment)
-
-            val snackBar = Snackbar.make(
-                requireContext(),
-                view,
-                "Token exist",
-                Snackbar.LENGTH_SHORT
-            )
-            snackBar.show()
+            this@SplashFragment.findNavController()
+                .navigate(R.id.action_splashFragment_to_homeFragment)
         } else {
             this@SplashFragment.findNavController()
                 .navigate(R.id.action_splashFragment_to_loginFragment)
