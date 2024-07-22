@@ -13,6 +13,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chit_chat.R
 import com.example.chit_chat.data.service.chat_list.ChatListMock
@@ -21,6 +22,7 @@ import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.home.chat_list.adapter.ChatListAdapter
 import com.example.chit_chat.ui.common.BaseFragment
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
@@ -73,8 +75,6 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         val imm = requireContext().getSystemService(InputMethodManager::class.java)
 
         with(viewBinding) {
-            toolbarTitle.text = "TestNameToolbar" // TODO: Replace string with received from profile
-
             searchEditText.setOnEditorActionListener { _, actionId, _ ->
                 return@setOnEditorActionListener if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
@@ -144,7 +144,19 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         WindowCompat.setDecorFitsSystemWindows(window, true)
     }
 
-    override fun observeData() {}
+    override fun observeData() {
+        with(viewBinding) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                launch {
+                    viewModel.profile.collect {
+                        val title = "${it.firstName} ${it.lastName}"
+                        toolbarTitle.text = title
+
+                    }
+                }
+            }
+        }
+    }
 
     companion object {
         private const val TOOLBAR_STATE = "toolbar state"

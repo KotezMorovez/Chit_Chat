@@ -39,6 +39,7 @@ class SplashFragment: Fragment() {
         val isTokenExist = viewModel.checkToken()
 
         if (isTokenExist) {
+            viewModel.updateProfile()
             this@SplashFragment.findNavController()
                 .navigate(R.id.action_splashFragment_to_homeFragment)
         } else {

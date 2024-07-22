@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chit_chat.common.EMAIL_REGEX
 import com.example.chit_chat.common.PASSWORD_REGEX
-import com.example.chit_chat.domain.repository.AuthRepository
+import com.example.chit_chat.domain.interactor.AuthInteractor
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authInteractor: AuthInteractor
 ) : ViewModel() {
     private val _state = MutableSharedFlow<State>(1)
     val state = _state.asSharedFlow()
@@ -25,7 +25,7 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             if (validEmail && validPassword) {
-                val result = authRepository.login(email, password)
+                val result = authInteractor.login(email, password)
                 if (result.isSuccess) {
                     _event.emit(Event.Success)
                 } else {

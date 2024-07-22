@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kapt)
+    alias(libs.plugins.googleServices)
 }
 
 android {
@@ -52,6 +53,10 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.viewbinding)
     implementation(libs.kotlin.stdlib)
+
+//    Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firestore)
 
 //    UI Tools
     implementation(libs.glide)

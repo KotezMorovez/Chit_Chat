@@ -18,6 +18,7 @@ import javax.inject.Singleton
     modules = [
         OriginalModule::class,
         ProviderModule::class,
+        ApiModule :: class
     ]
 )
 
