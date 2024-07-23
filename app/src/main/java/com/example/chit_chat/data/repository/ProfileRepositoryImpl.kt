@@ -12,7 +12,6 @@ import com.example.chit_chat.domain.repository.ProfileRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.lang.IllegalStateException
-import java.lang.NullPointerException
 import javax.inject.Inject
 
 class ProfileRepositoryImpl @Inject constructor(
@@ -23,20 +22,22 @@ class ProfileRepositoryImpl @Inject constructor(
     override suspend fun createProfile(firstName: String, lastName: String): Result<Unit> {
         val profile = getProfileFromAuthApi().getOrNull()
         if (profile != null) {
-            val firebaseResult = firebaseService.register(profile, profile.id)
+            val firebaseResult = firebaseService.register(profile)
 
             if (firebaseResult.isFailure) {
                 val error = firebaseResult.exceptionOrNull()
-                if (error != null) {
+                return if (error != null) {
                     Log.e(R.string.app_name.toString(), error.toString())
-                    return Result.failure(error)
+                    Result.failure(error)
+                } else {
+                    Result.failure(IllegalStateException())
                 }
             }
 
             profileStorage.setProfile(profile)
             return Result.success(Unit)
         }
-        return Result.failure(NullPointerException())
+        return Result.failure(IllegalStateException())
     }
 
     override suspend fun updateProfileStorage(): Result<Unit> {

@@ -54,23 +54,23 @@ dependencies {
     implementation(libs.androidx.viewbinding)
     implementation(libs.kotlin.stdlib)
 
-//    Firebase
+// Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firestore)
 
-//    UI Tools
+// UI Tools
     implementation(libs.glide)
 
-//    Navigation
+// Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-//    Retrofit
+// Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
 
-//    DI
+// DI
     implementation(libs.dagger)
     implementation(libs.androidx.runner)
     implementation(libs.identity.credential.android)

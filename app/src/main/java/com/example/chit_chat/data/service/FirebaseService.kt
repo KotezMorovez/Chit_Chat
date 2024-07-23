@@ -11,7 +11,7 @@ import kotlin.coroutines.suspendCoroutine
 
 interface FirebaseService {
     suspend fun getProfileById(id: String): Result<ProfileEntity>
-    suspend fun register(user: ProfileEntity, id: String): Result<Unit>
+    suspend fun register(user: ProfileEntity): Result<Unit>
 }
 
 class FirebaseServiceImpl @Inject constructor() : FirebaseService {
@@ -36,10 +36,10 @@ class FirebaseServiceImpl @Inject constructor() : FirebaseService {
         }
     }
 
-    override suspend fun register(user: ProfileEntity, id: String): Result<Unit> {
+    override suspend fun register(user: ProfileEntity): Result<Unit> {
         return suspendCoroutine { continuation ->
             collection
-                .document(id)
+                .document(user.id)
                 .set(user.toDocument())
                 .addOnSuccessListener {
                     continuation.resumeWith(Result.success(Result.success(Unit)))

@@ -1,7 +1,5 @@
 package com.example.chit_chat.domain.repository
 
-import com.example.chit_chat.domain.model.Profile
-
 interface AuthRepository {
     suspend fun login(email: String, password: String): Result<Unit>
     suspend fun register(
