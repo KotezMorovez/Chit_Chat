@@ -2,6 +2,7 @@
 activityCompose = "1.9.0"
 agp = "8.3.2"
 dagger = "2.51.1"
+firebaseBom = "33.1.2"
 glide = "4.16.0"
 identityCredentialAndroid = "20231002"
 kotlin = "1.9.0"
@@ -13,7 +14,6 @@ appcompat = "1.7.0"
 kotlinStdlib = "2.0.0"
 kotlinxMetadataJvm = "0.6.2"
 lifecycleRuntimeKtx = "2.8.3"
-lifecycleRuntimeKtxVersion = "2.4.0"
 loggingInterceptor = "4.11.0"
 material = "1.12.0"
 activity = "1.9.0"
@@ -21,9 +21,9 @@ constraintlayout = "2.1.4"
 navigationFragmentKtx = "2.7.7"
 retrofit = "2.9.0"
 runner = "1.6.1"
-uiautomator = "2.3.0"
-viewbinding = "8.5.0"
+viewbinding = "8.5.1"
 kapt = "2.0.0"
+gms = "4.4.2"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -32,11 +32,11 @@ androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtim
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
 androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
-androidx-uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "uiautomator" }
 androidx-viewbinding = { module = "androidx.databinding:viewbinding", version.ref = "viewbinding" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 identity-credential-android = { module = "com.android.identity:identity-credential-android", version.ref = "identityCredentialAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -45,15 +45,16 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinStdlib" }
 kotlinx-metadata-jvm = { module = "org.jetbrains.kotlinx:kotlinx-metadata-jvm", version.ref = "kotlinxMetadataJvm" }
-lifecycle-runtime-ktx = { module = "lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+firestore = { module = "com.google.firebase:firebase-firestore-ktx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
+googleServices = { id = "com.google.gms.google-services", version.ref = "gms" }
 
