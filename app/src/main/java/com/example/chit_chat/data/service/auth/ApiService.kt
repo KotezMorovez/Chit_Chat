@@ -7,6 +7,7 @@ import com.example.chit_chat.data.model.LoginRequestEntity
 import com.example.chit_chat.data.model.ProfileEntity
 import com.example.chit_chat.data.model.SignUpRequestEntity
 import com.example.chit_chat.data.model.UserTokenEntity
+import com.google.firebase.firestore.auth.User
 import retrofit2.awaitResponse
 import javax.inject.Inject
 
@@ -14,6 +15,7 @@ interface ApiService {
     suspend fun login(request: LoginRequestEntity): Result<UserTokenEntity>
     suspend fun register(request: SignUpRequestEntity): Result<UserTokenEntity>
     suspend fun getProfile(): Result<ProfileEntity>
+    suspend fun refreshToken(request: UserTokenEntity): Result<UserTokenEntity>
 }
 
 class ApiServiceImpl @Inject constructor(
@@ -22,7 +24,6 @@ class ApiServiceImpl @Inject constructor(
 
     override suspend fun login(request: LoginRequestEntity): Result<UserTokenEntity> {
         try {
-
             val response = authApi.login(request).awaitResponse()
             if (!response.isSuccessful) {
                 Log.e(R.string.app_name.toString(), response.code().toString())
@@ -80,4 +81,27 @@ class ApiServiceImpl @Inject constructor(
             return Result.failure(t)
         }
     }
+
+    override suspend fun refreshToken(request: UserTokenEntity): Result<UserTokenEntity> {
+        try {
+            val response = authApi.refreshToken(request).awaitResponse()
+
+            if (!response.isSuccessful) {
+                Log.e(R.string.app_name.toString(), response.code().toString())
+                return Result.failure(IllegalStateException())
+            }
+
+            val tokens = response.body()
+
+            return if (tokens != null) {
+                Result.success(tokens)
+            } else {
+                Result.failure(IllegalStateException())
+            }
+        } catch (t: Throwable) {
+            return Result.failure(t)
+        }
+    }
+
+
 }

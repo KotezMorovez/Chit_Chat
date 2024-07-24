@@ -8,5 +8,5 @@ interface AuthRepository {
         email: String,
         password: String
     ): Result<Unit>
-    fun checkToken(): Boolean
+    fun checkTokens(): Result<Unit>
 }

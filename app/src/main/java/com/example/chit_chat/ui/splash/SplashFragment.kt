@@ -1,20 +1,18 @@
 package com.example.chit_chat.ui.splash
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.chit_chat.R
+import com.example.chit_chat.databinding.FragmentSplashBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
-import com.example.chit_chat.ui.auth.login.LoginViewModel
-import com.google.android.material.snackbar.Snackbar
+import com.example.chit_chat.ui.common.BaseFragment
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SplashFragment: Fragment() {
+class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<SplashViewModel>
     private val viewModel: SplashViewModel by lazy {
@@ -26,25 +24,34 @@ class SplashFragment: Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_splash, container, false)
+    override fun createViewBinding(): FragmentSplashBinding {
+        return FragmentSplashBinding.inflate(layoutInflater)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val isTokenExist = viewModel.checkToken()
+    override fun initUi() {
+        viewModel.checkTokenExist()
+    }
 
-        if (isTokenExist) {
-            viewModel.updateProfile()
-            this@SplashFragment.findNavController()
-                .navigate(R.id.action_splashFragment_to_homeFragment)
-        } else {
-            this@SplashFragment.findNavController()
-                .navigate(R.id.action_splashFragment_to_loginFragment)
+    private fun applyEvent(event: SplashViewModel.Event) {
+        when (event) {
+            SplashViewModel.Event.SUCCESS -> {
+                this@SplashFragment.findNavController()
+                    .navigate(R.id.action_splashFragment_to_homeFragment)
+            }
+            SplashViewModel.Event.FAILURE -> {
+                this@SplashFragment.findNavController()
+                    .navigate(R.id.action_splashFragment_to_loginFragment)
+            }
+        }
+    }
+
+    override fun observeData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            launch {
+                viewModel.event.collect {
+                    applyEvent(it)
+                }
+            }
         }
     }
 }

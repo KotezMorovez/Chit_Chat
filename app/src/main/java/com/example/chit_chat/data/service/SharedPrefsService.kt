@@ -1,7 +1,8 @@
-package com.example.chit_chat.common
+package com.example.chit_chat.data.service
 
-import android.content.Context
 import android.content.SharedPreferences
+import com.example.chit_chat.common.ACCESS_TOKEN
+import com.example.chit_chat.common.REFRESH_TOKEN
 import javax.inject.Inject
 
 interface SharedPrefsService{
@@ -9,11 +10,12 @@ interface SharedPrefsService{
     fun getRefreshToken(): String
     fun setAccessToken(token: String)
     fun setRefreshToken(token: String)
+    fun deletePrefs()
 }
 
 class SharedPrefsServiceImpl @Inject constructor(
     private val sharedPrefs: SharedPreferences
-):SharedPrefsService {
+): SharedPrefsService {
 
     override fun getAccessToken(): String {
         return sharedPrefs.getString(ACCESS_TOKEN, "") ?: ""
@@ -29,6 +31,10 @@ class SharedPrefsServiceImpl @Inject constructor(
 
     override fun setRefreshToken(token: String) {
         sharedPrefs.edit().putString(REFRESH_TOKEN, token).apply()
+    }
+
+    override fun deletePrefs() {
+        sharedPrefs.edit().clear().apply()
     }
 }
 
