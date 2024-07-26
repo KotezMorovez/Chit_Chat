@@ -38,4 +38,7 @@
     <string name="navbar_new_chat">Чаты</string>
     <string name="navbar_settings">Настройки</string>
 
+
+    <string name="settings_upload_image_error">Ошибка загрузки изображения</string>
+    <string name="settings_image_error">Не удалось сохранить изображение</string>
 </resources>

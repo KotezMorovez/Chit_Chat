@@ -1,4 +1,4 @@
-package com.example.chit_chat.data.service
+package com.example.chit_chat.data.service.profile
 
 import android.content.SharedPreferences
 import com.example.chit_chat.common.ACCESS_TOKEN

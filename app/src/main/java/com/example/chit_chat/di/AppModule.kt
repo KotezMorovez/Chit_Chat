@@ -4,18 +4,20 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.example.chit_chat.common.PREFERENCES
-import com.example.chit_chat.data.service.SharedPrefsService
-import com.example.chit_chat.data.service.SharedPrefsServiceImpl
+import com.example.chit_chat.data.service.profile.SharedPrefsService
+import com.example.chit_chat.data.service.profile.SharedPrefsServiceImpl
 import com.example.chit_chat.data.repository.AuthRepositoryImpl
 import com.example.chit_chat.data.repository.ProfileRepositoryImpl
-import com.example.chit_chat.data.service.FirebaseService
-import com.example.chit_chat.data.service.FirebaseServiceImpl
-import com.example.chit_chat.data.service.ProfileStorage
-import com.example.chit_chat.data.service.ProfileStorageImpl
+import com.example.chit_chat.data.service.profile.FirebaseService
+import com.example.chit_chat.data.service.profile.FirebaseServiceImpl
+import com.example.chit_chat.data.service.profile.ProfileStorage
+import com.example.chit_chat.data.service.profile.ProfileStorageImpl
 import com.example.chit_chat.data.service.auth.ApiService
 import com.example.chit_chat.data.service.auth.ApiServiceImpl
 import com.example.chit_chat.data.service.auth.AuthApi
 import com.example.chit_chat.data.service.auth.TokenInterceptor
+import com.example.chit_chat.data.service.profile.CloudStorageService
+import com.example.chit_chat.data.service.profile.CloudStorageServiceImpl
 import com.example.chit_chat.domain.interactor.AuthInteractor
 import com.example.chit_chat.domain.interactor.AuthInteractorImpl
 import com.example.chit_chat.domain.repository.AuthRepository
@@ -62,6 +64,10 @@ interface OriginalModule {
     @Binds
     @Singleton
     fun bindProfileStorage(impl: ProfileStorageImpl): ProfileStorage
+
+    @Binds
+    @Reusable
+    fun bindCloudStorageService(impl: CloudStorageServiceImpl):CloudStorageService
 
     @Binds
     @Singleton

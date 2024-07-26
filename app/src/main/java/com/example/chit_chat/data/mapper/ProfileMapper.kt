@@ -32,3 +32,13 @@ fun DocumentSnapshot.toEntity() : ProfileEntity {
         lastName = this["lastName"] as String,
     )
 }
+
+fun Profile.toEntity(): ProfileEntity {
+    return ProfileEntity(
+        id = this.id,
+        email = this.email,
+        avatar = this.avatar,
+        firstName = this.firstName,
+        lastName = this.lastName
+    )
+}
