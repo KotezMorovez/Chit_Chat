@@ -57,7 +57,7 @@ class ProfileRepositoryImpl @Inject constructor(
             val profile = profileResult.getOrNull()
             if (profile != null) {
                 profileStorage.setProfile(profile)
-                Result.success(Unit)
+                return Result.success(Unit)
             }
         }
 

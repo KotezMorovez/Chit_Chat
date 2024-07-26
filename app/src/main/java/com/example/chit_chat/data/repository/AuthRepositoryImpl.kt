@@ -1,10 +1,11 @@
 package com.example.chit_chat.data.repository
 
-import com.example.chit_chat.common.SharedPrefsService
+import com.example.chit_chat.data.service.SharedPrefsService
 import com.example.chit_chat.data.model.LoginRequestEntity
 import com.example.chit_chat.data.model.SignUpRequestEntity
 import com.example.chit_chat.data.service.auth.ApiService
 import com.example.chit_chat.domain.repository.AuthRepository
+import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -47,8 +48,14 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun checkToken(): Boolean {
-        val token = prefsService.getAccessToken()
-        return token.isNotEmpty()
+    override fun checkTokens(): Result<Unit> {
+        val resultAccessToken = prefsService.getAccessToken().isNotEmpty()
+        val resultRefreshToken = prefsService.getRefreshToken().isNotEmpty()
+
+        return if (resultAccessToken && resultRefreshToken) {
+            Result.success(Unit)
+        } else {
+            Result.failure(IllegalStateException())
+        }
     }
 }

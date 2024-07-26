@@ -27,4 +27,7 @@ interface AuthApi {
 
     @GET("profile")
     fun getProfile(): Call<ProfileEntity>
+
+    @POST
+    fun refreshToken(@Body request: UserTokenEntity): Call<UserTokenEntity>
 }

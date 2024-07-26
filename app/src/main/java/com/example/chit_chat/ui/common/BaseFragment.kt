@@ -23,8 +23,8 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUi()
         observeData()
+        initUi()
     }
 
     protected abstract fun initUi()
