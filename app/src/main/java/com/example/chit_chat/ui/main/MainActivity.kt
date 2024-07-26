@@ -23,18 +23,14 @@ class MainActivity : AppCompatActivity() {
         observeNavData()
     }
 
-    @MainThread
-    @CallSuper
-    fun logout() {
+    private fun logout() {
         this.findNavController(R.id.nav_host).setGraph(R.navigation.nav_graph)
     }
 
     private fun observeNavData() {
         this.lifecycleScope.launch {
-            launch {
-                logoutHandler.event.collect {
-                    logout()
-                }
+            logoutHandler.event.collect {
+                logout()
             }
         }
     }

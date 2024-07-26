@@ -1,13 +1,13 @@
 package com.example.chit_chat.ui.common
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import javax.inject.Inject
 
 interface LogoutHandler {
     suspend fun logout()
-    val event: SharedFlow<Unit>
+    val event: Flow<Unit>
 }
 
 class LogoutHandlerImpl @Inject constructor() : LogoutHandler {

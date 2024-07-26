@@ -25,7 +25,7 @@ class TokenInterceptor(
         val originalResponse = chain.proceed(requestWithToken)
 
 
-        if (originalResponse.code >= 400) {
+        if (originalResponse.code == 401) {
             originalResponse.close()
             val tokenEntity = UserTokenEntity(
                 accessToken = accessToken,
@@ -51,6 +51,7 @@ class TokenInterceptor(
                     sharedPrefs.setRefreshToken(newTokens.refreshToken)
                 } else {
                     clearPrefsAndLogout()
+                    return originalResponse
                 }
             }
 
@@ -58,7 +59,7 @@ class TokenInterceptor(
             val retryRequest = createOriginalRequest(request, accessToken)
             val retryResponse = chain.proceed(retryRequest)
 
-            if (retryResponse.code >= 400) {
+            if (retryResponse.code == 401) {
                 clearPrefsAndLogout()
                 return originalResponse
             }
