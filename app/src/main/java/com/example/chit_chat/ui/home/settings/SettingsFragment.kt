@@ -46,7 +46,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
         with(viewBinding) {
             avatarImageView.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putString("imageUrl", viewModel.getImage())
+                bundle.putString(URL_KEY, viewModel.getImage())
 
                 this@SettingsFragment.findNavController()
                     .navigate(R.id.action_settingsFragment_to_showImageFragment, bundle)
@@ -144,7 +144,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
             }
 
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.event.collect{
+                viewModel.event.collect {
                     val snackBar = Snackbar.make(
                         requireContext(),
                         viewBinding.root,
@@ -155,5 +155,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
                 }
             }
         }
+    }
+
+    companion object {
+        private const val URL_KEY = "imageUrl"
     }
 }

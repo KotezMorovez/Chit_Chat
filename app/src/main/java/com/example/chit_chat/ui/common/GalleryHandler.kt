@@ -18,9 +18,9 @@ class GalleryHandler(
     fragment: Fragment,
     private val lambda: ((uri: Uri) -> Unit)
 ) {
-    private var galleryResultLauncher: ActivityResultLauncher<Intent>? = null
-    private var pickerLauncher: ActivityResultLauncher<PickVisualMediaRequest>? = null
-    private var permissionLauncher: ActivityResultLauncher<String>? = null
+    private val galleryResultLauncher: ActivityResultLauncher<Intent>
+    private val pickerLauncher: ActivityResultLauncher<PickVisualMediaRequest>
+    private val permissionLauncher: ActivityResultLauncher<String>
     private var isStoragePermissionGranted: Boolean = false
     private val permission = Manifest.permission.READ_EXTERNAL_STORAGE
 
@@ -31,28 +31,25 @@ class GalleryHandler(
         isStoragePermissionGranted = isStoragePermissionGranted(fragment)
     }
 
-    fun selectImage(
-    ) {
-
+    fun selectImage() {
         if (Build.VERSION.SDK_INT < 33) {
             if (isStoragePermissionGranted) {
                 val intent = Intent().apply {
                     type = "image/*"
                     action = Intent.ACTION_GET_CONTENT
                 }
-                galleryResultLauncher?.launch(intent)
+                galleryResultLauncher.launch(intent)
             } else {
-                permissionLauncher?.launch(permission)
+                permissionLauncher.launch(permission)
             }
         } else {
-            pickerLauncher?.launch(
+            pickerLauncher.launch(
                 PickVisualMediaRequest.Builder()
                     .setMediaType(ImageOnly)
                     .build()
             )
         }
     }
-
 
     private fun initGalleryLauncher(fragment: Fragment): ActivityResultLauncher<Intent> {
         return fragment.registerForActivityResult(

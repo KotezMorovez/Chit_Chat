@@ -11,10 +11,8 @@ import com.example.chit_chat.data.service.profile.FirebaseService
 import com.example.chit_chat.data.service.profile.ProfileStorage
 import com.example.chit_chat.data.service.auth.ApiService
 import com.example.chit_chat.data.service.profile.CloudStorageService
-import com.example.chit_chat.domain.mapper.toDomain
 import com.example.chit_chat.domain.model.Profile
 import com.example.chit_chat.domain.repository.ProfileRepository
-import com.example.chit_chat.ui.model.ProfileUI
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.lang.IllegalStateException
@@ -29,7 +27,7 @@ class ProfileRepositoryImpl @Inject constructor(
     override suspend fun createProfile(firstName: String, lastName: String): Result<Unit> {
         val profile = getProfileFromAuthApi().getOrNull()
         if (profile != null) {
-            val firebaseResult = firebaseService.register(profile)
+            val firebaseResult = firebaseService.saveProfile(profile)
 
             if (firebaseResult.isFailure) {
                 val error = firebaseResult.exceptionOrNull()
@@ -75,16 +73,16 @@ class ProfileRepositoryImpl @Inject constructor(
         return profileStorage.getProfileSubscription().map { it.toDomain() }
     }
 
-    override fun getProfileFromStorage(): Profile {
-        return profileStorage.getProfile()!!
+    override fun getProfileFromStorage(): Profile? {
+        return profileStorage.getProfile()?.toDomain()
     }
 
     override fun getImageFromStorage(): String {
         return profileStorage.getProfile()?.avatar ?: ""
     }
 
-    override suspend fun setProfileToStorage(profileUI: ProfileUI) {
-        return profileStorage.setProfile(profileUI.toDomain().toEntity())
+    override suspend fun setProfileToStorage(profile: Profile) {
+        return profileStorage.setProfile(profile.toEntity())
     }
 
     override suspend fun saveImage(image: Bitmap, id: String): Result<String> {
@@ -93,7 +91,7 @@ class ProfileRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateProfileData(profile: Profile): Result<Unit> {
-        return firebaseService.updateUserData(profile.toEntity())
+        return firebaseService.saveProfile(profile.toEntity())
     }
 
     private suspend fun getProfileFromAuthApi(): Result<ProfileEntity?> {

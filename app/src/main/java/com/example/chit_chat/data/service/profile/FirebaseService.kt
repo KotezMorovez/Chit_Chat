@@ -11,8 +11,7 @@ import kotlin.coroutines.suspendCoroutine
 
 interface FirebaseService {
     suspend fun getProfileById(id: String): Result<ProfileEntity>
-    suspend fun register(user: ProfileEntity): Result<Unit>
-    suspend fun updateUserData(personalInfo: ProfileEntity): Result<Unit>
+    suspend fun saveProfile(user: ProfileEntity): Result<Unit>
 }
 
 class FirebaseServiceImpl @Inject constructor() : FirebaseService {
@@ -37,25 +36,11 @@ class FirebaseServiceImpl @Inject constructor() : FirebaseService {
         }
     }
 
-    override suspend fun register(user: ProfileEntity): Result<Unit> {
+    override suspend fun saveProfile(user: ProfileEntity): Result<Unit> {
         return suspendCoroutine { continuation ->
             collection
                 .document(user.id)
                 .set(user.toDocument())
-                .addOnSuccessListener {
-                    continuation.resumeWith(Result.success(Result.success(Unit)))
-                }
-                .addOnFailureListener {
-                    continuation.resumeWith(Result.success(Result.failure(it)))
-                }
-        }
-    }
-
-    override suspend fun updateUserData(personalInfo: ProfileEntity): Result<Unit> {
-        return suspendCoroutine { continuation ->
-            collection
-                .document(personalInfo.id)
-                .set(personalInfo.toDocument())
                 .addOnSuccessListener {
                     continuation.resumeWith(Result.success(Result.success(Unit)))
                 }

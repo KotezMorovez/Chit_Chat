@@ -45,7 +45,7 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             val bitmap = BitmapUtils.getBitmapFromUri(uri, contentResolver)
             val storageUriResult =
-                profileRepository.saveImage(bitmap, profileRepository.getProfileFromStorage().id)
+                profileRepository.saveImage(bitmap, profileRepository.getProfileFromStorage()!!.id)
 
             if (storageUriResult.isFailure) {
                 val exception = storageUriResult.exceptionOrNull()
@@ -60,27 +60,29 @@ class SettingsViewModel @Inject constructor(
     }
 
     private suspend fun saveImage(imageURL: String) {
-        currentProfile = ProfileUI(
-            id = currentProfile!!.id,
-            email = currentProfile!!.email,
-            avatar = imageURL,
-            firstName = currentProfile!!.firstName,
-            lastName = currentProfile!!.lastName,
-        )
+        val profileUI = currentProfile
+        if (profileUI != null) {
+            currentProfile = ProfileUI(
+                id = profileUI.id,
+                email = profileUI.email,
+                avatar = imageURL,
+                firstName = profileUI.firstName,
+                lastName = profileUI.lastName,
+            )
 
-        viewModelScope.launch {
-            profileRepository.setProfileToStorage(currentProfile!!)
-            _profile.emit(currentProfile!!)
-        }
-
-        val result = profileRepository.updateProfileData(currentProfile!!.toDomain())
-        if (result.isFailure) {
-            val exception = result.exceptionOrNull()
-            if (exception != null) {
-                Log.e(R.string.app_name.toString(), exception.stackTraceToString())
-                _event.emit(R.string.settings_image_error)
+            viewModelScope.launch {
+                profileRepository.setProfileToStorage(currentProfile!!.toDomain())
             }
+
+            val result = profileRepository.updateProfileData(currentProfile!!.toDomain())
+            if (result.isFailure) {
+                val exception = result.exceptionOrNull()
+                if (exception != null) {
+                    Log.e(R.string.app_name.toString(), exception.stackTraceToString())
+                    _event.emit(R.string.settings_image_error)
+                }
+            }
+            profileRepository.updateProfileStorage()
         }
-        profileRepository.updateProfileStorage()
     }
 }
