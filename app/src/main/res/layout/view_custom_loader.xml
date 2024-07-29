@@ -5,38 +5,38 @@
     android:animateLayoutChanges="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/progress_horizontal"
+        android:id="@+id/progressHorizontalLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/progress_dot1"
+            android:id="@+id/progressDot1ImageView"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:alpha="1"
             android:src="@drawable/ic_dot"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/progress_dot2"
+            app:layout_constraintEnd_toStartOf="@+id/progressDot2ImageView"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/progress_dot2"
+            android:id="@+id/progressDot2ImageView"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:alpha="1"
             android:layout_marginHorizontal="4dp"
             android:src="@drawable/ic_dot"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/progress_dot3"
+            app:layout_constraintEnd_toStartOf="@+id/progressDot3ImageView"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/progress_dot1"
+            app:layout_constraintStart_toEndOf="@+id/progressDot1ImageView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/progress_dot3"
+            android:id="@+id/progressDot3ImageView"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:alpha="1"
@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/progress_dot2"
+            app:layout_constraintStart_toEndOf="@+id/progressDot2ImageView"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

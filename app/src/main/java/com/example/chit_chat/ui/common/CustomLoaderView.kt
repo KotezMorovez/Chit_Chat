@@ -47,9 +47,9 @@ class CustomLoaderView @JvmOverloads constructor(
                 resources.getColor(R.color.product_black, null)
             )
 
-            setAttrs(progressDot1, size, margin, color)
-            setAttrs(progressDot2, size, margin, color)
-            setAttrs(progressDot3, size, margin, color)
+            setAttrs(progressDot1ImageView, size, margin, color)
+            setAttrs(progressDot2ImageView, size, margin, color)
+            setAttrs(progressDot3ImageView, size, margin, color)
         }
     }
 
@@ -60,10 +60,12 @@ class CustomLoaderView @JvmOverloads constructor(
             height = size
             width = size
         }
-        LayoutParams(
-            LayoutParams.WRAP_CONTENT,
-            LayoutParams.WRAP_CONTENT
-        ).setMargins(margin, 0, margin, 0)
+
+        val params = view.layoutParams as LayoutParams
+
+        params.setMargins(margin, 0, margin, 0)
+
+        view.layoutParams = params
 
         view.requestLayout()
     }
@@ -71,9 +73,9 @@ class CustomLoaderView @JvmOverloads constructor(
     suspend fun startLoader() {
         with(viewBinding) {
             val dotsArray: ArrayList<ImageView> = arrayListOf()
-            dotsArray.add(progressDot1)
-            dotsArray.add(progressDot2)
-            dotsArray.add(progressDot3)
+            dotsArray.add(progressDot1ImageView)
+            dotsArray.add(progressDot2ImageView)
+            dotsArray.add(progressDot3ImageView)
             var dot = 0
             isLoaderRun = true
 
