@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.chit_chat.R
+import com.example.chit_chat.common.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentLoginBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
@@ -117,8 +118,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             loaderView.stopLoader()
 
             if (event is LoginViewModel.Event.Success) {
-                  this@LoginFragment.findNavController()
-                      .navigate(R.id.action_loginFragment_to_homeFragment)
+                this@LoginFragment.findNavController()
+                    .navigate(R.id.action_loginFragment_to_homeFragment)
             }
 
             if (event is LoginViewModel.Event.NetworkError) {
@@ -145,17 +146,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     override fun observeData() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            launch {
-                viewModel.event.collect {
-                    applyEvent(it)
-                }
-            }
-            launch {
-                viewModel.state.collect {
-                    applyState(it)
-                }
-            }
+        viewModel.event.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            applyEvent(it)
+        }
+
+        viewModel.state.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            applyState(it)
         }
     }
 

@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.chit_chat.R
+import com.example.chit_chat.common.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentSignupBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
@@ -158,17 +159,16 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
 
 
     override fun observeData() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            launch {
-                viewModel.event.collect {
-                    applyEvent(it)
-                }
-            }
-            launch {
-                viewModel.state.collect {
-                    applyState(it)
-                }
-            }
+        viewModel.event.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            applyEvent(it)
+        }
+
+        viewModel.state.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            applyState(it)
         }
     }
 

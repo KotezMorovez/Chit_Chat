@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chit_chat.R
+import com.example.chit_chat.common.collectWithLifecycle
 import com.example.chit_chat.data.service.chat_list.ChatListMock
 import com.example.chit_chat.databinding.FragmentChatListBinding
 import com.example.chit_chat.di.AppComponentHolder
@@ -160,15 +161,11 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
     }
 
     override fun observeData() {
-        with(viewBinding) {
-            viewLifecycleOwner.lifecycleScope.launch {
-                launch {
-                    viewModel.profile.collect {
-                        val title = "${it.firstName} ${it.lastName}"
-                        setToolbarTitle(title)
-                    }
-                }
-            }
+        viewModel.profile.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            val title = "${it.firstName} ${it.lastName}"
+            setToolbarTitle(title)
         }
     }
 
