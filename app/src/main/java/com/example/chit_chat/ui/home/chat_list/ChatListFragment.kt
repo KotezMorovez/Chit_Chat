@@ -1,8 +1,6 @@
 package com.example.chit_chat.ui.home.chat_list
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +20,7 @@ import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.home.chat_list.adapter.ChatListAdapter
 import com.example.chit_chat.ui.common.BaseFragment
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -70,11 +69,17 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
     }
 
     override fun initUi() {
-        viewModel.getProfile()
         setStatusBar()
         val imm = requireContext().getSystemService(InputMethodManager::class.java)
 
         with(viewBinding) {
+            loaderView.isVisible = true
+            defaultToolbar.isGone = true
+            viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                loaderView.startLoader()
+            }
+            viewModel.getProfile()
+
             searchEditText.setOnEditorActionListener { _, actionId, _ ->
                 return@setOnEditorActionListener if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
@@ -144,14 +149,23 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         WindowCompat.setDecorFitsSystemWindows(window, true)
     }
 
+    private fun setToolbarTitle(title: String) {
+        with(viewBinding) {
+            loaderView.isGone = true
+            loaderView.stopLoader()
+            defaultToolbar.isVisible = true
+
+            toolbarTitle.text = title
+        }
+    }
+
     override fun observeData() {
         with(viewBinding) {
             viewLifecycleOwner.lifecycleScope.launch {
                 launch {
                     viewModel.profile.collect {
                         val title = "${it.firstName} ${it.lastName}"
-                        toolbarTitle.text = title
-
+                        setToolbarTitle(title)
                     }
                 }
             }

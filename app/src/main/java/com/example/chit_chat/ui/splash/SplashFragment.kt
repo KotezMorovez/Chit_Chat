@@ -9,6 +9,7 @@ import com.example.chit_chat.databinding.FragmentSplashBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,14 +31,19 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     override fun initUi() {
         viewModel.checkTokenExist()
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            viewBinding.loaderView.startLoader()
+        }
     }
 
     private fun applyEvent(event: SplashViewModel.Event) {
+        viewBinding.loaderView.stopLoader()
         when (event) {
             SplashViewModel.Event.SUCCESS -> {
                 this@SplashFragment.findNavController()
                     .navigate(R.id.action_splashFragment_to_homeFragment)
             }
+
             SplashViewModel.Event.FAILURE -> {
                 this@SplashFragment.findNavController()
                     .navigate(R.id.action_splashFragment_to_loginFragment)
@@ -47,10 +53,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     override fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
-            launch {
-                viewModel.event.collect {
-                    applyEvent(it)
-                }
+            viewModel.event.collect {
+                applyEvent(it)
+
             }
         }
     }
