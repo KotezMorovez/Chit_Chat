@@ -18,6 +18,7 @@ import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -93,6 +94,12 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
 
             signUpButton.setOnClickListener {
                 signUpButton.isEnabled = false
+                signUpButtonTextView.isGone = true
+                loaderView.isVisible = true
+
+                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                    viewBinding.loaderView.startLoader()
+                }
 
                 viewModel.signUp(
                     signUpFirstNameEditText.text.toString().trim(),
@@ -116,6 +123,9 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
             signUpEmailHintTextView.isGone = true
             signUpPasswordHintTextView.isGone = true
             signUpButton.isEnabled = true
+            signUpButtonTextView.isVisible = true
+            loaderView.isGone = true
+            loaderView.stopLoader()
 
             if (state is SignUpViewModel.Event.Success) {
                   this@SignUpFragment.findNavController()
@@ -136,6 +146,9 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
 
     private fun applyState(event: SignUpViewModel.State) {
         with(viewBinding) {
+            loaderView.isGone = true
+            loaderView.stopLoader()
+            signUpButtonTextView.isVisible = true
             signUpFirstNameHintTextView.isVisible = event.isValidFirstName
             signUpLastNameHintTextView.isVisible = event.isValidLastName
             signUpEmailHintTextView.isVisible = event.isValidEmail
