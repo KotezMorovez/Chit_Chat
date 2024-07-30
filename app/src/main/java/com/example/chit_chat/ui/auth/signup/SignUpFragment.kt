@@ -119,14 +119,15 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
 
     private fun applyEvent(state: SignUpViewModel.Event) {
         with(viewBinding) {
+            loaderView.isGone = true
+            loaderView.stopLoader()
             signUpFirstNameHintTextView.isGone = true
             signUpLastNameHintTextView.isGone = true
             signUpEmailHintTextView.isGone = true
             signUpPasswordHintTextView.isGone = true
             signUpButton.isEnabled = true
             signUpButtonTextView.isVisible = true
-            loaderView.isGone = true
-            loaderView.stopLoader()
+
 
             if (state is SignUpViewModel.Event.Success) {
                   this@SignUpFragment.findNavController()
@@ -154,6 +155,7 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
             signUpLastNameHintTextView.isVisible = event.isValidLastName
             signUpEmailHintTextView.isVisible = event.isValidEmail
             signUpPasswordHintTextView.isVisible = event.isValidPassword
+            signUpButton.isEnabled = true
         }
     }
 

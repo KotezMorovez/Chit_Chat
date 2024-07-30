@@ -37,24 +37,26 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         }
     }
 
-    private fun applyEvent(event: SplashViewModel.Event) {
-        viewBinding.loaderView.stopLoader()
-        when (event) {
-            SplashViewModel.Event.SUCCESS -> {
-                this@SplashFragment.findNavController()
-                    .navigate(R.id.action_splashFragment_to_homeFragment)
-            }
+    private fun applyEvent(event: SplashViewModel.Event?) {
+        if (event != null) {
+            viewBinding.loaderView.stopLoader()
+            when (event) {
+                SplashViewModel.Event.SUCCESS -> {
+                    this@SplashFragment.findNavController()
+                        .navigate(R.id.action_splashFragment_to_homeFragment)
+                }
 
-            SplashViewModel.Event.FAILURE -> {
-                this@SplashFragment.findNavController()
-                    .navigate(R.id.action_splashFragment_to_loginFragment)
+                SplashViewModel.Event.FAILURE -> {
+                    this@SplashFragment.findNavController()
+                        .navigate(R.id.action_splashFragment_to_loginFragment)
+                }
             }
         }
     }
 
     override fun observeData() {
         viewModel.event.collectWithLifecycle(
-            viewLifecycleOwner
+            viewLifecycleOwner,
         ) {
             applyEvent(it)
         }
