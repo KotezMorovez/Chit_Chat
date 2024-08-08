@@ -8,8 +8,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        android:layout_marginHorizontal="24dp">
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="128dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -134,14 +134,38 @@
                 android:visibility="gone"
                 tools:visibility="visible" />
 
-            <Button
-                android:id="@+id/signUpButton"
-                style="@style/MainButton"
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:text="@string/sign_up_button" />
+                android:layout_marginTop="16dp">
+
+                <Button
+                    android:id="@+id/signUpButton"
+                    style="@style/MainButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/signUpButtonTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/sign_up_button"
+                    android:textColor="@color/white"
+                    android:visibility="visible" />
+
+                <com.example.chit_chat.ui.common.CustomLoaderView
+                    android:id="@+id/loaderView"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:visibility="gone"
+                    app:dots_color="@color/white"
+                    app:dots_margin="@dimen/margin_1x"
+                    app:dots_size="@dimen/loader_size_2x" />
+            </FrameLayout>
 
 
             <TextView
@@ -159,9 +183,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
                 android:text="@string/sign_up_login_link"
-                android:textColor="@color/product_violet"
-                android:layout_marginBottom="16dp"/>
+                android:textColor="@color/product_violet" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

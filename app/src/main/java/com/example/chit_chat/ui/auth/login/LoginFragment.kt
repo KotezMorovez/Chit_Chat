@@ -13,11 +13,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.chit_chat.R
+import com.example.chit_chat.common.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentLoginBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -46,8 +48,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
         with(viewBinding) {
-            loginEmailEditText.setText(savedInstanceState?.getString(EMAIL, null))
-            loginPasswordEditText.setText(savedInstanceState?.getString(PASSWORD, null))
+            if (savedInstanceState == null) {
+                loginEmailEditText.setText("test@test.rr")
+                loginPasswordEditText.setText("123123Test!")
+            } else {
+                loginEmailEditText.setText(savedInstanceState?.getString(EMAIL, null))
+                loginPasswordEditText.setText(savedInstanceState?.getString(PASSWORD, null))
+            }
         }
 
         return view
@@ -76,6 +83,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
             loginButton.setOnClickListener {
                 loginButton.isEnabled = false
+                loginButtonTextView.isGone = true
+                loaderView.isVisible = true
+
+                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                    viewBinding.loaderView.startLoader()
+                }
 
                 viewModel.login(
                     loginEmailEditText.text.toString().trim(),
@@ -100,10 +113,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             loginEmailHintTextView.isGone = true
             loginPasswordHintTextView.isGone = true
             loginButton.isEnabled = true
+            loginButtonTextView.isVisible = true
+            loaderView.isGone = true
+            loaderView.stopLoader()
 
             if (event is LoginViewModel.Event.Success) {
-                  this@LoginFragment.findNavController()
-                      .navigate(R.id.action_loginFragment_to_homeFragment)
+                this@LoginFragment.findNavController()
+                    .navigate(R.id.action_loginFragment_to_homeFragment)
             }
 
             if (event is LoginViewModel.Event.NetworkError) {
@@ -120,23 +136,26 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private fun applyState(state: LoginViewModel.State) {
         with(viewBinding) {
+            loginButtonTextView.isVisible = true
+            loaderView.isGone = true
+            loaderView.stopLoader()
+            loginButton.isEnabled = true
             loginEmailHintTextView.isVisible = state.isValidEmail
             loginPasswordHintTextView.isVisible = state.isValidPassword
         }
     }
 
     override fun observeData() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            launch {
-                viewModel.event.collect {
-                    applyEvent(it)
-                }
-            }
-            launch {
-                viewModel.state.collect {
-                    applyState(it)
-                }
-            }
+        viewModel.event.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            applyEvent(it)
+        }
+
+        viewModel.state.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            applyState(it)
         }
     }
 

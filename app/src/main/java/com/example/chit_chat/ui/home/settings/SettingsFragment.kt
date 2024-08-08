@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.chit_chat.R
+import com.example.chit_chat.common.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentSettingsBinding
 import com.example.chit_chat.databinding.ItemSettingsBinding
 import com.example.chit_chat.di.AppComponentHolder
@@ -131,29 +132,29 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     }
 
     override fun observeData() {
-        with(viewBinding) {
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.profile.collect {
-                    Glide.with(avatarImageView)
-                        .load(it.avatar)
-                        .placeholder(R.drawable.ic_round_avatar_placeholder)
-                        .fitCenter()
-                        .circleCrop()
-                        .into(avatarImageView)
-                }
+        viewModel.profile.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            with(viewBinding) {
+                Glide.with(avatarImageView)
+                    .load(it.avatar)
+                    .placeholder(R.drawable.ic_round_avatar_placeholder)
+                    .fitCenter()
+                    .circleCrop()
+                    .into(avatarImageView)
             }
+        }
 
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.event.collect {
-                    val snackBar = Snackbar.make(
-                        requireContext(),
-                        viewBinding.root,
-                        requireContext().getText(it),
-                        Snackbar.LENGTH_SHORT
-                    )
-                    snackBar.show()
-                }
-            }
+        viewModel.event.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            val snackBar = Snackbar.make(
+                requireContext(),
+                viewBinding.root,
+                requireContext().getText(it),
+                Snackbar.LENGTH_SHORT
+            )
+            snackBar.show()
         }
     }
 
