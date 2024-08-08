@@ -1,4 +1,4 @@
-package com.example.chit_chat.data.service
+package com.example.chit_chat.data.service.profile
 
 import com.example.chit_chat.data.mapper.toDocument
 import com.example.chit_chat.data.mapper.toEntity
@@ -11,7 +11,7 @@ import kotlin.coroutines.suspendCoroutine
 
 interface FirebaseService {
     suspend fun getProfileById(id: String): Result<ProfileEntity>
-    suspend fun register(user: ProfileEntity): Result<Unit>
+    suspend fun saveProfile(user: ProfileEntity): Result<Unit>
 }
 
 class FirebaseServiceImpl @Inject constructor() : FirebaseService {
@@ -36,7 +36,7 @@ class FirebaseServiceImpl @Inject constructor() : FirebaseService {
         }
     }
 
-    override suspend fun register(user: ProfileEntity): Result<Unit> {
+    override suspend fun saveProfile(user: ProfileEntity): Result<Unit> {
         return suspendCoroutine { continuation ->
             collection
                 .document(user.id)

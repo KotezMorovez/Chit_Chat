@@ -2,7 +2,7 @@ package com.example.chit_chat.data.service.auth
 
 import com.example.chit_chat.common.JSONConverter
 import com.example.chit_chat.data.model.UserTokenEntity
-import com.example.chit_chat.data.service.SharedPrefsService
+import com.example.chit_chat.data.service.profile.SharedPrefsService
 import com.example.chit_chat.ui.common.LogoutHandler
 import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking

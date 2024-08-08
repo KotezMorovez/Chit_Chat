@@ -1,6 +1,6 @@
 package com.example.chit_chat.data.repository
 
-import com.example.chit_chat.data.service.SharedPrefsService
+import com.example.chit_chat.data.service.profile.SharedPrefsService
 import com.example.chit_chat.data.model.LoginRequestEntity
 import com.example.chit_chat.data.model.SignUpRequestEntity
 import com.example.chit_chat.data.service.auth.ApiService

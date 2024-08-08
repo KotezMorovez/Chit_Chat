@@ -7,6 +7,8 @@ import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.chit_chat.R
 import com.example.chit_chat.common.collectWithLifecycle
@@ -15,6 +17,9 @@ import com.example.chit_chat.databinding.ItemSettingsBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
+import com.example.chit_chat.ui.common.GalleryHandler
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
@@ -23,8 +28,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     private val viewModel: SettingsViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[SettingsViewModel::class.java]
     }
+    private lateinit var galleryHandler: GalleryHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        galleryHandler = GalleryHandler(this) {
+            viewModel.uploadImage(it, requireContext().contentResolver)
+        }
         AppComponentHolder.get().inject(this)
         super.onCreate(savedInstanceState)
     }
@@ -37,16 +46,15 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
         viewModel.getProfile()
         with(viewBinding) {
             avatarImageView.setOnClickListener {
-//                val bundle = Bundle()
-//                bundle.putString("imageUrl", ____) // TODO: Add image url to bundle
+                val bundle = Bundle()
+                bundle.putString(URL_KEY, viewModel.getImage())
 
-//                this@SettingsFragment.findNavController()
-//                    .navigate(R.id.action_settingsFragment_to_showImageFragment, bundle)
+                this@SettingsFragment.findNavController()
+                    .navigate(R.id.action_settingsFragment_to_showImageFragment, bundle)
             }
 
             newAvatarButton.setOnClickListener {
-
-//                viewModel.updateAvatar(avatarUrl)
+                galleryHandler.selectImage()
             }
 
             setUpSettingsItem(
@@ -136,5 +144,21 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
                     .into(avatarImageView)
             }
         }
+
+        viewModel.event.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            val snackBar = Snackbar.make(
+                requireContext(),
+                viewBinding.root,
+                requireContext().getText(it),
+                Snackbar.LENGTH_SHORT
+            )
+            snackBar.show()
+        }
+    }
+
+    companion object {
+        private const val URL_KEY = "imageUrl"
     }
 }

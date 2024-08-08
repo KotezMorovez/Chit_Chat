@@ -1,12 +1,16 @@
 package com.example.chit_chat.data.repository
 
+import android.graphics.Bitmap
 import android.util.Log
 import com.example.chit_chat.R
+import com.example.chit_chat.common.BitmapUtils
 import com.example.chit_chat.data.mapper.toDomain
+import com.example.chit_chat.data.mapper.toEntity
 import com.example.chit_chat.data.model.ProfileEntity
-import com.example.chit_chat.data.service.FirebaseService
-import com.example.chit_chat.data.service.ProfileStorage
+import com.example.chit_chat.data.service.profile.FirebaseService
+import com.example.chit_chat.data.service.profile.ProfileStorage
 import com.example.chit_chat.data.service.auth.ApiService
+import com.example.chit_chat.data.service.profile.CloudStorageService
 import com.example.chit_chat.domain.model.Profile
 import com.example.chit_chat.domain.repository.ProfileRepository
 import kotlinx.coroutines.flow.Flow
@@ -17,12 +21,13 @@ import javax.inject.Inject
 class ProfileRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val firebaseService: FirebaseService,
-    private val profileStorage: ProfileStorage
+    private val profileStorage: ProfileStorage,
+    private val cloudStorageService: CloudStorageService
 ) : ProfileRepository {
     override suspend fun createProfile(firstName: String, lastName: String): Result<Unit> {
         val profile = getProfileFromAuthApi().getOrNull()
         if (profile != null) {
-            val firebaseResult = firebaseService.register(profile)
+            val firebaseResult = firebaseService.saveProfile(profile)
 
             if (firebaseResult.isFailure) {
                 val error = firebaseResult.exceptionOrNull()
@@ -66,6 +71,27 @@ class ProfileRepositoryImpl @Inject constructor(
 
     override suspend fun getProfileSubscription(): Flow<Profile> {
         return profileStorage.getProfileSubscription().map { it.toDomain() }
+    }
+
+    override fun getProfileFromStorage(): Profile? {
+        return profileStorage.getProfile()?.toDomain()
+    }
+
+    override fun getImageFromStorage(): String {
+        return profileStorage.getProfile()?.avatar ?: ""
+    }
+
+    override suspend fun setProfileToStorage(profile: Profile) {
+        return profileStorage.setProfile(profile.toEntity())
+    }
+
+    override suspend fun saveImage(image: Bitmap, id: String): Result<String> {
+        val byteArray = BitmapUtils.convertBitmapToByteArray(image)
+        return cloudStorageService.uploadImage(byteArray, id)
+    }
+
+    override suspend fun updateProfileData(profile: Profile): Result<Unit> {
+        return firebaseService.saveProfile(profile.toEntity())
     }
 
     private suspend fun getProfileFromAuthApi(): Result<ProfileEntity?> {

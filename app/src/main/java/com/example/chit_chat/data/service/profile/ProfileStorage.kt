@@ -1,4 +1,4 @@
-package com.example.chit_chat.data.service
+package com.example.chit_chat.data.service.profile
 
 import com.example.chit_chat.data.model.ProfileEntity
 import kotlinx.coroutines.flow.Flow

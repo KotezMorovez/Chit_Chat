@@ -14,5 +14,20 @@
 <!--            app:destination="@id/accountSettingsFragment"-->
 <!--            app:enterAnim="@anim/activity_open_enter"-->
 <!--            app:exitAnim="@anim/activity_close_exit"/>-->
+        <action
+            android:id="@+id/action_settingsFragment_to_showImageFragment"
+            app:destination="@id/showImageFragment"
+            app:enterAnim="@anim/activity_open_enter"
+            app:exitAnim="@anim/activity_close_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/showImageFragment"
+        android:name="com.example.chit_chat.ui.home.showImage.ShowImageFragment"
+        tools:layout="@layout/fragment_show_image">
+        <argument
+            android:name="imageUrl"
+            app:argType="string"
+            android:defaultValue='""' />
     </fragment>
 </navigation>

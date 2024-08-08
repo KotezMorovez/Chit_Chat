@@ -56,10 +56,13 @@ dependencies {
 
 // Firebase
     implementation(platform(libs.firebase.bom))
+    implementation(libs.storage)
     implementation(libs.firestore)
 
 // UI Tools
     implementation(libs.glide)
+    implementation(libs.gesture.views)
+    implementation(libs.androidx.swiperefreshlayout)
 
 // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
