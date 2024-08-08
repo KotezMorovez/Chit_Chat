@@ -25,7 +25,10 @@
     <string name="sign_up_login">Уже есть аккаунт?</string>
     <string name="sign_up_login_link">Войти</string>
     <string name="sign_up_format_error_hint">Поле не может быть пустым</string>
+
     <string name="chat_list_title">Чаты</string>
+    <string name="chat_list_chats_load_error">Ошибка загрузки списка чатов</string>
+    <string name="chat_list_delete_chat_error">Не удалось удалить чат</string>
 
     <string name="settings_title">Настройки</string>
     <string name="settings_account">Настройки аккаунта</string>
@@ -38,6 +41,12 @@
     <string name="navbar_new_chat">Чаты</string>
     <string name="navbar_settings">Настройки</string>
 
+    <string name="date_minutes_ago">%1$d мин. назад</string>
+    <string name="date_hours_ago">%1$d час. назад</string>
+    <string name="date_today_at">сегодня в %1$s</string>
+    <string name="date_yesterday_at">вчера в %1$s</string>
+    <string name="date_less_year_ago">%1$s в %2$s</string>
+    <string name="date_years_ago">%1$sг.</string>
 
     <string name="settings_upload_image_error">Ошибка загрузки изображения</string>
     <string name="settings_image_error">Не удалось сохранить изображение</string>

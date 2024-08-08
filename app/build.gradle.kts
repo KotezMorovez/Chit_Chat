@@ -80,6 +80,9 @@ dependencies {
     kapt(libs.dagger.compiler)
     kapt(libs.kotlinx.metadata.jvm)
 
+// Date Time
+    implementation(libs.android.joda)
+
 // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

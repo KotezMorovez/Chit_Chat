@@ -3,6 +3,7 @@ package com.example.chit_chat.di
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.content.res.Resources
 import com.example.chit_chat.common.PREFERENCES
 import com.example.chit_chat.data.service.profile.SharedPrefsService
 import com.example.chit_chat.data.service.profile.SharedPrefsServiceImpl
@@ -80,6 +81,12 @@ class ProviderModule {
     @Singleton
     fun provideSharedPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFERENCES, MODE_PRIVATE)
+    }
+
+    @Provides
+    @Reusable
+    fun provideResources(context: Context): Resources {
+        return context.resources
     }
 }
 

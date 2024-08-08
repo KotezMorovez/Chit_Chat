@@ -11,6 +11,7 @@ import com.example.chit_chat.data.service.profile.FirebaseService
 import com.example.chit_chat.data.service.profile.ProfileStorage
 import com.example.chit_chat.data.service.auth.ApiService
 import com.example.chit_chat.data.service.profile.CloudStorageService
+import com.example.chit_chat.domain.model.Chat
 import com.example.chit_chat.domain.model.Profile
 import com.example.chit_chat.domain.repository.ProfileRepository
 import kotlinx.coroutines.flow.Flow
@@ -106,5 +107,15 @@ class ProfileRepositoryImpl @Inject constructor(
         }
 
         return Result.success(profileResult.getOrNull())
+    }
+
+    override suspend fun getChatListSubscription(id: String): Flow<List<Chat>> {
+        return firebaseService.observeChatList(id).map { list ->
+            list.map { it.toDomain() }
+        }
+    }
+
+    override suspend fun deleteChat(userId: String, chatId: String): Result<Unit> {
+        return firebaseService.deleteChat(userId, chatId)
     }
 }

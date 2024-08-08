@@ -1,94 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/chatToolbar"
+    <include
+        android:id="@+id/chatListToolbar"
+        layout="@layout/ic_custom_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:id="@+id/defaultToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="24dp"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/toolbarTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/product_black"
-                android:textSize="22sp" />
-
-            <ImageView
-                android:id="@+id/toolbarSearchIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_search" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/searchToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="24dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <EditText
-                android:id="@+id/searchEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingHorizontal="8dp"
-                android:background="@color/white"
-                android:imeOptions="actionSearch"
-                android:inputType="textVisiblePassword"
-                android:textColor="@color/product_black"
-                android:textColorHint="@color/product_text_dark_gray"
-                android:textSize="22sp" />
-
-            <ImageView
-                android:id="@+id/toolbarCloseIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="8dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_close" />
-        </LinearLayout>
-
-        <com.example.chit_chat.ui.common.CustomLoaderView
-            android:id="@+id/loaderView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_gravity="center_vertical|start"
-            app:dots_size="@dimen/loader_size_3x"
-            app:dots_color="@color/product_black"
-            app:dots_margin="@dimen/margin_2x"
-            android:visibility="visible"/>
-    </FrameLayout>
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginVertical="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chatToolbar" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="24dp" />
+</LinearLayout>

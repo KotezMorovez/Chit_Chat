@@ -15,12 +15,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chit_chat.R
 import com.example.chit_chat.common.collectWithLifecycle
-import com.example.chit_chat.data.service.chat_list.ChatListMock
 import com.example.chit_chat.databinding.FragmentChatListBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.home.chat_list.adapter.ChatListAdapter
 import com.example.chit_chat.ui.common.BaseFragment
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,11 +28,12 @@ import javax.inject.Inject
 class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<ChatListViewModel>
-    private val chatListAdapter: ChatListAdapter
-    private var toolbarState: Boolean = true
+
     private val viewModel: ChatListViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[ChatListViewModel::class.java]
     }
+    private val chatListAdapter: ChatListAdapter
+    private var toolbarState: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppComponentHolder.get().inject(this)
@@ -40,9 +41,22 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
     }
 
     init {
-        chatListAdapter = ChatListAdapter(onItemClickListener = { item ->
+        chatListAdapter = ChatListAdapter(
+            onItemClickListener = { item ->
+//            val bundle = Bundle()
+//            bundle.putString(USER_ID, item.userId)
+//            this@ChatListFragment.findNavController().navigate(
+//                R.id.action_chatListFragment_to_chatFragment, bundle
+//            )
+            },
 
-        })
+            onItemSwipeListener = { item ->
+            },
+
+            onDeleteItemClickListener = {
+                viewModel.deleteChat(it.chatId)
+            }
+        )
     }
 
     override fun createViewBinding(): FragmentChatListBinding {
@@ -54,7 +68,12 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         toolbarState = savedInstanceState?.getBoolean(TOOLBAR_STATE, true) ?: true
-        viewBinding.searchEditText.setText(savedInstanceState?.getString(SEARCH, EMPTY_STRING))
+        viewBinding.chatListToolbar.searchEditText.setText(
+            savedInstanceState?.getString(
+                SEARCH,
+                EMPTY_STRING
+            )
+        )
         applyToolbarState(toolbarState)
         return view
     }
@@ -74,37 +93,43 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         val imm = requireContext().getSystemService(InputMethodManager::class.java)
 
         with(viewBinding) {
-            loaderView.isVisible = true
-            defaultToolbar.isGone = true
+            chatListToolbar.loaderView.isVisible = true
+            chatListToolbar.defaultToolbar.isGone = true
             viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-                loaderView.startLoader()
+                chatListToolbar.loaderView.startLoader()
             }
-            viewModel.getProfile()
+            viewModel.subscribeProfile()
 
-            searchEditText.setOnEditorActionListener { _, actionId, _ ->
+            chatListToolbar.searchEditText.setOnEditorActionListener { _, actionId, _ ->
                 return@setOnEditorActionListener if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
+                    imm.hideSoftInputFromWindow(chatListToolbar.searchEditText.windowToken, 0)
                     true
                 } else false
             }
 
-            toolbarSearchIcon.setOnClickListener {
+            chatListToolbar.toolbarSearchIcon.setOnClickListener {
                 toolbarState = !toolbarState
                 applyToolbarState(toolbarState)
-                searchEditText.requestFocus()
-                searchEditText
+                chatListToolbar.searchEditText.requestFocus()
+                chatListToolbar.searchEditText
 
-                imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT)
+                imm.showSoftInput(chatListToolbar.searchEditText, InputMethodManager.SHOW_IMPLICIT)
             }
 
-            toolbarCloseIcon.setOnClickListener {
+            chatListToolbar.toolbarCloseIcon.setOnClickListener {
                 toolbarState = !toolbarState
-                searchEditText.clearFocus()
-                imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
+                chatListToolbar.searchEditText.clearFocus()
+                imm.hideSoftInputFromWindow(chatListToolbar.searchEditText.windowToken, 0)
                 applyToolbarState(toolbarState)
             }
 
-            chatListAdapter.setItems(ChatListMock.getChatList())
+            chatListToolbar.createChatIcon.setOnClickListener {
+//                this@ChatListFragment.findNavController()
+//                    .navigate(
+//                        R.id.action_chatListFragment_to_createChatFragment
+//                    )
+            }
+
             chatsRecyclerView.adapter = chatListAdapter
             chatsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         }
@@ -112,8 +137,8 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
 
     private fun applyToolbarState(isDefaultToolbar: Boolean) {
         with(viewBinding) {
-            defaultToolbar.isGone = true
-            searchToolbar.isGone = true
+            chatListToolbar.defaultToolbar.isGone = true
+            chatListToolbar.searchToolbar.isGone = true
             if (isDefaultToolbar) {
                 hideSearchField()
             } else {
@@ -124,23 +149,26 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
 
     private fun showSearchField() {
         with(viewBinding) {
-            defaultToolbar.animate().alpha(0.0f).duration = 300L
-            searchToolbar.animate().alpha(1.0f).duration = 300L
-            searchToolbar.isVisible = true
+            chatListToolbar.defaultToolbar.animate().alpha(0.0f).duration = 300L
+            chatListToolbar.searchToolbar.animate().alpha(1.0f).duration = 300L
+            chatListToolbar.searchToolbar.isVisible = true
         }
     }
 
     private fun hideSearchField() {
         with(viewBinding) {
-            defaultToolbar.animate().alpha(1.0f).duration = 300L
-            searchToolbar.animate().alpha(0.0f).duration = 300L
-            defaultToolbar.isVisible = true
+            chatListToolbar.defaultToolbar.animate().alpha(1.0f).duration = 300L
+            chatListToolbar.searchToolbar.animate().alpha(0.0f).duration = 300L
+            chatListToolbar.defaultToolbar.isVisible = true
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean(TOOLBAR_STATE, toolbarState)
-        outState.putString(SEARCH, viewBinding.searchEditText.text.toString().trim())
+        outState.putString(
+            SEARCH,
+            viewBinding.chatListToolbar.searchEditText.text.toString().trim()
+        )
         super.onSaveInstanceState(outState)
     }
 
@@ -152,20 +180,40 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
 
     private fun setToolbarTitle(title: String) {
         with(viewBinding) {
-            loaderView.isGone = true
-            loaderView.stopLoader()
-            defaultToolbar.isVisible = true
-
-            toolbarTitle.text = title
+            chatListToolbar.loaderView.isGone = true
+            chatListToolbar.loaderView.stopLoader()
+            chatListToolbar.defaultToolbar.isVisible = true
+            chatListToolbar.toolbarTitle.text = title
         }
     }
 
     override fun observeData() {
-        viewModel.profile.collectWithLifecycle(
-            viewLifecycleOwner
-        ) {
-            val title = "${it.firstName} ${it.lastName}"
-            setToolbarTitle(title)
+        with(viewBinding) {
+            viewModel.profile.collectWithLifecycle(
+                viewLifecycleOwner
+            ) {
+                val title = "${it.firstName} ${it.lastName}"
+                setToolbarTitle(title)
+                viewModel.subscribeChatList()
+            }
+
+            viewModel.chatList.collectWithLifecycle(
+                viewLifecycleOwner
+            ) {
+                chatListAdapter.setItems(it)
+            }
+
+            viewModel.eventError.collectWithLifecycle(
+                viewLifecycleOwner
+            ) {
+                val snackBar = Snackbar.make(
+                    requireContext(),
+                    viewBinding.root,
+                    resources.getString(it),
+                    Snackbar.LENGTH_SHORT
+                )
+                snackBar.show()
+            }
         }
     }
 
