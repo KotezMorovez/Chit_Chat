@@ -56,9 +56,9 @@ class GalleryHandler(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val data = result.data
-                if (data != null && data.data != null) {
-                    lambda(data.data!!)
+                val data = result.data?.data
+                if (data != null) {
+                    lambda(data)
                 }
             }
         }

@@ -42,19 +42,26 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun uploadImage(uri: Uri, contentResolver: ContentResolver) {
-        viewModelScope.launch {
-            val bitmap = BitmapUtils.getBitmapFromUri(uri, contentResolver)
-            val storageUriResult =
-                profileRepository.saveImage(bitmap, profileRepository.getProfileFromStorage()!!.id)
+        val profileUI = currentProfile
+        if (profileUI != null) {
 
-            if (storageUriResult.isFailure) {
-                val exception = storageUriResult.exceptionOrNull()
-                if (exception != null) {
-                    Log.e(R.string.app_name.toString(), exception.stackTraceToString())
-                    _event.emit(R.string.settings_upload_image_error)
+            viewModelScope.launch {
+                val bitmap = BitmapUtils.getBitmapFromUri(uri, contentResolver)
+                val storageUriResult =
+                    profileRepository.saveImage(
+                        bitmap,
+                        profileUI.id
+                    )
+
+                if (storageUriResult.isFailure) {
+                    val exception = storageUriResult.exceptionOrNull()
+                    if (exception != null) {
+                        Log.e(R.string.app_name.toString(), exception.stackTraceToString())
+                        _event.emit(R.string.settings_upload_image_error)
+                    }
+                } else {
+                    saveImage(storageUriResult.getOrNull() ?: "")
                 }
-            } else {
-                saveImage(storageUriResult.getOrNull() ?: "")
             }
         }
     }
@@ -70,11 +77,7 @@ class SettingsViewModel @Inject constructor(
                 lastName = profileUI.lastName,
             )
 
-            viewModelScope.launch {
-                profileRepository.setProfileToStorage(currentProfile!!.toDomain())
-            }
-
-            val result = profileRepository.updateProfileData(currentProfile!!.toDomain())
+            val result = profileRepository.updateProfileData(profileUI.toDomain())
             if (result.isFailure) {
                 val exception = result.exceptionOrNull()
                 if (exception != null) {
@@ -82,6 +85,7 @@ class SettingsViewModel @Inject constructor(
                     _event.emit(R.string.settings_image_error)
                 }
             }
+
             profileRepository.updateProfileStorage()
         }
     }
