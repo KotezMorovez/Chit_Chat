@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.chit_chat.R
+import com.example.chit_chat.common.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentSplashBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
@@ -36,27 +37,28 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
         }
     }
 
-    private fun applyEvent(event: SplashViewModel.Event) {
-        viewBinding.loaderView.stopLoader()
-        when (event) {
-            SplashViewModel.Event.SUCCESS -> {
-                this@SplashFragment.findNavController()
-                    .navigate(R.id.action_splashFragment_to_homeFragment)
-            }
+    private fun applyEvent(event: SplashViewModel.Event?) {
+        if (event != null) {
+            viewBinding.loaderView.stopLoader()
+            when (event) {
+                SplashViewModel.Event.SUCCESS -> {
+                    this@SplashFragment.findNavController()
+                        .navigate(R.id.action_splashFragment_to_homeFragment)
+                }
 
-            SplashViewModel.Event.FAILURE -> {
-                this@SplashFragment.findNavController()
-                    .navigate(R.id.action_splashFragment_to_loginFragment)
+                SplashViewModel.Event.FAILURE -> {
+                    this@SplashFragment.findNavController()
+                        .navigate(R.id.action_splashFragment_to_loginFragment)
+                }
             }
         }
     }
 
     override fun observeData() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.event.collect {
-                applyEvent(it)
-
-            }
+        viewModel.event.collectWithLifecycle(
+            viewLifecycleOwner,
+        ) {
+            applyEvent(it)
         }
     }
 }

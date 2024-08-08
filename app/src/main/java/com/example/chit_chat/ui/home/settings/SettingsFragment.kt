@@ -7,16 +7,14 @@ import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.chit_chat.R
+import com.example.chit_chat.common.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentSettingsBinding
 import com.example.chit_chat.databinding.ItemSettingsBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
@@ -126,18 +124,16 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
     }
 
     override fun observeData() {
-        with(viewBinding) {
-            viewLifecycleOwner.lifecycleScope.launch {
-                launch {
-                    viewModel.profile.collect {
-                        Glide.with(avatarImageView)
-                            .load(it.avatar)
-                            .placeholder(R.drawable.ic_round_avatar_placeholder)
-                            .fitCenter()
-                            .circleCrop()
-                            .into(avatarImageView)
-                    }
-                }
+        viewModel.profile.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            with(viewBinding) {
+                Glide.with(avatarImageView)
+                    .load(it.avatar)
+                    .placeholder(R.drawable.ic_round_avatar_placeholder)
+                    .fitCenter()
+                    .circleCrop()
+                    .into(avatarImageView)
             }
         }
     }

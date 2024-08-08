@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.chit_chat.R
+import com.example.chit_chat.common.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentSignupBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
@@ -118,14 +119,15 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
 
     private fun applyEvent(state: SignUpViewModel.Event) {
         with(viewBinding) {
+            loaderView.isGone = true
+            loaderView.stopLoader()
             signUpFirstNameHintTextView.isGone = true
             signUpLastNameHintTextView.isGone = true
             signUpEmailHintTextView.isGone = true
             signUpPasswordHintTextView.isGone = true
             signUpButton.isEnabled = true
             signUpButtonTextView.isVisible = true
-            loaderView.isGone = true
-            loaderView.stopLoader()
+
 
             if (state is SignUpViewModel.Event.Success) {
                   this@SignUpFragment.findNavController()
@@ -153,22 +155,22 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
             signUpLastNameHintTextView.isVisible = event.isValidLastName
             signUpEmailHintTextView.isVisible = event.isValidEmail
             signUpPasswordHintTextView.isVisible = event.isValidPassword
+            signUpButton.isEnabled = true
         }
     }
 
 
     override fun observeData() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            launch {
-                viewModel.event.collect {
-                    applyEvent(it)
-                }
-            }
-            launch {
-                viewModel.state.collect {
-                    applyState(it)
-                }
-            }
+        viewModel.event.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            applyEvent(it)
+        }
+
+        viewModel.state.collectWithLifecycle(
+            viewLifecycleOwner
+        ) {
+            applyState(it)
         }
     }
 

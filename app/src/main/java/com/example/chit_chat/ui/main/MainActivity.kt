@@ -1,15 +1,12 @@
 package com.example.chit_chat.ui.main
 
 import android.os.Bundle
-import androidx.annotation.CallSuper
-import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.chit_chat.R
+import com.example.chit_chat.common.collectWithLifecycle
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.ui.common.LogoutHandler
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -28,10 +25,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeNavData() {
-        this.lifecycleScope.launch {
-            logoutHandler.event.collect {
-                logout()
-            }
+        logoutHandler.event.collectWithLifecycle(this) {
+            logout()
         }
     }
 }
