@@ -14,12 +14,15 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 
-
 interface FirebaseService {
     suspend fun getProfileById(id: String): Result<ProfileEntity>
     suspend fun saveProfile(user: ProfileEntity): Result<Unit>
-    suspend fun deleteChat(profileId: String?, chatId: String?): Result<Unit>
-    suspend fun observeChatList(id: String):Flow<List<ChatEntity>>
+    suspend fun observeChatList(id: String): Flow<List<ChatEntity>>
+    suspend fun deleteChatGlobally(chatId: String): Result<Unit>
+    suspend fun updateChatParticipants(
+        userIdList: ArrayList<String>,
+        chatId: String
+    ): Result<Unit>
 }
 
 class FirebaseServiceImpl @Inject constructor() : FirebaseService {
@@ -45,33 +48,6 @@ class FirebaseServiceImpl @Inject constructor() : FirebaseService {
         }
     }
 
-//    suspend fun observeProfile(id: String): Flow<ProfileEntity> {
-//
-//        profileCollection.document("44ada9f6-9be8-414d-a2be-4d1c6dec4b29").get()
-//        profileCollection.whereEqualTo("email", "asdasd").get().addOnSuccessListener {
-//            it.documents.first().toEntity()
-//        }
-//
-//        profileCollection.document("").update({"userIdList" to listof()})
-//
-//        val flow = MutableSharedFlow<ProfileEntity>(1)
-//
-//        return coroutineScope {
-//            val subscription = profileCollection
-//                .document(id)
-//                .addSnapshotListener { value, error ->
-//                    launch(Dispatchers.IO) {
-//                        if (value != null) {
-//                            val profile = value.toEntity()
-//                            flow.emit(profile)
-//                        }
-//                    }
-//                }
-//
-//            flow.onCompletion { subscription.remove() }
-//        }
-//    }
-
     override suspend fun observeChatList(id: String): Flow<List<ChatEntity>> {
         val flow = MutableSharedFlow<List<ChatEntity>>(1)
 
@@ -89,24 +65,36 @@ class FirebaseServiceImpl @Inject constructor() : FirebaseService {
         return flow.onCompletion { subscription.remove() }
     }
 
-    override suspend fun deleteChat(
-        profileId: String?,
-        chatId: String?
+    override suspend fun deleteChatGlobally(
+        chatId: String
     ): Result<Unit> {
         return suspendCoroutine { continuation ->
-            if (profileId != null && chatId != null) {
-                profileCollection
-                    .document(profileId)
-                    .collection(CHATS_COLLECTION)
-                    .document(chatId)
-                    .delete()
-                    .addOnSuccessListener {
-                        continuation.resumeWith(Result.success(Result.success(Unit)))
-                    }
-                    .addOnFailureListener {
-                        continuation.resumeWith(Result.success(Result.failure(it)))
-                    }
-            }
+            chatCollection
+                .document(chatId)
+                .delete()
+                .addOnSuccessListener {
+                    continuation.resumeWith(Result.success(Result.success(Unit)))
+                }
+                .addOnFailureListener {
+                    continuation.resumeWith(Result.success(Result.failure(it)))
+                }
+        }
+    }
+
+    override suspend fun updateChatParticipants(
+        userIdList: ArrayList<String>,
+        chatId: String,
+    ): Result<Unit> {
+        return suspendCoroutine { continuation ->
+            chatCollection
+                .document(chatId)
+                .update(mapOf("userIdList" to userIdList))
+                .addOnSuccessListener {
+                    continuation.resumeWith(Result.success(Result.success(Unit)))
+                }
+                .addOnFailureListener {
+                    continuation.resumeWith(Result.success(Result.failure(it)))
+                }
         }
     }
 

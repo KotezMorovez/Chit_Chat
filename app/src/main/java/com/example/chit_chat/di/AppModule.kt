@@ -21,6 +21,8 @@ import com.example.chit_chat.data.service.profile.CloudStorageService
 import com.example.chit_chat.data.service.profile.CloudStorageServiceImpl
 import com.example.chit_chat.domain.interactor.AuthInteractor
 import com.example.chit_chat.domain.interactor.AuthInteractorImpl
+import com.example.chit_chat.domain.interactor.ProfileInteractor
+import com.example.chit_chat.domain.interactor.ProfileInteractorImpl
 import com.example.chit_chat.domain.repository.AuthRepository
 import com.example.chit_chat.domain.repository.ProfileRepository
 import com.example.chit_chat.ui.common.LogoutHandler
@@ -41,6 +43,10 @@ interface OriginalModule {
     @Binds
     @Reusable
     fun bindAuthInteractor(impl: AuthInteractorImpl): AuthInteractor
+
+    @Binds
+    @Reusable
+    fun bindProfileInteractor(impl: ProfileInteractorImpl): ProfileInteractor
 
     @Binds
     @Reusable

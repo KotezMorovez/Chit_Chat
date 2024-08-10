@@ -30,7 +30,6 @@ fun Chat.toUI(dateUtils: DateUtils): ChatItem {
     return ChatItem(
         chatId = this.id,
         userName = this.chatName,
-        userId = this.userIdList,
         userAvatar = this.chatAvatar,
         lastMessage = this.lastMessage,
         lastMessageDate = dateUtils.getElapsedTime(this.lastMessageDate)

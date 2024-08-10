@@ -9,4 +9,5 @@ data class Chat(
     val lastMessageDate: DateTime,
     val userIdList: ArrayList<String>,
     val chatAvatar: String?
-)
+) {
+}

@@ -50,12 +50,12 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
 //            )
             },
 
-            onItemSwipeListener = { item ->
-            },
-
-            onDeleteItemClickListener = {
-                viewModel.deleteChat(it.chatId)
-            }
+//            onItemSwipeListener = { item ->
+//            },
+//
+//            onDeleteItemClickListener = {
+//                viewModel.deleteChat(it.chatId)
+//            }
         )
     }
 
@@ -91,6 +91,8 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
     override fun initUi() {
         setStatusBar()
         val imm = requireContext().getSystemService(InputMethodManager::class.java)
+        viewModel.subscribeProfile()
+        viewModel.subscribeChatList()
 
         with(viewBinding) {
             chatListToolbar.loaderView.isVisible = true
@@ -98,7 +100,6 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
             viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                 chatListToolbar.loaderView.startLoader()
             }
-            viewModel.subscribeProfile()
 
             chatListToolbar.searchEditText.setOnEditorActionListener { _, actionId, _ ->
                 return@setOnEditorActionListener if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -194,7 +195,6 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
             ) {
                 val title = "${it.firstName} ${it.lastName}"
                 setToolbarTitle(title)
-                viewModel.subscribeChatList()
             }
 
             viewModel.chatList.collectWithLifecycle(

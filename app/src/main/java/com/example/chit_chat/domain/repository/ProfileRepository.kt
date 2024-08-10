@@ -10,7 +10,11 @@ interface ProfileRepository {
     suspend fun updateProfileStorage(): Result<Unit>
     suspend fun getProfileSubscription(): Flow<Profile>
     suspend fun getChatListSubscription(id: String): Flow<List<Chat>>
-    suspend fun deleteChat(userId: String, chatId: String): Result<Unit>
+    suspend fun deleteChat(chatId: String): Result<Unit>
+    suspend fun updateChatParticipants(
+        userIdList: ArrayList<String>,
+        chatId: String
+    ): Result<Unit>
     suspend fun saveImage(image: Bitmap, id: String): Result<String>
     suspend fun updateProfileData(profile: Profile): Result<Unit>
     suspend fun setProfileToStorage(profile: Profile)

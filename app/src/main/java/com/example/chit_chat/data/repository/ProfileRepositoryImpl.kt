@@ -115,7 +115,14 @@ class ProfileRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteChat(userId: String, chatId: String): Result<Unit> {
-        return firebaseService.deleteChat(userId, chatId)
+    override suspend fun deleteChat(chatId: String): Result<Unit> {
+        return firebaseService.deleteChatGlobally(chatId)
+    }
+
+    override suspend fun updateChatParticipants(
+        userIdList: ArrayList<String>,
+        chatId: String
+    ): Result<Unit> {
+        return firebaseService.updateChatParticipants(userIdList, chatId)
     }
 }
