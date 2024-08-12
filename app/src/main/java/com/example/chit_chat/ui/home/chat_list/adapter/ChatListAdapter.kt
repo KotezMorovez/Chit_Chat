@@ -49,7 +49,6 @@ class ChatListAdapter(
                 userNameTextView.text = item.userName
                 userMessageTextView.text = item.lastMessage
                 messageDateTextView.text = item.lastMessageDate
-                messageCountBadgeItem.messageCountTextView.text = item.messagesCount
 
                 userNameTextView.invalidate()
                 userNameTextView.requestLayout()

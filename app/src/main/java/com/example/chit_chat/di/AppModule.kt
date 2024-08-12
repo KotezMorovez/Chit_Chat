@@ -3,6 +3,7 @@ package com.example.chit_chat.di
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.content.res.Resources
 import com.example.chit_chat.common.PREFERENCES
 import com.example.chit_chat.data.service.profile.SharedPrefsService
 import com.example.chit_chat.data.service.profile.SharedPrefsServiceImpl
@@ -20,6 +21,8 @@ import com.example.chit_chat.data.service.profile.CloudStorageService
 import com.example.chit_chat.data.service.profile.CloudStorageServiceImpl
 import com.example.chit_chat.domain.interactor.AuthInteractor
 import com.example.chit_chat.domain.interactor.AuthInteractorImpl
+import com.example.chit_chat.domain.interactor.ProfileInteractor
+import com.example.chit_chat.domain.interactor.ProfileInteractorImpl
 import com.example.chit_chat.domain.repository.AuthRepository
 import com.example.chit_chat.domain.repository.ProfileRepository
 import com.example.chit_chat.ui.common.LogoutHandler
@@ -40,6 +43,10 @@ interface OriginalModule {
     @Binds
     @Reusable
     fun bindAuthInteractor(impl: AuthInteractorImpl): AuthInteractor
+
+    @Binds
+    @Reusable
+    fun bindProfileInteractor(impl: ProfileInteractorImpl): ProfileInteractor
 
     @Binds
     @Reusable
@@ -80,6 +87,12 @@ class ProviderModule {
     @Singleton
     fun provideSharedPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFERENCES, MODE_PRIVATE)
+    }
+
+    @Provides
+    @Reusable
+    fun provideResources(context: Context): Resources {
+        return context.resources
     }
 }
 
