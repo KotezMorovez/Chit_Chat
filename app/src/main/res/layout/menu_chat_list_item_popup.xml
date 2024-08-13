@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="116dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_popup_menu"
+    android:orientation="vertical"
+    >
+<TextView
+    android:id="@+id/deleteItemTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_1x"
+    android:text="@string/chat_list_leave_chat"
+    android:gravity="center_horizontal"
+    android:textSize="14sp"
+    android:textColor="@color/product_red"/>
+</LinearLayout>

@@ -2,18 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_chat_list_item"
     android:orientation="horizontal"
-    android:paddingVertical="4dp">
+    android:paddingVertical="4dp"
+    android:paddingEnd="@dimen/margin_2x">
 
     <ImageView
         android:id="@+id/userAvatarImageView"
         android:layout_width="48dp"
         android:layout_height="48dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_avatar_placeholder" />
 
     <TextView
         android:id="@+id/userNameTextView"
@@ -60,5 +63,4 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
