@@ -19,7 +19,6 @@ class ChatListAdapter(
 ) : RecyclerView.Adapter<ChatListAdapter.ViewHolder>() {
     private var items: List<ChatItem> = listOf()
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setItems(list: List<ChatItem>) {
         items = list
         notifyDataSetChanged()
@@ -68,7 +67,7 @@ class ChatListAdapter(
                     onItemClickListener.invoke(item)
                 }
 
-                itemLayout.setOnTouchListener { _, event ->
+                itemLayout.setOnTouchListener { view, event ->
                     lastX = event.x
                     lastY = event.y
                     false

@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chit_chat.R
-import com.example.chit_chat.common.collectWithLifecycle
+import com.example.chit_chat.utils.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentChatListBinding
 import com.example.chit_chat.databinding.MenuChatListItemPopupBinding
 import com.example.chit_chat.di.AppComponentHolder
@@ -182,8 +182,6 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
             LinearLayout.LayoutParams.WRAP_CONTENT,
             true
         )
-        popupWindow.isTouchable = true
-
 
         viewBinding.chatsRecyclerView.x
 

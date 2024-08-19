@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="loader_size_2x">8dp</dimen>
-    <dimen name="loader_size_3x">12dp</dimen>
-    <dimen name="loader_size_4x">16dp</dimen>
-    <dimen name="margin_1x">4dp</dimen>
-    <dimen name="margin_2x">8dp</dimen>
-</resources>
