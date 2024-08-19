@@ -28,7 +28,8 @@
 
     <string name="chat_list_title">Чаты</string>
     <string name="chat_list_chats_load_error">Ошибка загрузки списка чатов</string>
-    <string name="chat_list_delete_chat_error">Не удалось удалить чат</string>
+    <string name="chat_list_delete_chat_error">Не удалось удалить/покинуть чат</string>
+    <string name="chat_list_leave_chat">Покинуть чат</string>
 
     <string name="settings_title">Настройки</string>
     <string name="settings_account">Настройки аккаунта</string>

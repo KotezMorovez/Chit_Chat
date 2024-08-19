@@ -30,7 +30,7 @@ class ChatListViewModel @Inject constructor(
     private val _eventError = MutableSharedFlow<Int>(0)
     val eventError = _eventError.asSharedFlow()
 
-    var chatSubscription: Job? = null
+    private var chatSubscription: Job? = null
 
     fun subscribeProfile() {
         viewModelScope.launch {
@@ -42,7 +42,7 @@ class ChatListViewModel @Inject constructor(
         }
     }
 
-    fun deleteChat(chatId: String) {
+    fun leaveChat(chatId: String) {
         val userIdList = chatListDomain.firstOrNull { it.id == chatId }?.userIdList ?: arrayListOf()
 
         viewModelScope.launch {

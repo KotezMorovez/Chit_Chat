@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import androidx.core.view.WindowCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -14,12 +16,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chit_chat.R
-import com.example.chit_chat.common.collectWithLifecycle
+import com.example.chit_chat.utils.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentChatListBinding
+import com.example.chit_chat.databinding.MenuChatListItemPopupBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
-import com.example.chit_chat.ui.home.chat_list.adapter.ChatListAdapter
 import com.example.chit_chat.ui.common.BaseFragment
+import com.example.chit_chat.ui.home.chat_list.adapter.ChatItem
+import com.example.chit_chat.ui.home.chat_list.adapter.ChatListAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,12 +32,11 @@ import javax.inject.Inject
 class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<ChatListViewModel>
-
+    private val chatListAdapter: ChatListAdapter
+    private var toolbarState: Boolean = true
     private val viewModel: ChatListViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[ChatListViewModel::class.java]
     }
-    private val chatListAdapter: ChatListAdapter
-    private var toolbarState: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppComponentHolder.get().inject(this)
@@ -49,13 +52,10 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
 //                R.id.action_chatListFragment_to_chatFragment, bundle
 //            )
             },
+            onLongPressListener = { item, itemView, coordinates ->
 
-//            onItemSwipeListener = { item ->
-//            },
-//
-//            onDeleteItemClickListener = {
-//                viewModel.deleteChat(it.chatId)
-//            }
+                showPopUpWindow(item, itemView, coordinates)
+            }
         )
     }
 
@@ -127,13 +127,22 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
             chatListToolbar.createChatIcon.setOnClickListener {
 //                this@ChatListFragment.findNavController()
 //                    .navigate(
-//                        R.id.action_chatListFragment_to_createChatFragment
+//                        R.id.action_chatsFragment_to_createChatFragment
 //                    )
             }
-
             chatsRecyclerView.adapter = chatListAdapter
             chatsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            registerForContextMenu(chatsRecyclerView)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(TOOLBAR_STATE, toolbarState)
+        outState.putString(
+            SEARCH,
+            viewBinding.chatListToolbar.searchEditText.text.toString().trim()
+        )
+        super.onSaveInstanceState(outState)
     }
 
     private fun applyToolbarState(isDefaultToolbar: Boolean) {
@@ -164,13 +173,28 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putBoolean(TOOLBAR_STATE, toolbarState)
-        outState.putString(
-            SEARCH,
-            viewBinding.chatListToolbar.searchEditText.text.toString().trim()
+    private fun showPopUpWindow(item: ChatItem, itemView: View, coordinates: Pair<Float, Float>) {
+        val popUpViewBinding = MenuChatListItemPopupBinding.inflate(layoutInflater)
+
+        val popupWindow = PopupWindow(
+            popUpViewBinding.root,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            true
         )
-        super.onSaveInstanceState(outState)
+
+        viewBinding.chatsRecyclerView.x
+
+        popupWindow.showAsDropDown(
+            itemView,
+            (coordinates.first).toInt(),
+            -(itemView.height - coordinates.second).toInt()
+        )
+
+        popUpViewBinding.deleteItemTextView.setOnClickListener {
+            viewModel.leaveChat(item.chatId)
+            popupWindow.dismiss()
+        }
     }
 
     private fun setStatusBar() {
@@ -221,5 +245,6 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         private const val TOOLBAR_STATE = "toolbar state"
         private const val SEARCH = "search"
         private const val EMPTY_STRING = ""
+//        private const val USER_ID = "userId"
     }
 }
