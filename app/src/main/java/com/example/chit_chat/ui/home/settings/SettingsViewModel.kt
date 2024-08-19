@@ -81,7 +81,7 @@ class SettingsViewModel @Inject constructor(
             if (result.isFailure) {
                 val exception = result.exceptionOrNull()
                 if (exception != null) {
-                    Log.e(R.string.app_name.toString(), exception.stackTraceToString())
+                    Log.e("Chit_Chat", exception.stackTraceToString())
                     _event.emit(R.string.settings_image_error)
                 }
             }

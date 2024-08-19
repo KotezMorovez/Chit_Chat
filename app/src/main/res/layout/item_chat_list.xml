@@ -5,7 +5,7 @@
     android:id="@+id/itemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_chat_list_item"
+    android:background="@drawable/bg_ripple_item"
     android:orientation="horizontal"
     android:paddingVertical="4dp"
     android:paddingEnd="8dp">

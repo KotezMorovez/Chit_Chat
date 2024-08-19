@@ -10,7 +10,6 @@
         android:id="@+id/defaultToolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:layout_gravity="center"
         android:layout_marginHorizontal="24dp"
         android:visibility="gone"
         tools:visibility="visible">
@@ -55,6 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:paddingHorizontal="8dp"
             android:background="@color/white"
             android:imeOptions="actionSearch"
