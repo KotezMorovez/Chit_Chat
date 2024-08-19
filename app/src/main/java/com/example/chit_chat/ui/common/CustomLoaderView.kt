@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
 import com.example.chit_chat.R
-import com.example.chit_chat.common.dpToPx
+import com.example.chit_chat.utils.dpToPx
 import com.example.chit_chat.databinding.ViewCustomLoaderBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope

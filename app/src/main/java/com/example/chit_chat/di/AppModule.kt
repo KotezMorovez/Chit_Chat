@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.content.res.Resources
-import com.example.chit_chat.common.PREFERENCES
+import com.example.chit_chat.utils.PREFERENCES
 import com.example.chit_chat.data.service.profile.SharedPrefsService
 import com.example.chit_chat.data.service.profile.SharedPrefsServiceImpl
 import com.example.chit_chat.data.repository.AuthRepositoryImpl
@@ -25,8 +25,8 @@ import com.example.chit_chat.domain.interactor.ProfileInteractor
 import com.example.chit_chat.domain.interactor.ProfileInteractorImpl
 import com.example.chit_chat.domain.repository.AuthRepository
 import com.example.chit_chat.domain.repository.ProfileRepository
-import com.example.chit_chat.ui.common.LogoutHandler
-import com.example.chit_chat.ui.common.LogoutHandlerImpl
+import com.example.chit_chat.utils.LogoutHandler
+import com.example.chit_chat.utils.LogoutHandlerImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

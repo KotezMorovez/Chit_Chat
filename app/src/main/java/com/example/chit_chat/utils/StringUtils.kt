@@ -1,4 +1,4 @@
-package com.example.chit_chat.common
+package com.example.chit_chat.utils
 
 object StringUtils {
     private val CHARS = mapOf(
@@ -64,7 +64,7 @@ object StringUtils {
     }
 
     fun urlDecoding(url: String): String {
-        var newUrl: StringBuilder = StringBuilder()
+        val newUrl: StringBuilder = StringBuilder()
         var toDecode = ""
 
         var i = 0

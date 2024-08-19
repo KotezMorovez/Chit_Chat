@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:dots_color="@color/product_text_dark_gray"
-        app:dots_size="@dimen/loader_size_4x"
-        app:dots_margin="@dimen/margin_2x"/>
+        app:dots_size="16dp"
+        app:dots_margin="8dp"/>
 </FrameLayout>

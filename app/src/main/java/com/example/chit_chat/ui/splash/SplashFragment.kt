@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.chit_chat.R
-import com.example.chit_chat.common.collectWithLifecycle
+import com.example.chit_chat.utils.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentSplashBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory

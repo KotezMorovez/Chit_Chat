@@ -1,4 +1,4 @@
-package com.example.chit_chat.common
+package com.example.chit_chat.utils
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

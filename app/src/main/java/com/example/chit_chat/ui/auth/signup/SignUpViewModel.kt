@@ -2,8 +2,8 @@ package com.example.chit_chat.ui.auth.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.chit_chat.common.EMAIL_REGEX
-import com.example.chit_chat.common.PASSWORD_REGEX
+import com.example.chit_chat.utils.EMAIL_REGEX
+import com.example.chit_chat.utils.PASSWORD_REGEX
 import com.example.chit_chat.domain.interactor.AuthInteractor
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

@@ -1,4 +1,4 @@
-package com.example.chit_chat.ui.common
+package com.example.chit_chat.utils
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow

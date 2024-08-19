@@ -6,7 +6,7 @@ import androidx.core.view.isGone
 import com.example.chit_chat.R
 import com.example.chit_chat.databinding.FragmentShowImageBinding
 import com.example.chit_chat.ui.common.BaseFragment
-import com.example.chit_chat.ui.common.loadImage
+import com.example.chit_chat.utils.loadImage
 
 class ShowImageFragment : BaseFragment<FragmentShowImageBinding>() {
 

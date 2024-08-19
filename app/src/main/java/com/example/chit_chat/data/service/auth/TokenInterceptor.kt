@@ -1,9 +1,9 @@
 package com.example.chit_chat.data.service.auth
 
-import com.example.chit_chat.common.JSONConverter
-import com.example.chit_chat.data.model.UserTokenEntity
+import com.example.chit_chat.utils.JSONConverter
+import com.example.chit_chat.data.model.auth.UserTokenEntity
 import com.example.chit_chat.data.service.profile.SharedPrefsService
-import com.example.chit_chat.ui.common.LogoutHandler
+import com.example.chit_chat.utils.LogoutHandler
 import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor

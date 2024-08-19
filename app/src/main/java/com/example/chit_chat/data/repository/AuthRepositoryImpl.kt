@@ -1,8 +1,8 @@
 package com.example.chit_chat.data.repository
 
 import com.example.chit_chat.data.service.profile.SharedPrefsService
-import com.example.chit_chat.data.model.LoginRequestEntity
-import com.example.chit_chat.data.model.SignUpRequestEntity
+import com.example.chit_chat.data.model.auth.LoginRequestEntity
+import com.example.chit_chat.data.model.auth.SignUpRequestEntity
 import com.example.chit_chat.data.service.auth.ApiService
 import com.example.chit_chat.domain.repository.AuthRepository
 import java.lang.IllegalStateException

@@ -1,4 +1,4 @@
-package com.example.chit_chat.data.model
+package com.example.chit_chat.data.model.auth
 
 import com.google.gson.annotations.SerializedName
 

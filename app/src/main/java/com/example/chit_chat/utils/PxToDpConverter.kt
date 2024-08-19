@@ -1,4 +1,4 @@
-package com.example.chit_chat.common
+package com.example.chit_chat.utils
 
 import android.content.Context
 import android.util.DisplayMetrics
@@ -14,4 +14,4 @@ fun dpToPx(dp: Float, context: Context): Int =
 
 fun pxToDp(px: Float, context: Context): Int =
     (px / (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT))
-        .toInt();
+        .toInt()

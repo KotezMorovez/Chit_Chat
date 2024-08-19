@@ -1,4 +1,4 @@
-package com.example.chit_chat.common
+package com.example.chit_chat.utils
 
 import android.content.ContentResolver
 import android.graphics.Bitmap

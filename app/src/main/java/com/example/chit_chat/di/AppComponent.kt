@@ -29,9 +29,9 @@ interface AppComponent : DIComponent {
     fun inject(loginFragment: LoginFragment)
     fun inject(signUpFragment: SignUpFragment)
     fun inject(splashFragment: SplashFragment)
-    fun inject(chatListFragment: ChatListFragment)
     fun inject(settingsFragment: SettingsFragment)
     fun inject(contactsFragment: ContactsFragment)
+    fun inject(chatListFragment: ChatListFragment)
     fun inject(homeFragment: HomeFragment)
 
     @Component.Factory

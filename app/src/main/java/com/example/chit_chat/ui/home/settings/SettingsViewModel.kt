@@ -6,9 +6,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chit_chat.R
-import com.example.chit_chat.common.BitmapUtils
-import com.example.chit_chat.domain.mapper.toDomain
-import com.example.chit_chat.domain.mapper.toUI
+import com.example.chit_chat.utils.BitmapUtils
+import com.example.chit_chat.ui.mapper.toDomain
+import com.example.chit_chat.ui.mapper.toUI
 import com.example.chit_chat.domain.repository.ProfileRepository
 import com.example.chit_chat.ui.model.ProfileUI
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -74,7 +74,7 @@ class SettingsViewModel @Inject constructor(
                 email = profileUI.email,
                 avatar = imageURL,
                 firstName = profileUI.firstName,
-                lastName = profileUI.lastName,
+                lastName = profileUI.lastName
             )
 
             val result = profileRepository.updateProfileData(profileUI.toDomain())

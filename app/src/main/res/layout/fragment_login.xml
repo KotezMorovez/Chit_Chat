@@ -114,8 +114,8 @@
                 android:layout_height="56dp"
                 android:visibility="gone"
                 app:dots_color="@color/white"
-                app:dots_size="@dimen/loader_size_2x"
-                app:dots_margin="@dimen/margin_1x"/>
+                app:dots_size="8dp"
+                app:dots_margin="4dp"/>
         </FrameLayout>
 
         <TextView

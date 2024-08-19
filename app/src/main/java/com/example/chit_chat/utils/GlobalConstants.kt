@@ -1,4 +1,4 @@
-package com.example.chit_chat.common
+package com.example.chit_chat.utils
 
 const val ACCESS_TOKEN = "access_token"
 const val REFRESH_TOKEN = "refresh_token"
