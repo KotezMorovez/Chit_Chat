@@ -6,6 +6,4 @@ data class ProfileUI(
     val email: String,
     val firstName: String,
     val lastName: String,
-    val contactsIdList: ArrayList<String>
-
 )

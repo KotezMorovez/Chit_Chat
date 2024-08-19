@@ -22,7 +22,7 @@ import com.example.chit_chat.databinding.MenuChatListItemPopupBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
-import com.example.chit_chat.ui.home.chat_list.adapter.ChatItem
+import com.example.chit_chat.ui.model.ChatItem
 import com.example.chit_chat.ui.home.chat_list.adapter.ChatListAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers

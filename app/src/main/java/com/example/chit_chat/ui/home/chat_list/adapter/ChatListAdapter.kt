@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.chit_chat.R
 import com.example.chit_chat.databinding.ItemChatListBinding
+import com.example.chit_chat.ui.model.ChatItem
 
 class ChatListAdapter(
     private val onItemClickListener: (item: ChatItem) -> Unit,

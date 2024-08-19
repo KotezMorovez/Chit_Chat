@@ -43,7 +43,7 @@ class CreateChatFragment : BaseFragment<FragmentCreateChatBinding>() {
     override fun initUi() {
         val imm = requireContext().getSystemService(InputMethodManager::class.java)
         with(viewBinding) {
-            viewModel.subscribeProfileUpdate()
+            viewModel.subscribeContactsUpdate()
 
             createChatCanselButton.setOnClickListener {
                 activity?.onBackPressedDispatcher?.onBackPressed()
@@ -74,7 +74,7 @@ class CreateChatFragment : BaseFragment<FragmentCreateChatBinding>() {
     }
 
     override fun observeData() {
-        viewModel.profile.collectWithLifecycle(
+        viewModel.contacts.collectWithLifecycle(
             viewLifecycleOwner
         ) {
 

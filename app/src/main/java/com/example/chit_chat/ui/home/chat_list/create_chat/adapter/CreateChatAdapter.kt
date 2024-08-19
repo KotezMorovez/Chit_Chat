@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.chit_chat.R
 import com.example.chit_chat.databinding.ItemCreateChatContactBinding
+import com.example.chit_chat.ui.model.ContactItem
 
 class CreateChatAdapter(
     private val onItemClickListener: (item: ContactItem) -> Unit

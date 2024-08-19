@@ -7,7 +7,7 @@ import com.example.chit_chat.domain.interactor.ProfileInteractor
 import com.example.chit_chat.ui.mapper.toUI
 import com.example.chit_chat.domain.model.Chat
 import com.example.chit_chat.utils.DateUtils
-import com.example.chit_chat.ui.home.chat_list.adapter.ChatItem
+import com.example.chit_chat.ui.model.ChatItem
 import com.example.chit_chat.ui.model.ProfileUI
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow

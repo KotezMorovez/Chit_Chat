@@ -21,6 +21,8 @@ import com.example.chit_chat.data.service.profile.CloudStorageService
 import com.example.chit_chat.data.service.profile.CloudStorageServiceImpl
 import com.example.chit_chat.domain.interactor.AuthInteractor
 import com.example.chit_chat.domain.interactor.AuthInteractorImpl
+import com.example.chit_chat.domain.interactor.ContactsInteractor
+import com.example.chit_chat.domain.interactor.ContactsInteractorImpl
 import com.example.chit_chat.domain.interactor.ProfileInteractor
 import com.example.chit_chat.domain.interactor.ProfileInteractorImpl
 import com.example.chit_chat.domain.repository.AuthRepository
@@ -40,6 +42,10 @@ import javax.inject.Singleton
 
 @Module
 interface OriginalModule {
+    @Binds
+    @Reusable
+    fun bindContactsInteractor(impl: ContactsInteractorImpl): ContactsInteractor
+
     @Binds
     @Reusable
     fun bindAuthInteractor(impl: AuthInteractorImpl): AuthInteractor

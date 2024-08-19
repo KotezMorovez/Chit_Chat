@@ -1,4 +1,4 @@
-package com.example.chit_chat.ui.home.chat_list.adapter
+package com.example.chit_chat.ui.model
 
 data class ChatItem (
     val chatId: String,

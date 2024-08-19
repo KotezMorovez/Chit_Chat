@@ -9,6 +9,5 @@ data class ProfileEntity(
     @SerializedName("first_name")
     val firstName: String,
     @SerializedName("last_name")
-    val lastName: String,
-    val contactsIdList: ArrayList<String>
+    val lastName: String
 )
