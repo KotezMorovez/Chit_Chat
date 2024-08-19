@@ -15,6 +15,7 @@ fun DocumentSnapshot.toEntity(): ProfileEntity {
         avatar = this["avatar"] as String,
         firstName = this["firstName"] as String,
         lastName = this["lastName"] as String,
+        contactsIdList = this["contactsIdList"] as ArrayList<String>
     )
 }
 
@@ -38,7 +39,8 @@ fun ProfileEntity.toDocument(): Map<String, Any> {
         "email" to this.email,
         "avatar" to (this.avatar ?: ""),
         "firstName" to this.firstName,
-        "lastName" to this.lastName
+        "lastName" to this.lastName,
+        "contactsIdList" to (this.contactsIdList)
     )
 }
 
@@ -48,7 +50,8 @@ fun ProfileEntity.toDomain(): Profile {
         email = this.email,
         avatar = this.avatar,
         firstName = this.firstName,
-        lastName = this.lastName
+        lastName = this.lastName,
+        contactsIdList = this.contactsIdList
     )
 }
 
@@ -84,6 +87,7 @@ fun Profile.toEntity(): ProfileEntity {
         email = this.email,
         avatar = this.avatar,
         firstName = this.firstName,
-        lastName = this.lastName
+        lastName = this.lastName,
+        contactsIdList = this.contactsIdList
     )
 }

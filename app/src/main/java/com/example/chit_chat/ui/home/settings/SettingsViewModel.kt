@@ -74,7 +74,8 @@ class SettingsViewModel @Inject constructor(
                 email = profileUI.email,
                 avatar = imageURL,
                 firstName = profileUI.firstName,
-                lastName = profileUI.lastName
+                lastName = profileUI.lastName,
+                contactsIdList = profileUI.contactsIdList
             )
 
             val result = profileRepository.updateProfileData(profileUI.toDomain())

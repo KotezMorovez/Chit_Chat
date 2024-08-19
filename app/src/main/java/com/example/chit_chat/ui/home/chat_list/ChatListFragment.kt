@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
@@ -14,6 +13,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chit_chat.R
 import com.example.chit_chat.utils.collectWithLifecycle
@@ -78,16 +78,6 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         return view
     }
 
-    override fun onResume() {
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        super.onResume()
-    }
-
-    override fun onPause() {
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        super.onPause()
-    }
-
     override fun initUi() {
         setStatusBar()
         val imm = requireContext().getSystemService(InputMethodManager::class.java)
@@ -125,10 +115,10 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
             }
 
             chatListToolbar.createChatIcon.setOnClickListener {
-//                this@ChatListFragment.findNavController()
-//                    .navigate(
-//                        R.id.action_chatsFragment_to_createChatFragment
-//                    )
+                this@ChatListFragment.findNavController()
+                    .navigate(
+                        R.id.action_chatsFragment_to_createChatFragment
+                    )
             }
             chatsRecyclerView.adapter = chatListAdapter
             chatsRecyclerView.layoutManager = LinearLayoutManager(requireContext())

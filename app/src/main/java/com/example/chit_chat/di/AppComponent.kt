@@ -5,6 +5,7 @@ import com.example.chit_chat.di.common.DIComponent
 import com.example.chit_chat.ui.auth.login.LoginFragment
 import com.example.chit_chat.ui.auth.signup.SignUpFragment
 import com.example.chit_chat.ui.home.chat_list.ChatListFragment
+import com.example.chit_chat.ui.home.chat_list.create_chat.CreateChatFragment
 import com.example.chit_chat.ui.home.contacts.ContactsFragment
 import com.example.chit_chat.ui.home.settings.SettingsFragment
 import com.example.chit_chat.ui.main.HomeFragment
@@ -31,6 +32,7 @@ interface AppComponent : DIComponent {
     fun inject(splashFragment: SplashFragment)
     fun inject(settingsFragment: SettingsFragment)
     fun inject(contactsFragment: ContactsFragment)
+    fun inject(createChatFragment: CreateChatFragment)
     fun inject(chatListFragment: ChatListFragment)
     fun inject(homeFragment: HomeFragment)
 
