@@ -1,13 +1,12 @@
 package com.example.chit_chat.data.service.auth
 
-import android.content.SharedPreferences
+
 import android.util.Log
 import com.example.chit_chat.R
-import com.example.chit_chat.data.model.LoginRequestEntity
+import com.example.chit_chat.data.model.auth.LoginRequestEntity
 import com.example.chit_chat.data.model.ProfileEntity
-import com.example.chit_chat.data.model.SignUpRequestEntity
-import com.example.chit_chat.data.model.UserTokenEntity
-import com.google.firebase.firestore.auth.User
+import com.example.chit_chat.data.model.auth.SignUpRequestEntity
+import com.example.chit_chat.data.model.auth.UserTokenEntity
 import retrofit2.awaitResponse
 import javax.inject.Inject
 

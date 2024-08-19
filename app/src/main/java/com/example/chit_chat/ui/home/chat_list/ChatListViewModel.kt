@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chit_chat.R
 import com.example.chit_chat.domain.interactor.ProfileInteractor
-import com.example.chit_chat.domain.mapper.toUI
+import com.example.chit_chat.ui.mapper.toUI
 import com.example.chit_chat.domain.model.Chat
-import com.example.chit_chat.ui.common.DateUtils
+import com.example.chit_chat.utils.DateUtils
 import com.example.chit_chat.ui.home.chat_list.adapter.ChatItem
 import com.example.chit_chat.ui.model.ProfileUI
 import kotlinx.coroutines.Job

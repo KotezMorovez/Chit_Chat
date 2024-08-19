@@ -7,19 +7,17 @@ import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.chit_chat.R
-import com.example.chit_chat.common.collectWithLifecycle
+import com.example.chit_chat.utils.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentSettingsBinding
 import com.example.chit_chat.databinding.ItemSettingsBinding
 import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
-import com.example.chit_chat.ui.common.GalleryHandler
+import com.example.chit_chat.utils.GalleryHandler
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {

@@ -1,8 +1,8 @@
 package com.example.chit_chat.data.service.profile
 
 import android.content.SharedPreferences
-import com.example.chit_chat.common.ACCESS_TOKEN
-import com.example.chit_chat.common.REFRESH_TOKEN
+import com.example.chit_chat.utils.ACCESS_TOKEN
+import com.example.chit_chat.utils.REFRESH_TOKEN
 import javax.inject.Inject
 
 interface SharedPrefsService{

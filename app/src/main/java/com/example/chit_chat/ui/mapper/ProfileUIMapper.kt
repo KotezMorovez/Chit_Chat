@@ -1,8 +1,8 @@
-package com.example.chit_chat.domain.mapper
+package com.example.chit_chat.ui.mapper
 
 import com.example.chit_chat.domain.model.Chat
 import com.example.chit_chat.domain.model.Profile
-import com.example.chit_chat.ui.common.DateUtils
+import com.example.chit_chat.utils.DateUtils
 import com.example.chit_chat.ui.home.chat_list.adapter.ChatItem
 import com.example.chit_chat.ui.model.ProfileUI
 

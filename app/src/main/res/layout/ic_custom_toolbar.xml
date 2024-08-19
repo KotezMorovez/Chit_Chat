@@ -78,9 +78,9 @@
         android:layout_height="?actionBarSize"
         android:layout_marginStart="24dp"
         android:layout_gravity="center_vertical|start"
-        app:dots_size="@dimen/loader_size_3x"
+        app:dots_size="12dp"
         app:dots_color="@color/product_black"
-        app:dots_margin="@dimen/margin_2x"
+        app:dots_margin="8dp"
         android:visibility="visible"
         tools:visibility="gone"/>
 </FrameLayout>

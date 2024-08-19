@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.example.chit_chat.R
-import com.example.chit_chat.common.collectWithLifecycle
+import com.example.chit_chat.utils.collectWithLifecycle
 import com.example.chit_chat.di.AppComponentHolder
-import com.example.chit_chat.ui.common.LogoutHandler
+import com.example.chit_chat.utils.LogoutHandler
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {

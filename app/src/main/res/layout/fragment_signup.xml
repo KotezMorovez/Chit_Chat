@@ -134,7 +134,6 @@
                 android:visibility="gone"
                 tools:visibility="visible" />
 
-
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
@@ -163,10 +162,9 @@
                     android:layout_height="56dp"
                     android:visibility="gone"
                     app:dots_color="@color/white"
-                    app:dots_margin="@dimen/margin_1x"
-                    app:dots_size="@dimen/loader_size_2x" />
+                    app:dots_margin="4dp"
+                    app:dots_size="8dp" />
             </FrameLayout>
-
 
             <TextView
                 style="@style/SubtextBody"

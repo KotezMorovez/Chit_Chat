@@ -3,7 +3,7 @@ package com.example.chit_chat.data.repository
 import android.graphics.Bitmap
 import android.util.Log
 import com.example.chit_chat.R
-import com.example.chit_chat.common.BitmapUtils
+import com.example.chit_chat.utils.BitmapUtils
 import com.example.chit_chat.data.mapper.toDomain
 import com.example.chit_chat.data.mapper.toEntity
 import com.example.chit_chat.data.model.ProfileEntity
@@ -109,12 +109,6 @@ class ProfileRepositoryImpl @Inject constructor(
         return Result.success(profileResult.getOrNull())
     }
 
-    override suspend fun getChatListSubscription(id: String): Flow<List<Chat>> {
-        return firebaseService.observeChatList(id).map { list ->
-            list.map { it.toDomain() }
-        }
-    }
-
     override suspend fun deleteChat(chatId: String): Result<Unit> {
         return firebaseService.deleteChatGlobally(chatId)
     }
@@ -124,5 +118,13 @@ class ProfileRepositoryImpl @Inject constructor(
         chatId: String
     ): Result<Unit> {
         return firebaseService.updateChatParticipants(userIdList, chatId)
+    }
+
+    override suspend fun getChatListSubscription(id: String): Flow<List<Chat>> {
+        return firebaseService.observeChatList(id).map { list ->
+            list.map {
+                it.toDomain()
+            }
+        }
     }
 }

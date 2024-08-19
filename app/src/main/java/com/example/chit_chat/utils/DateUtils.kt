@@ -1,4 +1,4 @@
-package com.example.chit_chat.ui.common
+package com.example.chit_chat.utils
 
 import android.content.res.Resources
 import com.example.chit_chat.R
