@@ -30,10 +30,11 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun register(
         firstName: String,
         lastName: String,
+        userName: String,
         email: String,
         password: String
     ): Result<Unit> {
-        val user = SignUpRequestEntity(firstName, lastName, email, password)
+        val user = SignUpRequestEntity(firstName, lastName, userName, email, password)
 
         val result = apiService.register(user)
         return if (result.isSuccess) {

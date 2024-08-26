@@ -48,18 +48,11 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
         with(viewBinding) {
-//            TODO: values for testing, delete before release
-            if (savedInstanceState == null) {
-                signUpFirstNameEditText.setText("Test")
-                signUpLastNameEditText.setText("Pesp")
-                signUpEmailEditText.setText("test@test.rr")
-                signUpPasswordEditText.setText("123123Test!")
-            } else {
-                signUpFirstNameEditText.setText(savedInstanceState?.getString(FIRST_NAME, null))
-                signUpLastNameEditText.setText(savedInstanceState?.getString(LAST_NAME, null))
-                signUpEmailEditText.setText(savedInstanceState?.getString(EMAIL, null))
-                signUpPasswordEditText.setText(savedInstanceState?.getString(PASSWORD, null))
-            }
+            signUpFirstNameEditText.setText(savedInstanceState?.getString(FIRST_NAME, null))
+            signUpLastNameEditText.setText(savedInstanceState?.getString(LAST_NAME, null))
+            signUpUserNameEditText.setText(savedInstanceState?.getString(USER_NAME, null))
+            signUpEmailEditText.setText(savedInstanceState?.getString(EMAIL, null))
+            signUpPasswordEditText.setText(savedInstanceState?.getString(PASSWORD, null))
         }
 
         return view
@@ -113,6 +106,7 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
                 viewModel.signUp(
                     signUpFirstNameEditText.text.toString().trim(),
                     signUpLastNameEditText.text.toString().trim(),
+                    signUpUserNameEditText.text.toString().trim(),
                     signUpEmailEditText.text.toString().trim(),
                     signUpPasswordEditText.text.toString().trim()
                 )
@@ -163,10 +157,17 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
             signUpLastNameHintTextView.isVisible = event.isValidLastName
             signUpEmailHintTextView.isVisible = event.isValidEmail
             signUpPasswordHintTextView.isVisible = event.isValidPassword
+
+            if (event.isValidUserName == null) {
+                signUpUserNameHintTextView.isGone = true
+            } else {
+                signUpUserNameHintTextView.setText(event.isValidUserName)
+                signUpUserNameHintTextView.isVisible = true
+            }
+
             signUpButton.isEnabled = true
         }
     }
-
 
     override fun observeData() {
         viewModel.event.collectWithLifecycle(
@@ -186,6 +187,7 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
         with(viewBinding) {
             outState.putString(FIRST_NAME, signUpFirstNameEditText.text.toString().trim())
             outState.putString(LAST_NAME, signUpLastNameEditText.text.toString().trim())
+            outState.putString(USER_NAME, signUpUserNameEditText.text.toString().trim())
             outState.putString(EMAIL, signUpEmailEditText.text.toString().trim())
             outState.putString(PASSWORD, signUpPasswordEditText.text.toString().trim())
         }
@@ -195,6 +197,7 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
     companion object {
         private const val FIRST_NAME = "first name"
         private const val LAST_NAME = "last name"
+        private const val USER_NAME = "user_name"
         private const val EMAIL = "email"
         private const val PASSWORD = "password"
     }

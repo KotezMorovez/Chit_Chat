@@ -9,7 +9,7 @@ import javax.inject.Inject
 interface ProfileStorage {
     fun getProfile(): ProfileEntity?
     suspend fun setProfile(profile: ProfileEntity)
-    suspend fun getProfileSubscription(): Flow<ProfileEntity>
+    fun getProfileSubscription(): Flow<ProfileEntity>
 }
 
 class ProfileStorageImpl @Inject constructor(
@@ -28,7 +28,7 @@ class ProfileStorageImpl @Inject constructor(
         )
     }
 
-    override suspend fun getProfileSubscription(): Flow<ProfileEntity> {
+    override fun getProfileSubscription(): Flow<ProfileEntity> {
         return _profileFlow.asSharedFlow()
     }
 }

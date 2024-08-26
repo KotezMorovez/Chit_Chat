@@ -2,9 +2,11 @@ package com.example.chit_chat.ui.auth.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.chit_chat.R
 import com.example.chit_chat.utils.EMAIL_REGEX
 import com.example.chit_chat.utils.PASSWORD_REGEX
 import com.example.chit_chat.domain.interactor.AuthInteractor
+import com.example.chit_chat.utils.USERNAME_REGEX
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -19,15 +21,17 @@ class SignUpViewModel @Inject constructor(
     private val _event = MutableSharedFlow<Event>(0)
     val event = _event.asSharedFlow()
 
-    fun signUp(firstName: String, lastName: String, email: String, password: String) {
+    fun signUp(firstName: String, lastName: String, userName: String, email: String, password: String) {
         val validEmail = isValidEmail(email)
         val validPassword = isValidPassword(password)
         val validFirstName = firstName.isNotEmpty()
         val validLastName = lastName.isNotEmpty()
+        val validUserName = isValidUserName(userName)
+        val isUserNameUnique = true
 
         viewModelScope.launch {
-            if (validFirstName && validLastName && validEmail && validPassword) {
-                val result = authInteractor.register(firstName, lastName, email, password)
+            if (validFirstName && validLastName && validUserName && validEmail && validPassword) {
+                val result = authInteractor.register(firstName, lastName, userName, email, password)
                 if (result.isSuccess) {
                     _event.emit(Event.Success)
                 } else {
@@ -36,10 +40,17 @@ class SignUpViewModel @Inject constructor(
             } else {
                 _state.emit(
                     State(
-                        !validFirstName,
-                        !validLastName,
-                        !validEmail,
-                        !validPassword
+                        isValidFirstName = !validFirstName,
+                        isValidLastName = !validLastName,
+                        isValidEmail = !validEmail,
+                        isValidPassword = !validPassword,
+                        isValidUserName = if (validUserName && isUserNameUnique) {
+                            null
+                        } else if (!validUserName) {
+                            R.string.sign_up_user_name_validate_fail
+                        } else {
+                            R.string.sign_up_user_name_already_exist
+                        }
                     )
                 )
             }
@@ -54,6 +65,10 @@ class SignUpViewModel @Inject constructor(
         return Pattern.compile(EMAIL_REGEX).matcher(email).matches()
     }
 
+    private fun isValidUserName(userName: String): Boolean {
+        return Pattern.compile(USERNAME_REGEX).matcher(userName).matches()
+    }
+
     sealed class Event {
         data object NetworkError : Event()
         data object Success : Event()
@@ -63,6 +78,7 @@ class SignUpViewModel @Inject constructor(
         val isValidFirstName: Boolean = true,
         val isValidLastName: Boolean = true,
         val isValidEmail: Boolean = true,
-        val isValidPassword: Boolean = true
+        val isValidPassword: Boolean = true,
+        val isValidUserName: Int? = null
     )
 }

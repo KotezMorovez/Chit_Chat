@@ -11,6 +11,7 @@ interface AuthInteractor {
     suspend fun register(
         firstName: String,
         lastName: String,
+        userName: String,
         email: String,
         password: String
     ): Result<Unit>
@@ -27,10 +28,11 @@ class AuthInteractorImpl @Inject constructor(
     override suspend fun register(
         firstName: String,
         lastName: String,
+        userName: String,
         email: String,
         password: String
     ): Result<Unit> {
-        val result = authRepository.register(firstName, lastName, email, password)
+        val result = authRepository.register(firstName, lastName, userName, email, password)
 
         return if (result.isSuccess) {
             profileRepository.createProfile(firstName, lastName)

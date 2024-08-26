@@ -51,4 +51,9 @@
 
     <string name="settings_upload_image_error">Ошибка загрузки изображения</string>
     <string name="settings_image_error">Не удалось сохранить изображение</string>
+    <string name="sign_up_user_name_hint">Введите уникальное имя пользователя</string>
+    <string name="sign_up_user_name">Имя пользователя</string>
+    <string name="sign_up_user_name_warning">Внимание, имя пользователя нельзя изменить после регистрации</string>
+    <string name="sign_up_user_name_validate_fail">Имя пользователя должно содержать минимум 8 символов: цифры, заглавные и строчные латинские буквы и нижнее подчеркивание</string>
+    <string name="sign_up_user_name_already_exist">Имя занято</string>
 </resources>
