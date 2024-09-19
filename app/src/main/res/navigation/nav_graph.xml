@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.chit_chat.ui.auth.login.LoginFragment"
+        android:name="com.example.chit_chat.ui.features.login.ui.LoginFragment"
         tools:layout="@layout/fragment_login">
 
         <action
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.chit_chat.ui.auth.signup.SignUpFragment"
+        android:name="com.example.chit_chat.ui.features.signup.ui.SignUpFragment"
         tools:layout="@layout/fragment_signup">
 
         <action
@@ -51,7 +51,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.chit_chat.ui.splash.SplashFragment"
+        android:name="com.example.chit_chat.ui.features.splash.ui.SplashFragment"
         tools:layout="@layout/fragment_splash">
 
         <action
@@ -73,6 +73,6 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.chit_chat.ui.main.HomeFragment"
+        android:name="com.example.chit_chat.ui.features.main.ui.HomeFragment"
         tools:layout="@layout/fragment_home"/>
 </navigation>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/chatsFragment"
-        android:name="com.example.chit_chat.ui.home.chat_list.ChatListFragment"
+        android:name="com.example.chit_chat.ui.features.chat_list.ui.ChatListFragment"
         tools:layout="@layout/fragment_chat_list">
         <action
             android:id="@+id/action_chatsFragment_to_createChatFragment"
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/createChatFragment"
-        android:name="com.example.chit_chat.ui.home.chat_list.create_chat.CreateChatFragment"
+        android:name="com.example.chit_chat.ui.features.create_chat.ui.CreateChatFragment"
         tools:layout="@layout/fragment_create_chat">
     </fragment>
 </navigation>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.chit_chat.ui.home.settings.SettingsFragment"
+        android:name="com.example.chit_chat.ui.features.settings.ui.SettingsFragment"
         tools:layout="@layout/fragment_settings">
 <!--        <action-->
 <!--            android:id="@+id/action_settingsFragment_to_accountSettingsFragment"-->
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/showImageFragment"
-        android:name="com.example.chit_chat.ui.home.showImage.ShowImageFragment"
+        android:name="com.example.chit_chat.ui.features.showImage.ui.ShowImageFragment"
         tools:layout="@layout/fragment_show_image">
         <argument
             android:name="imageUrl"
