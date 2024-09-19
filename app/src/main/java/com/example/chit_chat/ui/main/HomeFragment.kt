@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.chit_chat.databinding.FragmentHomeBinding
-import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.ui.common.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun createViewBinding(): FragmentHomeBinding {
@@ -15,7 +15,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppComponentHolder.get().inject(this)
         super.onCreate(savedInstanceState)
     }
 

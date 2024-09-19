@@ -6,33 +6,27 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.chit_chat.R
 import com.example.chit_chat.utils.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentSettingsBinding
 import com.example.chit_chat.databinding.ItemSettingsBinding
-import com.example.chit_chat.di.AppComponentHolder
-import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
 import com.example.chit_chat.utils.GalleryHandler
 import com.google.android.material.snackbar.Snackbar
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory<SettingsViewModel>
-    private val viewModel: SettingsViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[SettingsViewModel::class.java]
-    }
+    private val viewModel by viewModels<SettingsViewModel>()
     private lateinit var galleryHandler: GalleryHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         galleryHandler = GalleryHandler(this) {
             viewModel.uploadImage(it, requireContext().contentResolver)
         }
-        AppComponentHolder.get().inject(this)
         super.onCreate(savedInstanceState)
     }
 

@@ -5,12 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.chit_chat.utils.EMAIL_REGEX
 import com.example.chit_chat.utils.PASSWORD_REGEX
 import com.example.chit_chat.domain.interactor.AuthInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 import javax.inject.Inject
 
+@HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val authInteractor: AuthInteractor
 ) : ViewModel() {

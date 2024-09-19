@@ -11,7 +11,7 @@ import android.widget.PopupWindow
 import androidx.core.view.WindowCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,29 +19,19 @@ import com.example.chit_chat.R
 import com.example.chit_chat.utils.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentChatListBinding
 import com.example.chit_chat.databinding.MenuChatListItemPopupBinding
-import com.example.chit_chat.di.AppComponentHolder
-import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
 import com.example.chit_chat.ui.model.ChatItem
 import com.example.chit_chat.ui.home.chat_list.adapter.ChatListAdapter
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory<ChatListViewModel>
     private val chatListAdapter: ChatListAdapter
     private var toolbarState: Boolean = true
-    private val viewModel: ChatListViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[ChatListViewModel::class.java]
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AppComponentHolder.get().inject(this)
-        super.onCreate(savedInstanceState)
-    }
+    private val viewModel by viewModels<ChatListViewModel>()
 
     init {
         chatListAdapter = ChatListAdapter(

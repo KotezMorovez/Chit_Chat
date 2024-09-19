@@ -33,6 +33,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -41,6 +44,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 interface OriginalModule {
     @Binds
     @Reusable
@@ -88,21 +92,23 @@ interface OriginalModule {
 }
 
 @Module
+@InstallIn(SingletonComponent::class)
 class ProviderModule {
     @Provides
     @Singleton
-    fun provideSharedPrefs(context: Context): SharedPreferences {
+    fun provideSharedPrefs(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFERENCES, MODE_PRIVATE)
     }
 
     @Provides
     @Reusable
-    fun provideResources(context: Context): Resources {
+    fun provideResources(@ApplicationContext context: Context): Resources {
         return context.resources
     }
 }
 
 @Module
+@InstallIn(SingletonComponent::class)
 class ApiModule {
     @Provides
     @Singleton

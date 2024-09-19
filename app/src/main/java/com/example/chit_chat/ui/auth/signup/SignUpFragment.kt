@@ -9,33 +9,27 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.chit_chat.R
 import com.example.chit_chat.utils.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentSignupBinding
-import com.example.chit_chat.di.AppComponentHolder
-import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory<SignUpViewModel>
-    private val viewModel: SignUpViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[SignUpViewModel::class.java]
-    }
+    private val viewModel by viewModels<SignUpViewModel>()
 
     override fun createViewBinding(): FragmentSignupBinding {
         return FragmentSignupBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppComponentHolder.get().inject(this)
         requireActivity().window!!.setBackgroundDrawableResource(R.drawable.bg_auth)
         super.onCreate(savedInstanceState)
     }

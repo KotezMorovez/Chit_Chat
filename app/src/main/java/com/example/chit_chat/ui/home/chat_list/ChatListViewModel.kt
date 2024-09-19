@@ -9,12 +9,14 @@ import com.example.chit_chat.domain.model.Chat
 import com.example.chit_chat.utils.DateUtils
 import com.example.chit_chat.ui.model.ChatItem
 import com.example.chit_chat.ui.model.ProfileUI
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class ChatListViewModel @Inject constructor(
     private val dateUtils: DateUtils,
     private val profileInteractor: ProfileInteractor

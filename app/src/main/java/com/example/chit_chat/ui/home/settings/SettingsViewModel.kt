@@ -11,11 +11,13 @@ import com.example.chit_chat.ui.mapper.toDomain
 import com.example.chit_chat.ui.mapper.toUI
 import com.example.chit_chat.domain.repository.ProfileRepository
 import com.example.chit_chat.ui.model.ProfileUI
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val profileRepository: ProfileRepository
 ) : ViewModel() {

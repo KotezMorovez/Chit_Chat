@@ -3,11 +3,13 @@ package com.example.chit_chat.ui.splash
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chit_chat.domain.interactor.AuthInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class SplashViewModel @Inject constructor(
     private val authInteractor: AuthInteractor
 ) : ViewModel() {

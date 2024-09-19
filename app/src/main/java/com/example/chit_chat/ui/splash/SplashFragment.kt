@@ -1,30 +1,19 @@
 package com.example.chit_chat.ui.splash
 
-import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.chit_chat.R
 import com.example.chit_chat.utils.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentSplashBinding
-import com.example.chit_chat.di.AppComponentHolder
-import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding>() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory<SplashViewModel>
-    private val viewModel: SplashViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[SplashViewModel::class.java]
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AppComponentHolder.get().inject(this)
-        super.onCreate(savedInstanceState)
-    }
+    private val viewModel by viewModels<SplashViewModel>()
 
     override fun createViewBinding(): FragmentSplashBinding {
         return FragmentSplashBinding.inflate(layoutInflater)

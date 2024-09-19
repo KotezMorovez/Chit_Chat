@@ -5,16 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.example.chit_chat.R
 import com.example.chit_chat.utils.collectWithLifecycle
-import com.example.chit_chat.di.AppComponentHolder
 import com.example.chit_chat.utils.LogoutHandler
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var logoutHandler: LogoutHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppComponentHolder.get().inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         observeNavData()

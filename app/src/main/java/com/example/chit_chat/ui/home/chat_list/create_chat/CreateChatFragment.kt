@@ -4,26 +4,19 @@ import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chit_chat.R
 import com.example.chit_chat.utils.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentCreateChatBinding
-import com.example.chit_chat.di.AppComponentHolder
-import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
 import com.example.chit_chat.ui.home.chat_list.create_chat.adapter.CreateChatAdapter
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CreateChatFragment : BaseFragment<FragmentCreateChatBinding>() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory<CreateChatViewModel>
-
     private val createChatAdapter: CreateChatAdapter
-    private val viewModel: CreateChatViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[CreateChatViewModel::class.java]
-    }
+    private val viewModel by viewModels<CreateChatViewModel>()
 
     init {
         createChatAdapter = CreateChatAdapter(onItemClickListener = { item ->
@@ -32,7 +25,6 @@ class CreateChatFragment : BaseFragment<FragmentCreateChatBinding>() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppComponentHolder.get().inject(this)
         super.onCreate(savedInstanceState)
     }
 
