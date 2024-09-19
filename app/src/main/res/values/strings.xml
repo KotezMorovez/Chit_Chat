@@ -14,12 +14,12 @@
     <string name="login_sign_up">Еще нет аккаунта?</string>
     <string name="login_sign_up_link">Зарегистрироваться</string>
     <string name="login_wrong_password_hint">Неверный пароль</string>
+
     <string name="sign_up_title">Регистрация</string>
     <string name="sign_up_first_name">Имя</string>
     <string name="sign_up_first_name_hint">Введите имя</string>
     <string name="sign_up_last_name">Фамилия</string>
     <string name="sign_up_last_name_hint">Введите фамилию</string>
-
     <string name="sign_up_password_error_hint">Пароль должен содержать как минимум 8 символов, одну цифру, одну букву, и один спец.символ (@$!%*#?&amp;)</string>
     <string name="sign_up_button">Зарегистрироваться</string>
     <string name="sign_up_login">Уже есть аккаунт?</string>
@@ -31,12 +31,16 @@
     <string name="chat_list_delete_chat_error">Не удалось удалить/покинуть чат</string>
     <string name="chat_list_leave_chat">Покинуть чат</string>
 
+    <string name="create_chat_create_group">Создать новый групповой чат</string>
+
     <string name="settings_title">Настройки</string>
     <string name="settings_account">Настройки аккаунта</string>
     <string name="settings_notifications">Уведомления</string>
     <string name="settings_switch_account">Сменить аккаунт</string>
     <string name="settings_report">Сообщить о проблеме</string>
     <string name="settings_logout">Выйти</string>
+    <string name="settings_upload_image_error">Ошибка загрузки изображения</string>
+    <string name="settings_image_error">Не удалось сохранить изображение</string>
 
     <string name="home_navbar_contacts">Контакты</string>
     <string name="navbar_new_chat">Чаты</string>
@@ -48,7 +52,4 @@
     <string name="date_yesterday_at">вчера в %1$s</string>
     <string name="date_less_year_ago">%1$s в %2$s</string>
     <string name="date_years_ago">%1$sг.</string>
-
-    <string name="settings_upload_image_error">Ошибка загрузки изображения</string>
-    <string name="settings_image_error">Не удалось сохранить изображение</string>
 </resources>

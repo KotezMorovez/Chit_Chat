@@ -15,7 +15,6 @@ import com.example.chit_chat.ui.common.BaseFragment
 import com.example.chit_chat.ui.home.chat_list.create_chat.adapter.CreateChatAdapter
 import javax.inject.Inject
 
-
 class CreateChatFragment : BaseFragment<FragmentCreateChatBinding>() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<CreateChatViewModel>
@@ -42,9 +41,9 @@ class CreateChatFragment : BaseFragment<FragmentCreateChatBinding>() {
 
     override fun initUi() {
         val imm = requireContext().getSystemService(InputMethodManager::class.java)
-        with(viewBinding) {
-            viewModel.subscribeContactsUpdate()
+        viewModel.updateContacts()
 
+        with(viewBinding) {
             createChatCanselButton.setOnClickListener {
                 activity?.onBackPressedDispatcher?.onBackPressed()
             }
@@ -56,7 +55,8 @@ class CreateChatFragment : BaseFragment<FragmentCreateChatBinding>() {
                     null
                 )
             )
-            createChatGroupItem.titleTextView.text = "Создать новый групповой чат"
+            createChatGroupItem.titleTextView.text =
+                resources.getText(R.string.create_chat_create_group)
             createChatGroupItem.root.setOnClickListener {
                 // navigate to create group screen
             }
@@ -77,7 +77,7 @@ class CreateChatFragment : BaseFragment<FragmentCreateChatBinding>() {
         viewModel.contacts.collectWithLifecycle(
             viewLifecycleOwner
         ) {
-
+            createChatAdapter.setItems(it)
         }
     }
 }

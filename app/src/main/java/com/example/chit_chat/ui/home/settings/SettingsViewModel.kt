@@ -6,10 +6,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chit_chat.R
+import com.example.chit_chat.domain.interactor.ProfileInteractor
 import com.example.chit_chat.utils.BitmapUtils
 import com.example.chit_chat.ui.mapper.toDomain
 import com.example.chit_chat.ui.mapper.toUI
-import com.example.chit_chat.domain.repository.ProfileRepository
 import com.example.chit_chat.ui.model.ProfileUI
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SettingsViewModel @Inject constructor(
-    private val profileRepository: ProfileRepository
+    private val profileInteractor: ProfileInteractor
 ) : ViewModel() {
     private var currentProfile: ProfileUI? = null
 
@@ -29,7 +29,7 @@ class SettingsViewModel @Inject constructor(
 
     fun getProfile() {
         viewModelScope.launch {
-            profileRepository.getProfileSubscription().collect {
+            profileInteractor.getProfileSubscription().collect {
                 val profileUI = it.toUI()
                 currentProfile = profileUI
                 _profile.emit(profileUI)
@@ -38,7 +38,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun getImage(): String {
-        return profileRepository.getImageFromStorage()
+        return profileInteractor.getImageFromStorage()
     }
 
     fun uploadImage(uri: Uri, contentResolver: ContentResolver) {
@@ -48,7 +48,7 @@ class SettingsViewModel @Inject constructor(
             viewModelScope.launch {
                 val bitmap = BitmapUtils.getBitmapFromUri(uri, contentResolver)
                 val storageUriResult =
-                    profileRepository.saveImage(
+                    profileInteractor.saveImage(
                         bitmap,
                         profileUI.id
                     )
@@ -74,10 +74,11 @@ class SettingsViewModel @Inject constructor(
                 email = profileUI.email,
                 avatar = imageURL,
                 firstName = profileUI.firstName,
-                lastName = profileUI.lastName
+                lastName = profileUI.lastName,
+                contacts = profileUI.contacts
             )
 
-            val result = profileRepository.updateProfileData(profileUI.toDomain())
+            val result = profileInteractor.updateProfileData(profileUI.toDomain())
             if (result.isFailure) {
                 val exception = result.exceptionOrNull()
                 if (exception != null) {
@@ -86,7 +87,7 @@ class SettingsViewModel @Inject constructor(
                 }
             }
 
-            profileRepository.updateProfileStorage()
+            profileInteractor.updateProfileStorage()
         }
     }
 }

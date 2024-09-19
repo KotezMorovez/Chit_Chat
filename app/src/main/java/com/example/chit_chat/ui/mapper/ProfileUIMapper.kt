@@ -9,7 +9,8 @@ fun ProfileUI.toDomain(): Profile {
         email = this.email,
         avatar = this.avatar,
         firstName = this.firstName,
-        lastName = this.lastName
+        lastName = this.lastName,
+        contacts = this.contacts
     )
 }
 
@@ -19,6 +20,7 @@ fun Profile.toUI(): ProfileUI {
         email = this.email,
         avatar = this.avatar,
         firstName = this.firstName,
-        lastName = this.lastName
+        lastName = this.lastName,
+        contacts = this.contacts
     )
 }

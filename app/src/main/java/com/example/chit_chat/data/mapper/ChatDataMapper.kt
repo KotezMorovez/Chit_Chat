@@ -34,7 +34,7 @@ fun ChatEntity.toDomain(): Chat {
     )
 }
 
-fun Chat.toEntity(): ChatEntity {
+fun Chat.toChatEntity(): ChatEntity {
     val date = this.lastMessageDate.millis
 
     return ChatEntity(
