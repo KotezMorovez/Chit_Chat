@@ -11,6 +11,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.chit_chat.R
 import com.example.chit_chat.utils.collectWithLifecycle
@@ -114,8 +115,8 @@ class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
             }
 
             signUpLoginLinkTextView.setOnClickListener {
-                this@SignUpFragment.findNavController()
-                    .navigate(R.id.action_signUpFragment_to_loginFragment)
+                val navController = this@SignUpFragment.findNavController()
+                navController.popBackStack()
             }
         }
     }
