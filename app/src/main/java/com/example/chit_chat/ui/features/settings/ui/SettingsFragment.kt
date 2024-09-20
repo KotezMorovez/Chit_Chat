@@ -56,7 +56,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
                 string = R.string.settings_account,
                 listener = {
 //                this@SettingsFragment.findNavController()
-//                    .navigate(R.id.action_settingsFragment_to_accountSettingsFragment)
+//                    .navigate(R.id.action_settingsFragment_to_accountDetailsFragment)
                 }
             )
 

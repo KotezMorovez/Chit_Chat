@@ -14,7 +14,6 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
 class CustomLoaderView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null

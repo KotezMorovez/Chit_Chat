@@ -1,9 +1,9 @@
 package com.example.chit_chat.data.auth.service
 
-import com.example.chit_chat.data.model.auth.LoginRequestEntity
-import com.example.chit_chat.data.model.ProfileEntity
-import com.example.chit_chat.data.model.auth.SignUpRequestEntity
-import com.example.chit_chat.data.model.auth.UserTokenEntity
+import com.example.chit_chat.data.auth.dto.LoginRequestEntity
+import com.example.chit_chat.data.auth.dto.SignUpRequestEntity
+import com.example.chit_chat.data.auth.dto.UserTokenEntity
+import com.example.chit_chat.data.profile.dto.profile.ProfileEntity
 import retrofit2.http.GET
 import retrofit2.Call
 import retrofit2.http.Body
