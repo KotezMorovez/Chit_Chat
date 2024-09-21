@@ -53,7 +53,6 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
 //            )
             },
             onLongPressListener = { item, itemView, coordinates ->
-
                 showPopUpWindow(item, itemView, coordinates)
             }
         )

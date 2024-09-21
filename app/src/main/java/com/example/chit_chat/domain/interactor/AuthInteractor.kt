@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.chit_chat.R
 import com.example.chit_chat.domain.repository.AuthRepository
 import com.example.chit_chat.domain.repository.ProfileRepository
+import com.example.chit_chat.utils.ResultWrapper
 import java.lang.IllegalStateException
 import javax.inject.Inject
 
@@ -11,9 +12,10 @@ interface AuthInteractor {
     suspend fun register(
         firstName: String,
         lastName: String,
+        userName: String,
         email: String,
         password: String
-    ): Result<Unit>
+    ): ResultWrapper<Unit>
 
     suspend fun login(email: String, password: String): Result<Unit>
     suspend fun checkTokens(): Result<Unit>
@@ -27,15 +29,22 @@ class AuthInteractorImpl @Inject constructor(
     override suspend fun register(
         firstName: String,
         lastName: String,
+        userName: String,
         email: String,
         password: String
-    ): Result<Unit> {
-        val result = authRepository.register(firstName, lastName, email, password)
+    ): ResultWrapper<Unit> {
+        val result = authRepository.register(firstName, lastName, userName, email, password)
 
-        return if (result.isSuccess) {
-            profileRepository.createProfile(firstName, lastName)
-        } else {
-            Result.failure(IllegalStateException())
+        return when(result){
+            is ResultWrapper.Success -> {
+                val createProfileResult = profileRepository.createProfile(firstName, lastName)
+                if (createProfileResult.isSuccess) {
+                    ResultWrapper.Success(Unit)
+                } else { result }
+            }
+            else -> {
+                result
+            }
         }
     }
 

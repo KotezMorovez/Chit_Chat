@@ -2,6 +2,7 @@
     <string name="app_name">Chit Chat</string>
 
     <string name="auth_error_toast">Что-то пошло не так</string>
+    <string name="auth_network_error_toast">Нет подключения к интернету</string>
     <string name="auth_email">E-mail</string>
     <string name="auth_email_hint">Введите ваш e-mail</string>
     <string name="auth_password">Пароль</string>
@@ -25,6 +26,12 @@
     <string name="sign_up_login">Уже есть аккаунт?</string>
     <string name="sign_up_login_link">Войти</string>
     <string name="sign_up_format_error_hint">Поле не может быть пустым</string>
+    <string name="sign_up_user_name_hint">Введите уникальное имя пользователя</string>
+    <string name="sign_up_user_name">Имя пользователя</string>
+    <string name="sign_up_user_name_warning">Внимание, имя пользователя нельзя изменить после регистрации</string>
+    <string name="sign_up_user_name_validate_fail">Имя пользователя должно содержать минимум 8 символов: цифры, заглавные и строчные латинские буквы и нижнее подчеркивание</string>
+    <string name="sign_up_user_name_already_exist">Имя занято</string>
+    <string name="sign_up_email_already_exist">Пользователь с такой почтой уже существует</string>
 
     <string name="chat_list_title">Чаты</string>
     <string name="chat_list_chats_load_error">Ошибка загрузки списка чатов</string>
