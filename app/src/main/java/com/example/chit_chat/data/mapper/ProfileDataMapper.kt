@@ -19,7 +19,7 @@ fun DocumentSnapshot.toProfileEntity(): ProfileEntity {
 fun ProfileEntity.toDocument(): Map<String, Any> {
     return mapOf(
         "email" to this.email,
-        "avatar" to (this.avatar ?: ""),
+        "avatar" to (this.avatar),
         "firstName" to this.firstName,
         "lastName" to this.lastName
     )

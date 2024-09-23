@@ -6,5 +6,5 @@ data class ChatEntity (
     val lastMessage: String,
     val lastMessageDate: Long,
     val userIdList: ArrayList<String>,
-    val chatAvatar: String?
+    val chatAvatar: String
 )

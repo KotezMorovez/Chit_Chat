@@ -16,7 +16,7 @@ fun DocumentSnapshot.toChatEntity(): ChatEntity {
         chatName = this["chatName"] as String?,
         lastMessage = this["lastMessage"] as String,
         lastMessageDate = this["lastMessageDate"] as Long,
-        chatAvatar = this["chatAvatar"] as String?,
+        chatAvatar = this["chatAvatar"] as String,
         userIdList = this["userIdList"] as ArrayList<String>
     )
 }

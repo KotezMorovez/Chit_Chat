@@ -2,7 +2,7 @@ package com.example.chit_chat.ui.model
 
 data class ProfileUI(
     val id: String,
-    val avatar: String? = null,
+    val avatar: String,
     val email: String,
     val firstName: String,
     val lastName: String,
