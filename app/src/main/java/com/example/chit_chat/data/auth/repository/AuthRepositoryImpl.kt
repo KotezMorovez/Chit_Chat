@@ -5,6 +5,7 @@ import com.example.chit_chat.data.auth.dto.SignUpRequestEntity
 import com.example.chit_chat.data.auth.service.ApiService
 import com.example.chit_chat.data.auth.service.SharedPrefsService
 import com.example.chit_chat.domain.auth.repository_api.AuthRepository
+import com.example.chit_chat.utils.ResultWrapper
 import java.lang.IllegalStateException
 import javax.inject.Inject
 
@@ -30,21 +31,15 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun register(
         firstName: String,
         lastName: String,
+        userName: String,
         email: String,
         password: String
-    ): Result<Unit> {
-        val user = SignUpRequestEntity(firstName, lastName, email, password)
+    ): ResultWrapper<Unit> {
+        val user = SignUpRequestEntity(firstName, lastName, userName, email, password)
 
-        val result = apiService.register(user)
-        return if (result.isSuccess) {
-            val tokens = result.getOrNull()
-            if (tokens != null) {
-                prefsService.setAccessToken(tokens.accessToken)
-                prefsService.setRefreshToken(tokens.refreshToken)
-            }
-            Result.success(Unit)
-        } else {
-            Result.failure(Throwable())
+        return apiService.register(user).mapSuccess {
+            prefsService.setAccessToken(it.accessToken)
+            prefsService.setRefreshToken(it.refreshToken)
         }
     }
 

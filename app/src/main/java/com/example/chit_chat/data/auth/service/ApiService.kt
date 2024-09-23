@@ -1,18 +1,20 @@
 package com.example.chit_chat.data.auth.service
 
-
 import android.util.Log
 import com.example.chit_chat.R
 import com.example.chit_chat.data.auth.dto.LoginRequestEntity
 import com.example.chit_chat.data.auth.dto.SignUpRequestEntity
 import com.example.chit_chat.data.auth.dto.UserTokenEntity
 import com.example.chit_chat.data.profile.dto.profile.ProfileEntity
+import com.example.chit_chat.utils.ResultWrapper
+import com.example.chit_chat.utils.safeApiCall
+import kotlinx.coroutines.Dispatchers
 import retrofit2.awaitResponse
 import javax.inject.Inject
 
 interface ApiService {
     suspend fun login(request: LoginRequestEntity): Result<UserTokenEntity>
-    suspend fun register(request: SignUpRequestEntity): Result<UserTokenEntity>
+    suspend fun register(request: SignUpRequestEntity): ResultWrapper<UserTokenEntity>
     suspend fun getProfile(): Result<ProfileEntity>
     suspend fun refreshToken(request: UserTokenEntity): Result<UserTokenEntity>
 }
@@ -26,7 +28,7 @@ class ApiServiceImpl @Inject constructor(
             val response = authApi.login(request).awaitResponse()
             if (!response.isSuccessful) {
                 Log.e(TAG, response.code().toString())
-                return Result.failure(IllegalStateException())
+                return Result.failure(IllegalStateException("${response.errorBody()}"))
             }
 
             val tokens = response.body()
@@ -41,23 +43,9 @@ class ApiServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun register(request: SignUpRequestEntity): Result<UserTokenEntity> {
-        try {
-            val response = authApi.register(request).awaitResponse()
-            if (!response.isSuccessful) {
-                Log.e(TAG, response.code().toString())
-                return Result.failure(IllegalStateException())
-            }
-
-            val tokens = response.body()
-
-            return if (tokens != null) {
-                Result.success(tokens)
-            } else {
-                Result.failure(IllegalStateException())
-            }
-        } catch (t: Throwable) {
-            return Result.failure(t)
+    override suspend fun register(request: SignUpRequestEntity): ResultWrapper<UserTokenEntity> {
+        return safeApiCall(Dispatchers.IO) {
+            authApi.register(request)
         }
     }
 

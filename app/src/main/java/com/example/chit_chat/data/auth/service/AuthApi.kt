@@ -14,7 +14,7 @@ interface AuthApi {
     fun login(@Body request: LoginRequestEntity): Call<UserTokenEntity>
 
     @POST("register")
-    fun register(@Body request: SignUpRequestEntity): Call<UserTokenEntity>
+    suspend fun register(@Body request: SignUpRequestEntity): UserTokenEntity
 
     @GET("profile")
     fun getProfile(): Call<ProfileEntity>
