@@ -1,6 +1,5 @@
-package com.example.chit_chat.data.mapper
+package com.example.chit_chat.data.profile.dto.contacts
 
-import com.example.chit_chat.data.model.ContactEntity
 import com.example.chit_chat.domain.model.Contact
 import com.google.firebase.firestore.DocumentSnapshot
 

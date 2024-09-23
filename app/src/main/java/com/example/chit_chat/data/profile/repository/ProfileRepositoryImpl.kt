@@ -9,9 +9,11 @@ import com.example.chit_chat.data.firebase.FirebaseService
 import com.example.chit_chat.data.auth.service.ApiService
 import com.example.chit_chat.data.firebase.CloudStorageService
 import com.example.chit_chat.data.profile.dto.chat.toDomain
+import com.example.chit_chat.data.profile.dto.contacts.toDomain
 import com.example.chit_chat.data.profile.service.ProfileStorage
 import com.example.chit_chat.data.profile.dto.profile.ProfileEntity
-import com.example.chit_chat.data.profile.dto.profile.toEntity
+import com.example.chit_chat.data.profile.dto.profile.toProfileEntity
+import com.example.chit_chat.domain.model.Contact
 import com.example.chit_chat.domain.profile.dto.Chat
 import com.example.chit_chat.domain.profile.dto.Profile
 import com.example.chit_chat.domain.profile.repository_api.ProfileRepository

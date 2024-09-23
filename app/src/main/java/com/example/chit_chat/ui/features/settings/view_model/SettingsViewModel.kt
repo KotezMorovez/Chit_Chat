@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chit_chat.R
 import com.example.chit_chat.domain.profile.dto.Profile
+import com.example.chit_chat.domain.profile.interactor.ProfileInteractor
 import com.example.chit_chat.utils.BitmapUtils
 import com.example.chit_chat.domain.profile.repository_api.ProfileRepository
 import com.example.chit_chat.ui.features.settings.dto.SettingsProfileUI
@@ -82,7 +83,7 @@ class SettingsViewModel @Inject constructor(
             val profile = domainProfile?.copy(avatar = imageURL)
 
             if (profile != null) {
-                val result = profileRepository.updateProfileData(profile)
+                val result = profileInteractor.updateProfileData(profile)
 
                 if (result.isFailure) {
                     val exception = result.exceptionOrNull()
@@ -91,17 +92,10 @@ class SettingsViewModel @Inject constructor(
                         Log.e("Chit_Chat", exception.stackTraceToString())
                         _event.emit(R.string.settings_image_error)
                     }
-            val result = profileInteractor.updateProfileData(profileUI.toDomain())
-            if (result.isFailure) {
-                val exception = result.exceptionOrNull()
-                if (exception != null) {
-                    Log.e("Chit_Chat", exception.stackTraceToString())
-                    _event.emit(R.string.settings_image_error)
                 }
+
+                profileInteractor.updateProfileStorage()
             }
-                }
-            }
-            profileInteractor.updateProfileStorage()
         }
     }
 }

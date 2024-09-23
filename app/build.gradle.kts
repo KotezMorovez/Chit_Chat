@@ -62,7 +62,6 @@ dependencies {
 // UI Tools
     implementation(libs.glide)
     implementation(libs.gesture.views)
-    implementation(libs.androidx.swiperefreshlayout)
 
 // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)

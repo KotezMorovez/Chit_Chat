@@ -1,6 +1,7 @@
 package com.example.chit_chat.domain.profile.repository_api
 
 import android.graphics.Bitmap
+import com.example.chit_chat.domain.model.Contact
 import com.example.chit_chat.domain.profile.dto.Chat
 import com.example.chit_chat.domain.profile.dto.Profile
 import kotlinx.coroutines.flow.Flow

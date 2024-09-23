@@ -1,5 +1,6 @@
 package com.example.chit_chat.domain.profile.interactor
 
+import android.graphics.Bitmap
 import com.example.chit_chat.domain.profile.dto.Chat
 import com.example.chit_chat.domain.profile.dto.Profile
 import com.example.chit_chat.domain.profile.repository_api.ProfileRepository

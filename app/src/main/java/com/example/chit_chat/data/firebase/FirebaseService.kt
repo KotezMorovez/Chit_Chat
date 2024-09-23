@@ -1,10 +1,12 @@
 package com.example.chit_chat.data.firebase
 
+import com.example.chit_chat.data.profile.dto.contacts.toContactEntity
+import com.example.chit_chat.data.profile.dto.contacts.ContactEntity
 import com.example.chit_chat.data.profile.dto.chat.toChatEntityList
 import com.example.chit_chat.data.profile.dto.profile.toDocument
-import com.example.chit_chat.data.profile.dto.profile.toEntity
 import com.example.chit_chat.data.profile.dto.chat.ChatEntity
 import com.example.chit_chat.data.profile.dto.profile.ProfileEntity
+import com.example.chit_chat.data.profile.dto.profile.toProfileEntity
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.firestore

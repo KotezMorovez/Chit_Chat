@@ -1,5 +1,7 @@
 package com.example.chit_chat.domain.profile.interactor
 
+import com.example.chit_chat.domain.model.Contact
+import com.example.chit_chat.domain.profile.repository_api.ProfileRepository
 import javax.inject.Inject
 
 interface ContactsInteractor {

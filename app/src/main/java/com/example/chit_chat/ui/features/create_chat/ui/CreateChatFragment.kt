@@ -9,11 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chit_chat.R
 import com.example.chit_chat.utils.collectWithLifecycle
 import com.example.chit_chat.databinding.FragmentCreateChatBinding
-import com.example.chit_chat.di.AppComponentHolder
-import com.example.chit_chat.di.ViewModelFactory
 import com.example.chit_chat.ui.common.BaseFragment
-import com.example.chit_chat.ui.home.chat_list.create_chat.adapter.CreateChatAdapter
-import javax.inject.Inject
+import com.example.chit_chat.ui.features.create_chat.ui.adapter.CreateChatAdapter
+import com.example.chit_chat.ui.features.create_chat.view_model.CreateChatViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CreateChatFragment : BaseFragment<FragmentCreateChatBinding>() {
@@ -27,7 +26,6 @@ class CreateChatFragment : BaseFragment<FragmentCreateChatBinding>() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppComponentHolder.get().inject(this)
         super.onCreate(savedInstanceState)
     }
 
