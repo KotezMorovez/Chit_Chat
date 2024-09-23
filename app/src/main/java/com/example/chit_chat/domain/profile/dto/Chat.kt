@@ -8,6 +8,6 @@ data class Chat(
     val lastMessage: String,
     val lastMessageDate: DateTime,
     val userIdList: ArrayList<String>,
-    val chatAvatar: String?
+    val chatAvatar: String
 ) {
 }

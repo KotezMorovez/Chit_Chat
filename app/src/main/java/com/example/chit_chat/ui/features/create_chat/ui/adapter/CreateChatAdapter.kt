@@ -46,9 +46,9 @@ class CreateChatAdapter(
                     .circleCrop()
                     .into(userAvatarImageView)
 
-                val userName = item.firstName + item.lastName
+                val contactName = "${item.firstName} ${item.lastName}"
 
-                userNameTextView.text = userName
+                userNameTextView.text = contactName
 
                 userNameTextView.invalidate()
                 userNameTextView.requestLayout()

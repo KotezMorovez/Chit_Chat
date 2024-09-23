@@ -16,6 +16,11 @@ interface ProfileInteractor {
     ): Result<Unit>
     suspend fun getChatListSubscription(id: String): Flow<List<Chat>>
     fun getCurrentProfileId(): String?
+    fun getImageFromStorage(): String
+    suspend fun saveImage(bitmap: Bitmap, id: String): Result<String>
+    suspend fun getProfileContactsList(): List<String>
+    suspend fun updateProfileData(profile: Profile): Result<Unit>
+    suspend fun updateProfileStorage(): Result<Unit>
 }
 
 class ProfileInteractorImpl @Inject constructor(
@@ -56,5 +61,25 @@ class ProfileInteractorImpl @Inject constructor(
 
     override fun getCurrentProfileId(): String? {
         return profileRepository.getProfileFromStorage()?.id
+    }
+
+    override fun getImageFromStorage(): String {
+        return profileRepository.getProfileFromStorage()?.avatar ?: ""
+    }
+
+    override suspend fun saveImage(bitmap: Bitmap, id: String): Result<String> {
+        return profileRepository.saveImage(bitmap, id)
+    }
+
+    override suspend fun getProfileContactsList(): List<String> {
+        return profileRepository.getProfileFromStorage()?.contacts ?: listOf()
+    }
+
+    override suspend fun updateProfileData(profile: Profile): Result<Unit> {
+        return profileRepository.updateProfileData(profile)
+    }
+
+    override suspend fun updateProfileStorage(): Result<Unit> {
+        return profileRepository.updateProfileStorage()
     }
 }

@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val profileRepository: ProfileRepository
+    private val profileInteractor: ProfileInteractor
 ) : ViewModel() {
     private var currentProfile: SettingsProfileUI? = null
     private var domainProfile: Profile? = null
@@ -32,7 +32,7 @@ class SettingsViewModel @Inject constructor(
 
     fun getProfile() {
         viewModelScope.launch {
-            profileRepository.getProfileSubscription().collect {
+            profileInteractor.getProfileSubscription().collect {
                 domainProfile = it
                 val profileUI = it.toSettingsProfileUI()
                 currentProfile = profileUI
@@ -42,7 +42,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun getImage(): String {
-        return profileRepository.getImageFromStorage()
+        return profileInteractor.getImageFromStorage()
     }
 
     fun uploadImage(uri: Uri, contentResolver: ContentResolver) {
@@ -52,7 +52,7 @@ class SettingsViewModel @Inject constructor(
             viewModelScope.launch {
                 val bitmap = BitmapUtils.getBitmapFromUri(uri, contentResolver)
                 val storageUriResult =
-                    profileRepository.saveImage(
+                    profileInteractor.saveImage(
                         bitmap,
                         profileUI.id
                     )
@@ -91,10 +91,17 @@ class SettingsViewModel @Inject constructor(
                         Log.e("Chit_Chat", exception.stackTraceToString())
                         _event.emit(R.string.settings_image_error)
                     }
+            val result = profileInteractor.updateProfileData(profileUI.toDomain())
+            if (result.isFailure) {
+                val exception = result.exceptionOrNull()
+                if (exception != null) {
+                    Log.e("Chit_Chat", exception.stackTraceToString())
+                    _event.emit(R.string.settings_image_error)
                 }
-
-                profileRepository.updateProfileStorage()
             }
+                }
+            }
+            profileInteractor.updateProfileStorage()
         }
     }
 }

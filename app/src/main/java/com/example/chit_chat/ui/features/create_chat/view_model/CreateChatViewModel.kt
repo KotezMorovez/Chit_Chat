@@ -12,14 +12,24 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateChatViewModel @Inject constructor(
-    private val contactsInteractor: ContactsInteractor
+    private val contactsInteractor: ContactsInteractor,
+    private val profileInteractor: ProfileInteractor
 ) : ViewModel() {
     private val _contacts = MutableSharedFlow<List<ContactItem>>(1)
     val contacts = _contacts.asSharedFlow()
 
-    fun subscribeContactsUpdate() {
+    fun updateContacts() {
         viewModelScope.launch {
-
+            val contactsProfileList = profileInteractor.getProfileContactsList()
+            if (contactsProfileList.isNotEmpty()) {
+                val contactsListResult = contactsInteractor.getContactsFromList(contactsProfileList)
+                if (contactsListResult.isSuccess) {
+                    val list = contactsListResult.getOrNull()
+                    if (list != null) {
+                        _contacts.emit(list.map { it.toUI() })
+                    }
+                }
+            }
         }
     }
 }

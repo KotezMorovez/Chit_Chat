@@ -1,6 +1,6 @@
-package com.example.chit_chat.domain.profile.dto
+package com.example.chit_chat.ui.model
 
-data class Profile(
+data class ProfileUI(
     val id: String,
     val avatar: String,
     val email: String,

@@ -79,12 +79,8 @@ class ProfileRepositoryImpl @Inject constructor(
         return profileStorage.getProfile()?.toDomain()
     }
 
-    override fun getImageFromStorage(): String {
-        return profileStorage.getProfile()?.avatar ?: ""
-    }
-
     override suspend fun setProfileToStorage(profile: Profile) {
-        return profileStorage.setProfile(profile.toEntity())
+        return profileStorage.setProfile(profile.toProfileEntity())
     }
 
     override suspend fun saveImage(image: Bitmap, id: String): Result<String> {
@@ -93,7 +89,7 @@ class ProfileRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateProfileData(profile: Profile): Result<Unit> {
-        return firebaseService.saveProfile(profile.toEntity())
+        return firebaseService.saveProfile(profile.toProfileEntity())
     }
 
     private suspend fun getProfileFromAuthApi(): Result<ProfileEntity?> {
@@ -123,6 +119,14 @@ class ProfileRepositoryImpl @Inject constructor(
 
     override suspend fun getChatListSubscription(id: String): Flow<List<Chat>> {
         return firebaseService.observeChatList(id).map { list ->
+            list.map {
+                it.toDomain()
+            }
+        }
+    }
+
+    override suspend fun getContactsFromList(contactsProfileList: List<String>): Result<List<Contact>> {
+        return firebaseService.getContactsFromList(contactsProfileList).map { list ->
             list.map {
                 it.toDomain()
             }
