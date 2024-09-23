@@ -2,12 +2,15 @@ package com.example.chit_chat.ui.features.signup.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.chit_chat.utils.EMAIL_REGEX
-import com.example.chit_chat.utils.PASSWORD_REGEX
+import com.example.chit_chat.R
 import com.example.chit_chat.domain.auth.interactor.AuthInteractor
+import com.example.chit_chat.utils.EMAIL_REGEX
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import com.example.chit_chat.utils.Error
+import com.example.chit_chat.utils.PASSWORD_REGEX
+import com.example.chit_chat.utils.USERNAME_REGEX
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 import javax.inject.Inject

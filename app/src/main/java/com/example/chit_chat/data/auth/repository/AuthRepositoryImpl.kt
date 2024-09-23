@@ -5,6 +5,7 @@ import com.example.chit_chat.data.auth.dto.SignUpRequestEntity
 import com.example.chit_chat.data.auth.service.ApiService
 import com.example.chit_chat.data.auth.service.SharedPrefsService
 import com.example.chit_chat.domain.auth.repository_api.AuthRepository
+import com.example.chit_chat.utils.ResultWrapper
 import java.lang.IllegalStateException
 import javax.inject.Inject
 

@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.chit_chat.R
 import com.example.chit_chat.domain.auth.repository_api.AuthRepository
 import com.example.chit_chat.domain.profile.repository_api.ProfileRepository
+import com.example.chit_chat.utils.ResultWrapper
 import java.lang.IllegalStateException
 import javax.inject.Inject
 
