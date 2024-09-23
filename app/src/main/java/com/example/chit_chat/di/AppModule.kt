@@ -5,34 +5,37 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.content.res.Resources
 import com.example.chit_chat.utils.PREFERENCES
-import com.example.chit_chat.data.service.profile.SharedPrefsService
-import com.example.chit_chat.data.service.profile.SharedPrefsServiceImpl
-import com.example.chit_chat.data.repository.AuthRepositoryImpl
-import com.example.chit_chat.data.repository.ProfileRepositoryImpl
-import com.example.chit_chat.data.service.profile.FirebaseService
-import com.example.chit_chat.data.service.profile.FirebaseServiceImpl
-import com.example.chit_chat.data.service.profile.ProfileStorage
-import com.example.chit_chat.data.service.profile.ProfileStorageImpl
-import com.example.chit_chat.data.service.auth.ApiService
-import com.example.chit_chat.data.service.auth.ApiServiceImpl
-import com.example.chit_chat.data.service.auth.AuthApi
-import com.example.chit_chat.data.service.auth.TokenInterceptor
-import com.example.chit_chat.data.service.profile.CloudStorageService
-import com.example.chit_chat.data.service.profile.CloudStorageServiceImpl
-import com.example.chit_chat.domain.interactor.AuthInteractor
-import com.example.chit_chat.domain.interactor.AuthInteractorImpl
-import com.example.chit_chat.domain.interactor.ContactsInteractor
-import com.example.chit_chat.domain.interactor.ContactsInteractorImpl
-import com.example.chit_chat.domain.interactor.ProfileInteractor
-import com.example.chit_chat.domain.interactor.ProfileInteractorImpl
-import com.example.chit_chat.domain.repository.AuthRepository
-import com.example.chit_chat.domain.repository.ProfileRepository
+import com.example.chit_chat.data.auth.service.SharedPrefsService
+import com.example.chit_chat.data.auth.service.SharedPrefsServiceImpl
+import com.example.chit_chat.data.auth.repository.AuthRepositoryImpl
+import com.example.chit_chat.data.profile.repository.ProfileRepositoryImpl
+import com.example.chit_chat.data.firebase.FirebaseService
+import com.example.chit_chat.data.firebase.FirebaseServiceImpl
+import com.example.chit_chat.data.profile.service.ProfileStorage
+import com.example.chit_chat.data.profile.service.ProfileStorageImpl
+import com.example.chit_chat.data.auth.service.ApiService
+import com.example.chit_chat.data.auth.service.ApiServiceImpl
+import com.example.chit_chat.data.auth.service.AuthApi
+import com.example.chit_chat.data.auth.service.TokenInterceptor
+import com.example.chit_chat.data.firebase.CloudStorageService
+import com.example.chit_chat.data.firebase.CloudStorageServiceImpl
+import com.example.chit_chat.domain.auth.interactor.AuthInteractor
+import com.example.chit_chat.domain.auth.interactor.AuthInteractorImpl
+import com.example.chit_chat.domain.profile.interactor.ContactsInteractor
+import com.example.chit_chat.domain.profile.interactor.ContactsInteractorImpl
+import com.example.chit_chat.domain.profile.interactor.ProfileInteractor
+import com.example.chit_chat.domain.profile.interactor.ProfileInteractorImpl
+import com.example.chit_chat.domain.auth.repository_api.AuthRepository
+import com.example.chit_chat.domain.profile.repository_api.ProfileRepository
 import com.example.chit_chat.utils.LogoutHandler
 import com.example.chit_chat.utils.LogoutHandlerImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -41,6 +44,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 interface OriginalModule {
     @Binds
     @Reusable
@@ -80,7 +84,7 @@ interface OriginalModule {
 
     @Binds
     @Reusable
-    fun bindCloudStorageService(impl: CloudStorageServiceImpl):CloudStorageService
+    fun bindCloudStorageService(impl: CloudStorageServiceImpl): CloudStorageService
 
     @Binds
     @Singleton
@@ -88,21 +92,23 @@ interface OriginalModule {
 }
 
 @Module
+@InstallIn(SingletonComponent::class)
 class ProviderModule {
     @Provides
     @Singleton
-    fun provideSharedPrefs(context: Context): SharedPreferences {
+    fun provideSharedPrefs(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFERENCES, MODE_PRIVATE)
     }
 
     @Provides
     @Reusable
-    fun provideResources(context: Context): Resources {
+    fun provideResources(@ApplicationContext context: Context): Resources {
         return context.resources
     }
 }
 
 @Module
+@InstallIn(SingletonComponent::class)
 class ApiModule {
     @Provides
     @Singleton

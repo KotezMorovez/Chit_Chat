@@ -1,19 +1,13 @@
 package com.example.chit_chat
 
 import android.app.Application
-import com.example.chit_chat.di.AppComponentHolder
+import dagger.hilt.android.HiltAndroidApp
 
 /**
  * Custom app class. Contains basic components initialization.
  */
+@HiltAndroidApp
 class App : Application() {
-    override fun onCreate() {
-        initAppComponent()
-        super.onCreate()
-    }
 
-    private fun initAppComponent() {
-        val component = AppComponentHolder.build(this)
-        AppComponentHolder.set(component)
-    }
+
 }

@@ -1,32 +1,29 @@
 [versions]
-activityCompose = "1.9.1"
+activityCompose = "1.9.2"
 agp = "8.3.2"
 androidJoda = "2.12.7"
-dagger = "2.51.1"
-firebaseBom = "33.1.2"
+firebaseBom = "33.3.0"
 gestureViews = "2.8.2"
 glide = "4.16.0"
-identityCredentialAndroid = "20231002"
-kotlin = "1.9.0"
+kotlin = "2.0.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 kotlinStdlib = "2.0.0"
-kotlinxMetadataJvm = "0.6.2"
-lifecycleRuntimeKtx = "2.8.4"
+lifecycleRuntimeKtx = "2.8.5"
 loggingInterceptor = "4.11.0"
 material = "1.12.0"
-activity = "1.9.1"
+activity = "1.9.2"
 constraintlayout = "2.1.4"
-navigationFragmentKtx = "2.7.7"
+navigationFragmentKtx = "2.8.0"
 retrofit = "2.9.0"
-runner = "1.6.1"
 swiperefreshlayout = "1.1.0"
-viewbinding = "8.5.1"
+viewbinding = "8.6.0"
 kapt = "2.0.0"
 gms = "4.4.2"
+hilt = "2.51.1"
 
 [libraries]
 android-joda = { module = "net.danlew:android.joda", version.ref = "androidJoda" }
@@ -35,22 +32,19 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
-androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 androidx-viewbinding = { module = "androidx.databinding:viewbinding", version.ref = "viewbinding" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 gesture-views = { module = "com.alexvasilkov:gesture-views", version.ref = "gestureViews" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-identity-credential-android = { module = "com.android.identity:identity-credential-android", version.ref = "identityCredentialAndroid" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinStdlib" }
-kotlinx-metadata-jvm = { module = "org.jetbrains.kotlinx:kotlinx-metadata-jvm", version.ref = "kotlinxMetadataJvm" }
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
@@ -64,4 +58,5 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 googleServices = { id = "com.google.gms.google-services", version.ref = "gms" }
+daggerHilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 

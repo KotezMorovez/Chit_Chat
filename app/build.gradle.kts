@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kapt)
     alias(libs.plugins.googleServices)
+    alias(libs.plugins.daggerHilt)
 }
 
 android {
@@ -73,11 +74,8 @@ dependencies {
     implementation(libs.logging.interceptor)
 
 // DI
-    implementation(libs.dagger)
-    implementation(libs.androidx.runner)
-    implementation(libs.identity.credential.android)
-    kapt(libs.dagger.compiler)
-    kapt(libs.kotlinx.metadata.jvm)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
 // Date Time
     implementation(libs.android.joda)
@@ -86,4 +84,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+
+kapt {
+    correctErrorTypes = true
 }
