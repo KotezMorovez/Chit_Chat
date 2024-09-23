@@ -9,9 +9,11 @@ import com.example.chit_chat.data.firebase.FirebaseService
 import com.example.chit_chat.data.auth.service.ApiService
 import com.example.chit_chat.data.firebase.CloudStorageService
 import com.example.chit_chat.data.profile.dto.chat.toDomain
+import com.example.chit_chat.data.profile.dto.contacts.toDomain
 import com.example.chit_chat.data.profile.service.ProfileStorage
 import com.example.chit_chat.data.profile.dto.profile.ProfileEntity
-import com.example.chit_chat.data.profile.dto.profile.toEntity
+import com.example.chit_chat.data.profile.dto.profile.toProfileEntity
+import com.example.chit_chat.domain.model.Contact
 import com.example.chit_chat.domain.profile.dto.Chat
 import com.example.chit_chat.domain.profile.dto.Profile
 import com.example.chit_chat.domain.profile.repository_api.ProfileRepository
@@ -79,12 +81,8 @@ class ProfileRepositoryImpl @Inject constructor(
         return profileStorage.getProfile()?.toDomain()
     }
 
-    override fun getImageFromStorage(): String {
-        return profileStorage.getProfile()?.avatar ?: ""
-    }
-
     override suspend fun setProfileToStorage(profile: Profile) {
-        return profileStorage.setProfile(profile.toEntity())
+        return profileStorage.setProfile(profile.toProfileEntity())
     }
 
     override suspend fun saveImage(image: Bitmap, id: String): Result<String> {
@@ -93,7 +91,7 @@ class ProfileRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateProfileData(profile: Profile): Result<Unit> {
-        return firebaseService.saveProfile(profile.toEntity())
+        return firebaseService.saveProfile(profile.toProfileEntity())
     }
 
     private suspend fun getProfileFromAuthApi(): Result<ProfileEntity?> {
@@ -123,6 +121,14 @@ class ProfileRepositoryImpl @Inject constructor(
 
     override suspend fun getChatListSubscription(id: String): Flow<List<Chat>> {
         return firebaseService.observeChatList(id).map { list ->
+            list.map {
+                it.toDomain()
+            }
+        }
+    }
+
+    override suspend fun getContactsFromList(contactsProfileList: List<String>): Result<List<Contact>> {
+        return firebaseService.getContactsFromList(contactsProfileList).map { list ->
             list.map {
                 it.toDomain()
             }

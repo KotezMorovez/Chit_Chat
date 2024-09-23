@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chit_chat.R
 import com.example.chit_chat.domain.profile.dto.Profile
+import com.example.chit_chat.domain.profile.interactor.ProfileInteractor
 import com.example.chit_chat.utils.BitmapUtils
 import com.example.chit_chat.domain.profile.repository_api.ProfileRepository
 import com.example.chit_chat.ui.features.settings.dto.SettingsProfileUI
@@ -19,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val profileRepository: ProfileRepository
+    private val profileInteractor: ProfileInteractor
 ) : ViewModel() {
     private var currentProfile: SettingsProfileUI? = null
     private var domainProfile: Profile? = null
@@ -32,7 +33,7 @@ class SettingsViewModel @Inject constructor(
 
     fun getProfile() {
         viewModelScope.launch {
-            profileRepository.getProfileSubscription().collect {
+            profileInteractor.getProfileSubscription().collect {
                 domainProfile = it
                 val profileUI = it.toSettingsProfileUI()
                 currentProfile = profileUI
@@ -42,7 +43,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun getImage(): String {
-        return profileRepository.getImageFromStorage()
+        return profileInteractor.getImageFromStorage()
     }
 
     fun uploadImage(uri: Uri, contentResolver: ContentResolver) {
@@ -52,7 +53,7 @@ class SettingsViewModel @Inject constructor(
             viewModelScope.launch {
                 val bitmap = BitmapUtils.getBitmapFromUri(uri, contentResolver)
                 val storageUriResult =
-                    profileRepository.saveImage(
+                    profileInteractor.saveImage(
                         bitmap,
                         profileUI.id
                     )
@@ -82,7 +83,7 @@ class SettingsViewModel @Inject constructor(
             val profile = domainProfile?.copy(avatar = imageURL)
 
             if (profile != null) {
-                val result = profileRepository.updateProfileData(profile)
+                val result = profileInteractor.updateProfileData(profile)
 
                 if (result.isFailure) {
                     val exception = result.exceptionOrNull()
@@ -93,7 +94,7 @@ class SettingsViewModel @Inject constructor(
                     }
                 }
 
-                profileRepository.updateProfileStorage()
+                profileInteractor.updateProfileStorage()
             }
         }
     }

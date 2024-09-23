@@ -64,4 +64,9 @@
     <string name="sign_up_user_name_validate_fail">Имя пользователя должно содержать минимум 8 символов: цифры, заглавные и строчные латинские буквы и нижнее подчеркивание</string>
     <string name="sign_up_user_name_already_exist">Имя занято</string>
     <string name="sign_up_email_already_exist">Пользователь с такой почтой уже существует</string>
+
+    <string name="create_chat_create_group">Создать новый групповой чат</string>
+
+    <string name="navbar_new_chat">Чаты</string>
+    <string name="navbar_settings">Настройки</string>
 </resources>
