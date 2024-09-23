@@ -49,6 +49,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.Placeholder
+import com.bumptech.glide.integration.compose.placeholder
 import com.example.chit_chat.R
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -85,7 +86,9 @@ fun ProfileDetailsScreen() {
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = {
+
+                    }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                             contentDescription = "Back"
@@ -128,15 +131,13 @@ fun ProfileDetailsScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 //            val qrCode = getQrCodeBitmap(viewModel.getProfileId(), context)
-//            val avatarPlaceholder = Placeholder(
-//
-//            )
 
 
             GlideImage(
                 model = painterResource(id = R.drawable.ic_round_avatar_placeholder),/*viewModel.getAvatar()*/
                 contentDescription = "Avatar",
-//                failure = painterResource(id = R.drawable.ic_round_avatar_placeholder),
+                loading = placeholder(R.drawable.ic_round_avatar_placeholder),
+                failure = placeholder(R.drawable.ic_round_avatar_placeholder),
                 modifier = Modifier
                     .widthIn(0.dp, 256.dp)
                     .aspectRatio(1f)
@@ -157,7 +158,7 @@ fun ProfileDetailsScreen() {
                     .padding(top = 16.dp)
                     .widthIn(0.dp, 256.dp)
                     .aspectRatio(1f)
-                    .border(1.dp, Color.Gray)
+                    .border(1.dp, Color.LightGray)
                     .background(Color.LightGray),
                 contentScale = ContentScale.Fit
             )
@@ -174,7 +175,7 @@ fun ProfileDetailsScreen() {
             Row(
                 modifier = Modifier
                     .padding(top = 16.dp)
-                    .background(Color.Gray, RoundedCornerShape(8.dp))
+                    .background(Color.LightGray, RoundedCornerShape(8.dp))
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {

@@ -55,8 +55,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
                 image = R.drawable.ic_avatar_placeholder,
                 string = R.string.settings_account,
                 listener = {
-//                this@SettingsFragment.findNavController()
-//                    .navigate(R.id.action_settingsFragment_to_accountDetailsFragment)
+                this@SettingsFragment.findNavController()
+                    .navigate(R.id.action_settingsFragment_to_profileDetailsFragment)
                 }
             )
 
