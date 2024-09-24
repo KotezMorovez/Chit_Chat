@@ -65,6 +65,7 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
             )
         )
         applyToolbarState(toolbarState)
+
         return view
     }
 
@@ -117,12 +118,14 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putBoolean(TOOLBAR_STATE, toolbarState)
-        outState.putString(
-            SEARCH,
-            viewBinding.chatListToolbar.searchEditText.text.toString().trim()
-        )
-        super.onSaveInstanceState(outState)
+        if (this.isViewBindingInitialized()) {
+            outState.putBoolean(TOOLBAR_STATE, toolbarState)
+            outState.putString(
+                SEARCH,
+                viewBinding.chatListToolbar.searchEditText.text.toString().trim()
+            )
+            super.onSaveInstanceState(outState)
+        }
     }
 
     private fun applyToolbarState(isDefaultToolbar: Boolean) {
