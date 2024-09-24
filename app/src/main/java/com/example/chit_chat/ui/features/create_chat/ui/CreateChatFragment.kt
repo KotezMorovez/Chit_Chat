@@ -1,6 +1,5 @@
 package com.example.chit_chat.ui.features.create_chat.ui
 
-import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.res.ResourcesCompat
@@ -23,10 +22,6 @@ class CreateChatFragment : BaseFragment<FragmentCreateChatBinding>() {
         createChatAdapter = CreateChatAdapter(onItemClickListener = { item ->
             // navigate to dialog screen
         })
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun createViewBinding(): FragmentCreateChatBinding {

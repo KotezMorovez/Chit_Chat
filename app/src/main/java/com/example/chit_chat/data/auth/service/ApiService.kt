@@ -27,7 +27,7 @@ class ApiServiceImpl @Inject constructor(
         try {
             val response = authApi.login(request).awaitResponse()
             if (!response.isSuccessful) {
-                Log.e(R.string.app_name.toString(), response.code().toString())
+                Log.e(TAG, response.code().toString())
                 return Result.failure(IllegalStateException("${response.errorBody()}"))
             }
 
@@ -53,7 +53,7 @@ class ApiServiceImpl @Inject constructor(
         try {
             val response = authApi.getProfile().awaitResponse()
             if (!response.isSuccessful) {
-                Log.e(R.string.app_name.toString(), response.code().toString())
+                Log.e(TAG, response.code().toString())
                 return Result.failure(IllegalStateException())
             }
 
@@ -74,7 +74,7 @@ class ApiServiceImpl @Inject constructor(
             val response = authApi.refreshToken(request).awaitResponse()
 
             if (!response.isSuccessful) {
-                Log.e(R.string.app_name.toString(), response.code().toString())
+                Log.e(TAG, response.code().toString())
                 return Result.failure(IllegalStateException())
             }
 
@@ -88,5 +88,9 @@ class ApiServiceImpl @Inject constructor(
         } catch (t: Throwable) {
             return Result.failure(t)
         }
+    }
+
+    companion object{
+        private const val TAG = "Chit Chat Debug"
     }
 }

@@ -27,6 +27,10 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
         initUi()
     }
 
+    fun isViewBindingInitialized(): Boolean {
+        return this::viewBinding.isInitialized
+    }
+
     protected abstract fun initUi()
 
     protected abstract fun observeData()
