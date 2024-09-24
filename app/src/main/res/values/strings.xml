@@ -21,11 +21,6 @@
     <string name="date_less_year_ago">%1$s в %2$s</string>
     <string name="date_years_ago">%1$sг.</string>
 
-    <string name="details_profile_title">Детали аккаунта</string>
-    <string name="details_text_field_qr">Поделитесь вашим QR-кодом</string>
-    <string name="details_text_field_username">Поделитесь вашим именем пользователя</string>
-    <string name="details_or">Или</string>
-
     <string name="edit_profile_title">Редактировать аккаунт</string>
 
     <string name="home_navbar_contacts">Контакты</string>
@@ -41,12 +36,18 @@
 
     <string name="settings_title">Настройки</string>
     <string name="settings_account">Настройки аккаунта</string>
+    <string name="settings_sharing_profile">Поделиться профилем</string>
     <string name="settings_notifications">Уведомления</string>
     <string name="settings_switch_account">Сменить аккаунт</string>
     <string name="settings_report">Сообщить о проблеме</string>
     <string name="settings_logout">Выйти</string>
     <string name="settings_upload_image_error">Ошибка загрузки изображения</string>
     <string name="settings_image_error">Не удалось сохранить изображение</string>
+
+    <string name="sharing_profile_title">Поделиться профилем</string>
+    <string name="sharing_text_field_qr">Поделитесь вашим QR-кодом</string>
+    <string name="sharing_text_field_username">Поделитесь вашим именем пользователя</string>
+    <string name="sharing_or">Или</string>
 
     <string name="sign_up_title">Регистрация</string>
     <string name="sign_up_first_name">Имя</string>

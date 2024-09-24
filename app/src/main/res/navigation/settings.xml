@@ -33,5 +33,5 @@
 
     <fragment
         android:id="@+id/profileDetailsFragment"
-        android:name="com.example.chit_chat.ui.features.profile_details.ui.ProfileDetailsFragment"/>
+        android:name="com.example.chit_chat.ui.features.profile_share.ui.ProfileSharingFragment"/>
 </navigation>

@@ -22,10 +22,18 @@
             android:name=".ui.features.main.ui.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <data
+                    android:scheme="https"
+                    android:host="chitchat-app-by-kotez.web.app"
+                    android:path="/add_contact" />
             </intent-filter>
         </activity>
     </application>

@@ -51,12 +51,22 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
             }
 
             setUpSettingsItem(
-                item = accountSettingsItem,
+                item = sharingItem,
                 image = R.drawable.ic_avatar_placeholder,
-                string = R.string.settings_account,
+                string = R.string.settings_sharing_profile,
                 listener = {
                 this@SettingsFragment.findNavController()
                     .navigate(R.id.action_settingsFragment_to_profileDetailsFragment)
+                }
+            )
+
+            setUpSettingsItem(
+                item = accountSettingsItem,
+                image = R.drawable.ic_settings,
+                string = R.string.settings_account,
+                listener = {
+                this@SettingsFragment.findNavController()
+//                    .navigate(R.id.action_settingsFragment_to_profileSettingsFragment)
                 }
             )
 
@@ -121,7 +131,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
             ResourcesCompat.getDrawable(resources, image, null)
         )
         item.itemTextView.setText(string)
-        item.itemButton.setOnClickListener(listener)
+        item.itemLayout.setOnClickListener(listener)
     }
 
     override fun observeData() {
